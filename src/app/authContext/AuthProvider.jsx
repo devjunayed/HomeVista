@@ -17,7 +17,9 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  return (
-    <authContext.Provider value={currentUser}>{children}</authContext.Provider>
-  );
+  const value = {
+    currentUser,
+  };
+
+  return <authContext.Provider value={value}>{children}</authContext.Provider>;
 };
