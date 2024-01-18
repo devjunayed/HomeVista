@@ -46,7 +46,7 @@ const ContactUS = () => {
           </div>
           
           <div className="form-control mt-6">
-            <button className="btn hover:bg-green-700 bg-green-600 border-none text-white">
+            <button className="btn bg-[#FF1493] hover:bg-[#FF1484] border-none text-white">
               Send Message
             </button>
           </div>
