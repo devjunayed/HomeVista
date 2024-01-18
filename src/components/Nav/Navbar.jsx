@@ -7,30 +7,18 @@ const Navbar = () => {
       <section className="relative mx-auto">
         <nav className="flex justify-between bg-[#F1FBFE] shadow text-black  ">
           <div className="px-5 xl:px-12 py-6 flex w-full items-center">
-            <Link className="text-3xl font-bold font-heading" href="/public">
+            <Link href={"/"} className="text-3xl font-bold font-heading">
               Logo Here.
             </Link>
 
             <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
               <li>
-                <a className="hover:text-gray-200 " href="#">
+                <Link
+                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  href="/"
+                >
                   Home
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-gray-200" href="#">
-                  Category
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-gray-200" href="#">
-                  Collections
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-gray-200" href="#">
-                  Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
 
