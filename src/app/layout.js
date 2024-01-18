@@ -1,7 +1,8 @@
 import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/app/authContext/AuthProvider";
-import Navbar from "@/component/Navbar";
+import Navbar from "@/components/Nav/Navbar";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({
@@ -15,8 +16,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${roboto.variable}`}>
         <AuthProvider>
-          <Navbar />
-          {children}
+          <AntdRegistry>
+            <Navbar />
+            {children}
+          </AntdRegistry>
         </AuthProvider>
       </body>
     </html>

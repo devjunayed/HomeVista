@@ -1,4 +1,4 @@
-import NavbarSignOut from "@/component/NavbarSignOut";
+import NavbarSignOut from "@/components/Nav/NavbarSignOut";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -7,7 +7,7 @@ const Navbar = () => {
       <section className="relative mx-auto">
         <nav className="flex justify-between bg-[#F1FBFE] shadow text-black  ">
           <div className="px-5 xl:px-12 py-6 flex w-full items-center">
-            <Link className="text-3xl font-bold font-heading" href="/">
+            <Link className="text-3xl font-bold font-heading" href="/public">
               Logo Here.
             </Link>
 

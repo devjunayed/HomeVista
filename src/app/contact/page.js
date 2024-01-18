@@ -5,7 +5,7 @@ const ContactUS = () => {
     <div
       data-theme="light"
       style={{ backgroundImage: 'url("property.jpg")' }}
-      className="min-h-[80vh] bg-cover "
+      className="min-h-[91vh] bg-cover "
     >
       <div className="bg-black bg-opacity-45 rounded-xl text-black  md:w-1/2 w-11/12 mx-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
         <h1 className="text-center text-white text-xl md:text-3xl md:mt-6">Contact Us</h1>
@@ -38,9 +38,8 @@ const ContactUS = () => {
             </label>
             <textarea
             rows="6"
-              type="text"
               placeholder="message..."
-              className="input-bordered p-4 border rounded-xl"
+              className="input-bordered p-4 outline-highBlue   rounded-xl"
               required
             ></textarea>
           </div>
