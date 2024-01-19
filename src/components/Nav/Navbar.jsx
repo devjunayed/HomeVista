@@ -1,5 +1,6 @@
 import NavbarSignOut from "@/components/Nav/NavbarSignOut";
 import Link from "next/link";
+import MobileNavbarDrawer from "@/components/Nav/MobileNavbarDrawer";
 
 const Navbar = () => {
   return (
@@ -76,17 +77,9 @@ const Navbar = () => {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
             </span>
           </a>
-          <a className="navbar-burger self-center mr-12 xl:hidden" href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 hover:text-gray-200"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </a>
+          <div className="navbar-burger self-center mr-12 xl:hidden">
+            <MobileNavbarDrawer />
+          </div>
         </nav>
       </section>
     </div>
