@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthProvider } from "@/app/authContext/AuthProvider";
 import Navbar from "@/components/Nav/Navbar";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import Footer from "@/components/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
           <AntdRegistry>
             <Navbar />
             {children}
+            <Footer />
           </AntdRegistry>
         </AuthProvider>
       </body>
