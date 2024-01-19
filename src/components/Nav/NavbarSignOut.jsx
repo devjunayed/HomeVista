@@ -22,7 +22,15 @@ const NavbarSignOut = () => {
             <p className={"text-sm text-center mb-2 font-medium text-gray-900"}>
               {currentUser?.displayName}
             </p>
-            <Button>View Profile</Button>
+            <Button
+              onClick={() =>
+                signOut(auth).then(() => {
+                  message.success("Sign Out Successfully");
+                })
+              }
+            >
+              Sign Out
+            </Button>
           </div>
         </div>
       ),
