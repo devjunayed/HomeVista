@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { authContext } from "@/app/authContext/AuthProvider";
 import { Avatar, Button, Dropdown } from "antd";
+import Link from "next/link";
 
 const NavbarSignOut = () => {
   const { currentUser } = useContext(authContext);
@@ -45,7 +46,10 @@ const NavbarSignOut = () => {
           </Dropdown>
         </div>
       ) : (
-        <button className={""}>Login</button>
+        <div>
+        <Link href="/login">Login</Link>
+        <Link href="/register">/Register</Link>
+        </div>
       )}
     </div>
   );

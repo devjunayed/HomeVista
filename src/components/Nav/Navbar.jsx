@@ -7,28 +7,23 @@ const Navbar = () => {
       <section className="relative mx-auto">
         <nav className="flex justify-between bg-[#F1FBFE] shadow text-black  ">
           <div className="px-5 xl:px-12 py-6 flex w-full items-center">
-            <Link className="text-3xl font-bold font-heading" href="/public">
-              Logo Here.
+            <Link className="text-3xl font-bold font-heading" href="/">
+              <span className="text-[#ff1493]">H</span>ome Vista.
             </Link>
 
             <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
               <li>
-                <a className="hover:text-gray-200 " href="#">
+                <a className="hover:text-gray-200 " href="/">
                   Home
                 </a>
               </li>
               <li>
-                <a className="hover:text-gray-200" href="#">
-                  Category
+                <a className="hover:text-gray-200" href="/about">
+                  About Us
                 </a>
               </li>
               <li>
-                <a className="hover:text-gray-200" href="#">
-                  Collections
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-gray-200" href="#">
+                <a className="hover:text-gray-200" href="/contact">
                   Contact Us
                 </a>
               </li>
