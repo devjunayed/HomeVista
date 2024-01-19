@@ -14,19 +14,28 @@ const Navbar = () => {
 
             <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
               <li>
-                <a className="hover:text-gray-200 " href="/">
+                <Link
+                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  href="/"
+                >
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="hover:text-gray-200" href="/about">
+                <Link
+                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  href="/about"
+                >
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="hover:text-gray-200" href="/contact">
+                <Link
+                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  href="/contact"
+                >
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
 
