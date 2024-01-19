@@ -1,6 +1,38 @@
+"use client";
+
 import React from "react";
+import emailjs from "emailjs-com";
+import Swal from "sweetalert2";
 
 const ContactUS = () => {
+  const handleMessageSent = (formData) => {
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const message = formData.get("message");
+    console.log(name, email, message);
+    emailjs
+      .send(
+        `${process.env.NEXT_PUBLIC_SERVICE_ID}`,
+        `${process.env.NEXT_PUBLIC_TEMPLATE_ID}`,
+        { to_name: name, to_email: email, message },
+        `${process.env.NEXT_PUBLIC_PUBLIC_KEY}`
+      )
+      .then(
+        (res) => {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Message sent successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  };
+
   return (
     <div
       data-theme="light"
@@ -12,13 +44,14 @@ const ContactUS = () => {
           <h1 className="text-center text-white text-xl md:text-3xl md:mt-6">
             Contact Us
           </h1>
-          <form className="">
+          <form action={handleMessageSent} className="">
             <div className="form-control">
               <label className="label  ">
                 <span className="label-text text-white">Name</span>
               </label>
               <input
                 type="name"
+                name="name"
                 placeholder="name"
                 className="input input-bordered"
                 required
@@ -30,6 +63,7 @@ const ContactUS = () => {
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="email"
                 className="input input-bordered"
                 required
@@ -41,6 +75,7 @@ const ContactUS = () => {
               </label>
               <textarea
                 rows="6"
+                name="message"
                 type="text"
                 placeholder="message..."
                 className="input-bordered p-4 border rounded-xl"
@@ -49,9 +84,11 @@ const ContactUS = () => {
             </div>
 
             <div className="form-control mt-6">
-              <button className="btn bg-[#FF1493] hover:bg-[#FF1484] border-none text-white">
-                Send Message
-              </button>
+              <input
+                type="submit"
+                value="Sent Message"
+                className="btn bg-[#FF1493] hover:bg-[#FF1484] border-none text-white"
+              />
             </div>
           </form>
         </div>
