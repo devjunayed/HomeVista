@@ -1,9 +1,7 @@
 "use client";
 import { useContext } from "react";
 import { authContext } from "@/app/authContext/AuthProvider";
-import { Avatar, Button, Dropdown, message } from "antd";
-import auth from "../../../firebase.config";
-import { signOut } from "firebase/auth";
+import { Avatar, Button, Dropdown } from "antd";
 import Link from "next/link";
 
 const NavbarSignOut = () => {
@@ -56,14 +54,10 @@ const NavbarSignOut = () => {
           </Dropdown>
         </div>
       ) : (
-        <Link
-          href={"/register"}
-          className={
-            " bg-regularBlue px-4 transition-all  py-2 text-black font-bold rounded-[6px] cursor-pointer "
-          }
-        >
-          Sign Up
-        </Link>
+        <div>
+        <Link href="/login">Login</Link>
+        <Link href="/register">/Register</Link>
+        </div>
       )}
     </div>
   );
