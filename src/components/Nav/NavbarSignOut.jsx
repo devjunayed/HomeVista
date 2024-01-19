@@ -55,8 +55,14 @@ const NavbarSignOut = () => {
         </div>
       ) : (
         <div>
-        <Link href="/login">Login</Link>
-        <Link href="/register">/Register</Link>
+          <Link
+            href={"/register"}
+            className={
+              " bg-regularBlue px-4 transition-all  py-2 text-black font-bold rounded-[6px] cursor-pointer "
+            }
+          >
+            Sign Up
+          </Link>
         </div>
       )}
     </div>

@@ -17,8 +17,11 @@ const Register = async () => {
             <h1 className="text-5xl text-gray-100 font-bold text-left tracking-wide">
               Find Your Best Possibilities
             </h1>
-            <p className="text-3xl my-4">
-              Capture your personal memory in unique way, anywhere.
+            <p className="text-3xl my-4 font-medium ">
+              Buy Your{" "}
+              <span className={"text-gray-800 bg-cyan-200 rounded p-1"}>
+                Dream Home
+              </span>
             </p>
           </div>
         </div>
