@@ -2,14 +2,16 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../../firebase.config";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
   const handleLogin = (formData) => {
     try {
       const email = formData.get("email");
       const password = formData.get("password");
       return signInWithEmailAndPassword(auth, email, password).then((res) =>
-        console.log(res),
+        router.push("/"),
       );
     } catch (error) {
       console.log(error);

@@ -4,9 +4,11 @@ import auth from "../../../firebase.config";
 import { useContext } from "react";
 import { authContext } from "@/app/authContext/AuthProvider";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const userData = useContext(authContext);
+  const router = useRouter();
   console.log(userData);
   const handleSubmit = (formData) => {
     const email = formData.get("email");
@@ -29,6 +31,8 @@ const RegisterForm = () => {
           await res.json();
           return updateProfile(auth.currentUser, {
             displayName: name,
+          }).then(() => {
+            router.push("/");
           });
         })
         .catch((error) => {
