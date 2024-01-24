@@ -1,16 +1,13 @@
 import Banner from "@/components/Banner/Banner";
 import { mongoClient } from "@/database/database";
-
-export default async function Home() {
-  const data = await getState();
-  console.log(data);
-  return (
-    <>
-      <div>
-        <Banner />
-      </div>
-    </>
-  );
+import TabProperty from "@/components/TabPropety/TabProperty";
+export default function Home() {
+  return <>
+    <div className='pt-24'>
+      <Banner />
+      <TabProperty />
+    </div>
+  </>;
 }
 const getState = async () => {
   "use server";

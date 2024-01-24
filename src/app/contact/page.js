@@ -2,7 +2,7 @@
 
 import React from "react";
 import emailjs from "emailjs-com";
-import Swal from "sweetalert2";
+import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
 
 const ContactUS = () => {
   const handleMessageSent = (formData) => {
@@ -18,13 +18,7 @@ const ContactUS = () => {
       )
       .then(
         (res) => {
-          Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: "Message sent successfully!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+         SuccessAlert("Message sent successfully!");
         },
         (err) => {
           console.log(err);
