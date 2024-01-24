@@ -15,7 +15,7 @@ const Navbar = () => {
             <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
               <li>
                 <Link
-                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  className=" hover:bg-gray-200 px-4 py-2 transition-all rounded-xl "
                   href="/"
                 >
                   Home
@@ -23,7 +23,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  className=" hover:bg-gray-200 px-4 py-2 transition-all rounded-xl "
                   href="/about"
                 >
                   About Us
@@ -31,7 +31,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  className=" hover:bg-gray-200 px-4 py-2 transition-all rounded-xl "
                   href="/contact"
                 >
                   Contact Us
