@@ -3,9 +3,12 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import auth from "../../../firebase.config";
 import { useContext } from "react";
 import { authContext } from "@/app/authContext/AuthProvider";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const userData = useContext(authContext);
+  const router = useRouter();
   console.log(userData);
   const handleSubmit = (formData) => {
     const email = formData.get("email");
@@ -28,6 +31,8 @@ const RegisterForm = () => {
           await res.json();
           return updateProfile(auth.currentUser, {
             displayName: name,
+          }).then(() => {
+            router.push("/");
           });
         })
         .catch((error) => {
@@ -51,6 +56,7 @@ const RegisterForm = () => {
           id="name"
           placeholder="Full Name"
           className="block w-full p-4 text-lg  outline-none rounded-sm bg-gray-100"
+          required
         />
       </div>
       <div className="pb-2 pt-4">
@@ -60,6 +66,7 @@ const RegisterForm = () => {
           id="email"
           placeholder="Email"
           className="block w-full outline-none p-4 text-lg rounded-sm bg-gray-100"
+          required
         />
       </div>
       <div className="pb-2 pt-4">
@@ -69,6 +76,7 @@ const RegisterForm = () => {
           name="password"
           id="password"
           placeholder="Password"
+          required
         />
       </div>
       <div className="px-4 pb-2 pt-4">
@@ -78,6 +86,12 @@ const RegisterForm = () => {
           value={"Register"}
         />
       </div>
+      <p className={"text-center mt-3 font-medium text-gray-600"}>
+        Already An User?{" "}
+        <Link href={"/login"} className={"text-highBlue"}>
+          Login
+        </Link>{" "}
+      </p>
     </form>
   );
 };

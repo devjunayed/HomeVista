@@ -1,14 +1,17 @@
 "use client";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../../firebase.config";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
   const handleLogin = (formData) => {
     try {
       const email = formData.get("email");
       const password = formData.get("password");
       return signInWithEmailAndPassword(auth, email, password).then((res) =>
-        console.log(res),
+        router.push("/"),
       );
     } catch (error) {
       console.log(error);
@@ -82,6 +85,12 @@ const Login = () => {
                   className="text-white py-2 px-4 uppercase rounded bg-highBlue cursor-pointer hover:bg-[#28D7C5] shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                 />
               </div>
+              <p className={"text-center mt-3 font-medium text-gray-600"}>
+                Not an user?{" "}
+                <Link href={"/register"} className={"text-highBlue "}>
+                  Register
+                </Link>{" "}
+              </p>
             </form>
           </div>
         </div>

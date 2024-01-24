@@ -21,14 +21,14 @@ const Banner = () => {
             <div className="rounded-lg bg-[rgba(0,0,0,0.5)] mx-16 p-10 mt-10 md:grid lg:grid grid-cols-3 gap-0 hidden md:visible lg:visible">
               <div className="">
                 <select className="select select-info w-3/4 max-w-xs mb-2">
-                  <option disabled selected>
+                  <option disabled defaultValue>
                     Rent
                   </option>
                   <option>Buy</option>
                   <option>Rent</option>
                 </select>
                 <select className="select select-info w-3/4 max-w-xs">
-                  <option disabled selected>
+                  <option disabled defaultValue>
                     Type
                   </option>
                   <option>Apartment</option>
@@ -45,7 +45,7 @@ const Banner = () => {
                 />
                 <div className="flex gap-2">
                   <select className="select select-info w-3/4 max-w-xs">
-                    <option disabled selected>
+                    <option disabled defaultValue>
                       Area(Sqft)
                     </option>
                     <option>100</option>
@@ -63,7 +63,7 @@ const Banner = () => {
               </div>
               <div className="">
                 <select className="select select-info w-3/4 max-w-xs">
-                  <option disabled selected>
+                  <option disabled defaultValue>
                     Residental
                   </option>
                   <option>Pent House</option>

@@ -2,34 +2,27 @@
 
 import React from "react";
 import emailjs from "emailjs-com";
-import Swal from "sweetalert2";
+import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
 
 const ContactUS = () => {
   const handleMessageSent = (formData) => {
     const name = formData.get("name");
     const email = formData.get("email");
     const message = formData.get("message");
-    console.log(name, email, message);
     emailjs
       .send(
         `${process.env.NEXT_PUBLIC_SERVICE_ID}`,
         `${process.env.NEXT_PUBLIC_TEMPLATE_ID}`,
         { to_name: name, to_email: email, message },
-        `${process.env.NEXT_PUBLIC_PUBLIC_KEY}`
+        `${process.env.NEXT_PUBLIC_PUBLIC_KEY}`,
       )
       .then(
         (res) => {
-          Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: "Message sent successfully!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+         SuccessAlert("Message sent successfully!");
         },
         (err) => {
           console.log(err);
-        }
+        },
       );
   };
 
