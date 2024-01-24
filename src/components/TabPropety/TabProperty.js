@@ -14,13 +14,15 @@ const TabProperty = () => {
     ];
 
     return (
-        <div>
-            <ul>
+        <div className="flex items-center justify-center py-5">
+            <ul className='flex gap-3'>
                 {divisions.map((division) => (
                     <li key={division.id}>
-                        <Link href={`/divisions/${division.id}`}>
-                            {division.name}
-                        </Link>
+                        <button className="btn btn-secondary">
+                            <Link href={`/divisions/${division.id}`}>
+                                {division.name}
+                            </Link>
+                        </button>
                     </li>
                 ))}
             </ul>
