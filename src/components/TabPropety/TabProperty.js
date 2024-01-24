@@ -19,9 +19,7 @@ const TabProperty = () => {
                 {divisions.map((division) => (
                     <li key={division.id}>
                         <button className="btn btn-secondary">
-                            <Link href={`/divisions/${division.id}`}>
-                                {division.name}
-                            </Link>
+                                {division.name}                          
                         </button>
                     </li>
                 ))}
