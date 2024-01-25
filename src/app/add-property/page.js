@@ -26,7 +26,7 @@ const Page = () => {
     const photoUrl1 = form.get("photoUrl1");
     const photoUrl2 = form.get("photoUrl2");
     const photoUrl3 = form.get("photoUrl3");
-    const location = form.get("location");
+    const address = form.get("address");
     const price = form.get("price");
     const description = form.get("description");
 
@@ -40,6 +40,7 @@ const Page = () => {
       photoUrl3,
       division,
       district,
+      address,
       price,
       description,
     };
@@ -211,8 +212,24 @@ const Page = () => {
               {/* Property districts Field End */}
             </div>
 
-            {/* Property Price Field Start */}
-            <div className="form-control">
+          <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
+              {/* Property location Field Start */}
+              <div className="form-control">
+              <label className="label  ">
+                <span className="label-text text-white">Property address</span>
+              </label>
+              <input
+                type="text"
+                name="address"
+                placeholder="Property address"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            {/* Property location Field End */}
+
+              {/* Property Price Field Start */}
+              <div className="form-control">
               <label className="label  ">
                 <span className="label-text text-white">Property Price</span>
               </label>
@@ -225,6 +242,7 @@ const Page = () => {
               />
             </div>
             {/* Property price Field End */}
+          </div>
 
             {/* Property description start*/}
             <div className="form-control">
