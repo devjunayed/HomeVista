@@ -1,7 +1,6 @@
 import NavbarSignOut from "@/components/Nav/NavbarSignOut";
 import Link from "next/link";
-import MobileNavbarDrawer from "@/components/Nav/MobileNavbarDrawer";
-
+import MobileNavbarDrawer from "@/components/Nav/MobileNavbarDrawer"; 
 const Navbar = () => {
   return (
     <div>
@@ -15,7 +14,7 @@ const Navbar = () => {
             <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
               <li>
                 <Link
-                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  className=" hover:bg-gray-200 px-4 py-2 transition-all rounded-xl "
                   href="/"
                 >
                   Home
@@ -23,7 +22,15 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  className=" hover:bg-gray-200 px-4 py-2 transition-all rounded-xl "
+                  href="add-property"
+                >
+                  Add Property
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className=" hover:bg-gray-200 px-4 py-2 transition-all rounded-xl "
                   href="/about"
                 >
                   About Us
@@ -31,7 +38,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  className="hover:border hover:bg-gray-100 px-4 py-2 transition-all rounded-xl "
+                  className=" hover:bg-gray-200 px-4 py-2 transition-all rounded-xl "
                   href="/contact"
                 >
                   Contact Us
