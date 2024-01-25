@@ -1,6 +1,6 @@
 "use client";
 import { useContext } from "react";
-import { authContext } from "@/app/authContext/AuthProvider";
+import { authContext } from "@/context/authContext/AuthProvider";
 import { Avatar, Button, Dropdown, message } from "antd";
 import auth from "../../../firebase.config";
 import { signOut } from "firebase/auth";
