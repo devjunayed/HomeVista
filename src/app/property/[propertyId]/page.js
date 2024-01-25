@@ -7,6 +7,7 @@ import { LiaComments } from "react-icons/lia";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa6";
 import { Carousel } from "react-responsive-carousel";
+import { TbCurrencyTaka } from "react-icons/tb";
 import "./propertyStyle.css";
 
 // dummy data start
@@ -76,7 +77,7 @@ const Page = ({ params }) => {
       <div className="flex justify-between mt-6">
         <h2 className="font-bold">Address: {address}</h2>
         <h2>
-          <span className="badge text-xl p-4 badge-secondary">${price}</span>
+          <span className="badge text-xl p-4 badge-secondary"><TbCurrencyTaka />{price}</span>
         </h2>
       </div>
 
