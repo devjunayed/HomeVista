@@ -2,7 +2,7 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import auth from "../../../firebase.config";
 import { useContext } from "react";
-import { authContext } from "@/app/authContext/AuthProvider";
+import { authContext } from "@/context/authContext/AuthProvider";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

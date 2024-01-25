@@ -6,18 +6,18 @@ const Banners = () => {
     <div className={" "}>
       <div
         className={
-          "w-full h-[56.375rem]  rounded-[0px_0px_800px_800px] bg-gradient-to-b from-[#4cc9f000] to-[#4361ee4d] z-0"
+          "w-full  pb-[7.6rem]  rounded-[0px_0px_800px_800px] bg-gradient-to-b from-[#4cc9f000] to-[#4361ee4d] z-0"
         }
       >
         <div className={"px-[10rem] pt-[5.56rem] z-10"}>
           <h1
             className={
-              "text-[1.2125rem] ml-[6.7rem] font-medium leading-normal text-[#4361EE] tracking-[0.18188rem] "
+              "text-[1.2125rem] ml-[5.2rem] font-medium leading-normal text-[#4361EE] tracking-[0.18188rem] "
             }
           >
             REAL ESTATE
           </h1>
-          <div className={"flex items-center justify-center gap-[24rem]"}>
+          <div className={"flex items-center justify-center gap-[27rem]"}>
             <div className={"mt-[1.87rem]  "}>
               <h1
                 className={
