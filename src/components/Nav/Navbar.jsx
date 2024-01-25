@@ -1,7 +1,6 @@
 import NavbarSignOut from "@/components/Nav/NavbarSignOut";
 import Link from "next/link";
-import MobileNavbarDrawer from "@/components/Nav/MobileNavbarDrawer";
-
+import MobileNavbarDrawer from "@/components/Nav/MobileNavbarDrawer"; 
 const Navbar = () => {
   return (
     <div>
@@ -19,6 +18,14 @@ const Navbar = () => {
                   href="/"
                 >
                   Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className=" hover:bg-gray-200 px-4 py-2 transition-all rounded-xl "
+                  href="add-property"
+                >
+                  Add Property
                 </Link>
               </li>
               <li>

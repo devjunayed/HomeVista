@@ -1,44 +1,37 @@
-"use client";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
-import { useState } from "react";
+"use client"
+import React from 'react'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 const TabProperty = () => {
-  const divisions = [
-    { id: 1, name: "Dhaka" },
-    { id: 2, name: "Chittagong" },
-    { id: 3, name: "Rajshahi" },
-    { id: 4, name: "Khulna" },
-    { id: 5, name: "Barisal" },
-    { id: 6, name: "Sylhet" },
-    { id: 7, name: "Rangpur" },
-    { id: 8, name: "Mymensingh" },
-  ];
+    const divisions = [
+        { id: 1, name: "Dhaka" },
+        { id: 2, name: "Chittagong" },
+        { id: 3, name: "Rajshahi" },
+        { id: 4, name: "Khulna" },
+        { id: 5, name: "Barisal" },
+        { id: 6, name: "Sylhet" },
+        { id: 7, name: "Rangpur" },
+        { id: 8, name: "Mymensingh" },
+    ];
 
-  const [tabpanels, setTabpanels] = useState(undefined);
+    return (
+        <Tabs className="m-5">
+            <TabList className="flex justify-center">
+                {divisions.map((division) => (
+                    <Tab key={division.id} >
+                        <div className="btn btn-secondary">{division.name}</div>
+                    </Tab>
+                ))}
+            </TabList>
 
-  return (
-    <Tabs>
-      <TabList className="flex gap-3 items-center justify-center py-5">
-        {divisions.map((division) => (
-          <Tab key={division.id}>
-            <button
-              className="btn btn-secondary"
-              onClick={() => setTabpanels(division.name)}
-            >
-              {division.name}
-            </button>
-          </Tab>
-        ))}
-      </TabList>
-      <div>
-        <Tabpanelss data={tabpanels}></Tabpanelss>
-      </div>
-    </Tabs>
-  );
-};
+            <TabPanel>
+                <h2>Any content 1</h2>
+            </TabPanel>
+            <TabPanel>
+                <h2>Any content 2</h2>
+            </TabPanel>
+        </Tabs>
+    )
+}
 
-export default TabProperty;
-
-const Tabpanelss = ({ data }) => {
-  return <>{data}</>;
-};
+export default TabProperty
