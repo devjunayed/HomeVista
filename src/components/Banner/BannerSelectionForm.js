@@ -6,7 +6,7 @@ const BannerSelectionForm = () => {
         className={
           "bg-[#d4d4d433] w-full py-[1.5rem] px-[1.25rem] rounded-[1.25rem] outline-none mb-[1.18rem]"
         }
-        placeholder={"New York, San Francisco, etc"}
+        placeholder={"Dhanmondi, Bashundara, etc"}
       />
       <div className={"relative cursor-pointer"}>
         <select

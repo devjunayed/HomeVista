@@ -1,5 +1,6 @@
 import Image from "next/image";
 import BannerSelectionForm from "@/components/Banner/BannerSelectionForm";
+import Brand from "@/components/Brand/Brand";
 
 const Banners = () => {
   return (
@@ -9,7 +10,7 @@ const Banners = () => {
           "w-full  pb-[7.6rem]  rounded-[0px_0px_800px_800px] bg-gradient-to-b from-[#4cc9f000] to-[#4361ee4d] z-0"
         }
       >
-        <div className={"px-[10rem] pt-[5.56rem] z-10"}>
+        <div className={"2xl:px-[10rem] pt-[5.56rem] z-10"}>
           <h1
             className={
               "text-[1.2125rem] ml-[5.2rem] font-medium leading-normal text-[#4361EE] tracking-[0.18188rem] "
@@ -17,11 +18,15 @@ const Banners = () => {
           >
             REAL ESTATE
           </h1>
-          <div className={"flex items-center justify-center gap-[27rem]"}>
+          <div
+            className={
+              "flex items-center justify-center xl:gap-[12rem] 2xl:gap-[27rem]"
+            }
+          >
             <div className={"mt-[1.87rem]  "}>
               <h1
                 className={
-                  "text-[3.58125rem] font-semibold text-[#0B090A] not-italic leading-[4.0625rem]"
+                  "2xl:text-[3.58125rem] text-[2.58125rem] font-semibold text-[#0B090A] not-italic leading-[4.0625rem]"
                 }
               >
                 Find a perfect <br /> home you love..!
@@ -89,7 +94,7 @@ const Banners = () => {
                 </div>
                 <div
                   className={
-                    "px-[2.5rem] pb-[3.75rem] pt-[3.13rem] bg-white rounded-b-[1.25rem] "
+                    "2xl:px-[2.5rem] px-[1rem] pb-[3.75rem] pt-[3.13rem] bg-white rounded-b-[1.25rem] "
                   }
                 >
                   <BannerSelectionForm />
@@ -100,7 +105,41 @@ const Banners = () => {
         </div>
       </div>
 
-      <div></div>
+      <div>
+        <div className={"flex items-center justify-center -mt-10"}>
+          <div
+            className="px-[2.31rem] py-[1.75rem] w-[22.5rem] h-full bg-white rounded-[3.125rem] gap-2 flex items-center justify-between"
+            style={{ boxShadow: "10px 30px 50px 0px rgba(0, 0, 0, 0.05)" }}
+          >
+            <div className="avatar-group -space-x-6 rtl:space-x-reverse">
+              <div className="avatar">
+                <div className="w-12">
+                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+              <div className="avatar">
+                <div className="w-12">
+                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+              <div className="avatar">
+                <div className="w-12">
+                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+              <div className="avatar placeholder">
+                <div className="w-12 bg-neutral text-neutral-content">
+                  <span>+99</span>
+                </div>
+              </div>
+            </div>
+            <h1 className={"font-medium text-[1.2125rem] "}>
+              72k+ Happy Customers
+            </h1>
+          </div>
+        </div>
+        <Brand />
+      </div>
     </div>
   );
 };

@@ -1,19 +1,15 @@
 import Link from "next/link";
+import ActiveLink from "@/components/Nav/ActiveLink";
 
 const Navbar = () => {
   return (
     <div className={"bg-white"}>
       <div
         className={
-          "py-[1.37rem] px-[6.25rem] flex justify-between items-center"
+          "py-[1.37rem] 2xl:px-[6.25rem] lg:px-[2rem]  flex justify-between items-center"
         }
       >
-        <div className={"space-x-[2rem] flex items-center"}>
-          <Link href={"/"}>Home</Link>
-          <Link href={"/listing"}>Listing</Link>
-          <Link href={"/about"}>About</Link>
-          <Link href={"/contact"}>Contact</Link>
-        </div>
+        <ActiveLink />
         <div className={"flex items-center  gap-[1rem]"}>
           <div className={" rounded-full p-[0.81rem] bg-[#3A0CA3]"}>
             <svg
