@@ -17,8 +17,8 @@ const ContactUS = () => {
         `${process.env.NEXT_PUBLIC_PUBLIC_KEY}`,
       )
       .then(
-        (res) => {
-         SuccessAlert("Message sent successfully!");
+        () => {
+          return SuccessAlert("Message sent successfully!");
         },
         (err) => {
           console.log(err);

@@ -10,7 +10,7 @@ const Login = () => {
     try {
       const email = formData.get("email");
       const password = formData.get("password");
-      return signInWithEmailAndPassword(auth, email, password).then((res) =>
+      return signInWithEmailAndPassword(auth, email, password).then(() =>
         router.push("/"),
       );
     } catch (error) {

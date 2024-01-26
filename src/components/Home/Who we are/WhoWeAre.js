@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const WhoWeAre = () => {
   return (
-    <div className={"px-[10rem] mt-[8rem] pb-[12.5rem]"}>
+    <div className={"xl:px-[5rem] 2xl:px-[10rem] mt-[8rem] pb-[12.5rem]"}>
       <h1
         className={
           "text-[1.2125rem]  font-medium leading-normal text-[#4361EE] tracking-[0.18188rem] "
@@ -174,6 +174,7 @@ const WhoWeAre = () => {
               alt={"image"}
               width={400}
               height={400}
+              sizes={"10%"}
             />
             <Image
               src={"/WhoWeAre/third-sec.png"}
