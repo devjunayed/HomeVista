@@ -174,7 +174,6 @@ const WhoWeAre = () => {
               alt={"image"}
               width={400}
               height={400}
-              sizes={"10%"}
             />
             <Image
               src={"/WhoWeAre/third-sec.png"}
