@@ -19,7 +19,7 @@ const TabProperty = () => {
             <TabList className="flex justify-center">
                 {divisions.map((division) => (
                     <Tab key={division.id} >
-                        <div className="btn btn-secondary">{division.name}</div>
+                        <div className="btn bg-secondary hover:blue-800">{division.name}</div>
                     </Tab>
                 ))}
             </TabList>
