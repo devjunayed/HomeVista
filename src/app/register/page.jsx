@@ -1,4 +1,3 @@
-import Image from "next/image";
 import RegisterForm from "@/app/register/RegisterForm";
 import GoogleSignUp from "@/app/register/GoogleSignUp";
 

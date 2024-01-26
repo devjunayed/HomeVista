@@ -1,6 +1,5 @@
 import Image from "next/image";
 import BannerSelectionForm from "@/components/Home/Banner/BannerSelectionForm";
-import Brand from "@/components/Home/Brand/Brand";
 
 const Banners = () => {
   return (

@@ -27,7 +27,7 @@ const NavbarSignOut = () => {
             <Button
               onClick={() =>
                 signOut(auth).then(() => {
-                  message.success("Sign Out Successfully");
+                  return message.success("Sign Out Successfully");
                 })
               }
             >
