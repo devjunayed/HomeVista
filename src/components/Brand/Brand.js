@@ -3,7 +3,7 @@ const Brand = () => {
     <div>
       <div></div>
       <div>
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white ">
           <div className="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
             <h2 className="mb-8 lg:mb-16 text-[1rem] font-medium  tracking-tight leading-tight text-center dark:text-white text-[#808080]">
               Trusted by 100+ Companies across the globe!
