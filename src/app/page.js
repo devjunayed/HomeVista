@@ -12,7 +12,7 @@ export default async function Home() {
     <>
       <div className="">
         <Banners />
-
+        
         <Brand />
         <WhoWeAre />
       </div>

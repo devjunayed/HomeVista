@@ -18,13 +18,13 @@ const ActiveLink = () => {
       </Link>
       <Link
         className={
-          pathname === "/listing"
+          pathname === "/propertyes"
             ? "rounded-[1.875rem] bg-[#4361EE4D] px-[1.2rem] py-[0.5rem] font-medium "
             : ""
         }
-        href={"/listing"}
+        href={"/propertyes"}
       >
-        Listing
+        Property
       </Link>
       <Link
         className={
