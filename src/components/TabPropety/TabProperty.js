@@ -27,11 +27,8 @@ const TabProperty = () => {
             <TabPanel>
                 <h2>Any content 1</h2>
             </TabPanel>
-            <TabPanel>
-                <h2>Any content 2</h2>
-            </TabPanel>
         </Tabs>
     )
 }
 
-export default TabProperty
+export default TabProperty;

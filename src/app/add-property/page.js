@@ -44,7 +44,7 @@ const Page = () => {
       price,
       description,
     };
-
+    console.log(formData);
     SuccessAlert("Property added");
   };
 
