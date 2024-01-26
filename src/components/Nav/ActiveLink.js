@@ -46,16 +46,6 @@ const ActiveLink = () => {
       >
         Contact
       </Link>
-      <Link
-        className={
-          pathname === "/add-property"
-            ? "rounded-[1.875rem] bg-[#4361EE4D] px-[1.2rem] py-[0.5rem] font-medium "
-            : ""
-        }
-        href={"/contact"}
-      >
-        Add Property
-      </Link>
     </div>
   );
 };
