@@ -100,7 +100,7 @@ const Navbar = () => {
                 </clipPath>
               </defs>
             </svg>
-            Add Listing
+            Add Property
           </Link>
         </div>
       </div>
