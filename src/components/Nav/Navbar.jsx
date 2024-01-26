@@ -11,7 +11,7 @@ const Navbar = () => {
       >
         <ActiveLink />
         <div className={"flex items-center  gap-[1rem]"}>
-          <div className={" rounded-full p-[0.81rem] bg-[#3A0CA3]"}>
+          <Link href={'/'} className={" rounded-full p-[0.81rem] bg-[#3A0CA3]"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -35,7 +35,7 @@ const Navbar = () => {
                 </clipPath>
               </defs>
             </svg>
-          </div>
+          </Link>
           <h1 className={"text-[1.25rem] font-semibold"}>Home Vista</h1>
         </div>
         <div className={"flex items-center gap-[1.25rem]"}>
