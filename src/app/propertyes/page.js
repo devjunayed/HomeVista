@@ -1,22 +1,20 @@
-import Link from 'next/link';
-import React from 'react'
+import Link from "next/link";
+import React from "react";
+import { mongoClient } from "@/database/database";
 
 const page = async () => {
-  const data = await fetch(
-    "https://home-vista.vercel.app/api/get-property",
-  ).then((res) => res.json());
+  const data = await propertyData();
   console.log(data);
-
   return (
     <div>
-      <ul className='flex gap-3 flex-wrap p-5'>
-        {data?.message.map(item => (
-          <li key={item._id} >
-
+      <ul className="flex gap-3 flex-wrap p-5">
+        {data?.map((item) => (
+          <li key={item._id}>
             <div className="card w-96 bg-base-100 shadow-xl">
-              <figure><img src={item.photoUrl1} alt="property" /></figure>
+              <figure>
+                <img src={item.photoUrl} alt="property" />
+              </figure>
               <div className="card-body flex">
-
                 <h2 className="card-title">
                   {item.title}
                   <div className="badge badge-secondary">NEW</div>
@@ -25,16 +23,26 @@ const page = async () => {
                 <p>{item.division}</p>
                 <p>{item.district}</p>
                 <div className="card-actions justify-end">
-                  <Link href={`property/${item._id}`} className="btn btn-primary">Details</Link>
+                  <Link
+                    href={`property/${item._id}`}
+                    className="btn btn-primary"
+                  >
+                    Details
+                  </Link>
                 </div>
               </div>
             </div>
-
           </li>
         ))}
       </ul>
+      s
     </div>
-  )
-}
+  );
+};
 
 export default page;
+
+const propertyData = async () => {
+  const homevista = await mongoClient.db("homeVistaDB").collection("Estates");
+  return await homevista.find().toArray();
+};
