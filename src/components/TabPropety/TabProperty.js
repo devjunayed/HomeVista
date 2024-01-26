@@ -19,7 +19,7 @@ const TabProperty = () => {
             <TabList className="flex justify-center">
                 {divisions.map((division) => (
                     <Tab key={division.id} >
-                        <div className="btn btn-secondary">{division.name}</div>
+                        <div className="btn bg-secondary hover:blue-800">{division.name}</div>
                     </Tab>
                 ))}
             </TabList>
@@ -27,11 +27,8 @@ const TabProperty = () => {
             <TabPanel>
                 <h2>Any content 1</h2>
             </TabPanel>
-            <TabPanel>
-                <h2>Any content 2</h2>
-            </TabPanel>
         </Tabs>
     )
 }
 
-export default TabProperty
+export default TabProperty;

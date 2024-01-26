@@ -150,7 +150,6 @@ const Banners = () => {
             </h1>
           </div>
         </div>
-        <Brand />
       </div>
     </div>
   );

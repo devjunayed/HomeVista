@@ -294,7 +294,7 @@ const Page = () => {
               <input
                 type="submit"
                 value="Add property"
-                className="btn bg-[#FF1493] hover:bg-[#FF1484] border-none text-white"
+                className="btn bg-secondary hover:bg-blue-800 border-none text-white"
               />
             </div>
           </form>

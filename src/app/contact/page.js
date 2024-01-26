@@ -80,7 +80,7 @@ const ContactUS = () => {
               <input
                 type="submit"
                 value="Sent Message"
-                className="btn bg-[#FF1493] hover:bg-[#FF1484] border-none text-white"
+                className="btn hover:bg-blue-800 bg-secondary border-none text-white"
               />
             </div>
           </form>
