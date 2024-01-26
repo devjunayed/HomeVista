@@ -59,7 +59,7 @@ const Page = () => {
           </tbody>
         </table>
         <div className="text-center pb-20 mt-10">
-          <button className="btn btn-secondary">Go to Checkout</button>
+          <button className="btn bg-secondary hover:bg-blue-800">Go to Checkout</button>
         </div>
       </div>
     </div>

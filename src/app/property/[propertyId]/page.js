@@ -43,9 +43,6 @@ const Page = ({ params }) => {
         <p className="font-semibold">{date}</p>
       </div>
 
-      {/* Images of property */}
-      {/* <Image alt="demo" placeholder="blur" src={PropertyImg} /> */}
-
       {/* Image slider */}
       <div>
         <Carousel thumbWidth={100} showThumbs={true} autoPlay={true}>
@@ -77,7 +74,7 @@ const Page = ({ params }) => {
       <div className="flex justify-between mt-6">
         <h2 className="font-bold">Address: {address}</h2>
         <h2>
-          <span className="badge text-xl p-4 badge-secondary"><TbCurrencyTaka />{price}</span>
+          <span className="badge text-xl p-4 bg-secondary text-white" ><TbCurrencyTaka />{price}</span>
         </h2>
       </div>
 
@@ -89,17 +86,17 @@ const Page = ({ params }) => {
 
       {/* like, comments, favourite bar */}
       <div className=" my-4 gap-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center text-xl">
-        <button className=" btn btn-secondary text-xl flex items-center justify-center gap-2 py-2">
+        <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
           <AiOutlineLike /> Like
         </button>
-        <button className=" btn btn-secondary text-xl flex items-center justify-center gap-2 py-2">
+        <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
           <LiaComments />
           Comments
         </button>
-        <button className=" btn btn-secondary text-xl flex items-center justify-center gap-2 py-2">
+        <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
           <FaRegHeart /> Favourite
         </button>
-        <button className="btn btn-secondary text-xl flex items-center justify-center gap-2 py-2">
+        <button className="btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
           <FaCartPlus /> Buy/Rent
         </button>
       </div>
