@@ -71,7 +71,8 @@ const Navbar = () => {
               <Link href={"/register"}>Register</Link>
             </div>
           </div>
-          <button
+          <Link
+            href={"/add-property"}
             className={
               "px-[1.62rem] py-[0.94rem] bg-[#3A0CA3] flex items-center gap-3 text-white rounded-[3.125rem]"
             }
@@ -100,7 +101,7 @@ const Navbar = () => {
               </defs>
             </svg>
             Add Listing
-          </button>
+          </Link>
         </div>
       </div>
     </div>

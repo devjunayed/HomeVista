@@ -11,14 +11,14 @@ const Page = () => {
 
   const onSelectDivisions = (value) => {
     setDivision(value);
-  }
+  };
 
   const onSelectDistricts = (value) => {
     setDistrict(value);
-  }
+  };
 
   // handle add property method
-  const handleAddProperty = (form) => {
+  const handleAddProperty = async (form) => {
     const name = form.get("name");
     const email = form.get("email");
     const phone = form.get("phone");
@@ -45,7 +45,22 @@ const Page = () => {
       description,
     };
 
-    SuccessAlert("Property added");
+    try {
+      await fetch("/api/add-property", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          console.log(response);
+          SuccessAlert("Property added");
+        })
+        .catch(() => SuccessAlert("Something went wrong"));
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -188,7 +203,13 @@ const Page = () => {
                     Property Divisions
                   </span>
                 </label>
-                <select name="" id="" defaultValue={division} className="select" onChange={(e) => onSelectDivisions(e.target.value)}>
+                <select
+                  name=""
+                  id=""
+                  defaultValue={division}
+                  className="select"
+                  onChange={(e) => onSelectDivisions(e.target.value)}
+                >
                   {divisions.map((division, index) => (
                     <option key={index}>{division}</option>
                   ))}
@@ -203,7 +224,12 @@ const Page = () => {
                     Property Districts
                   </span>
                 </label>
-                <select name="" id="" className="select" onChange={(e) => onSelectDistricts(e.target.value)}>
+                <select
+                  name=""
+                  id=""
+                  className="select"
+                  onChange={(e) => onSelectDistricts(e.target.value)}
+                >
                   {districts[division].map((district, index) => (
                     <option key={index}>{district}</option>
                   ))}
@@ -212,37 +238,39 @@ const Page = () => {
               {/* Property districts Field End */}
             </div>
 
-          <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
+            <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
               {/* Property location Field Start */}
               <div className="form-control">
-              <label className="label  ">
-                <span className="label-text text-white">Property address</span>
-              </label>
-              <input
-                type="text"
-                name="address"
-                placeholder="Property address"
-                className="input input-bordered"
-                required
-              />
-            </div>
-            {/* Property location Field End */}
+                <label className="label  ">
+                  <span className="label-text text-white">
+                    Property address
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Property address"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              {/* Property location Field End */}
 
               {/* Property Price Field Start */}
               <div className="form-control">
-              <label className="label  ">
-                <span className="label-text text-white">Property Price</span>
-              </label>
-              <input
-                type="text"
-                name="price"
-                placeholder="Property price"
-                className="input input-bordered"
-                required
-              />
+                <label className="label  ">
+                  <span className="label-text text-white">Property Price</span>
+                </label>
+                <input
+                  type="text"
+                  name="price"
+                  placeholder="Property price"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              {/* Property price Field End */}
             </div>
-            {/* Property price Field End */}
-          </div>
 
             {/* Property description start*/}
             <div className="form-control">

@@ -17,7 +17,7 @@ const RegisterForm = () => {
 
     try {
       createUserWithEmailAndPassword(auth, email, password)
-        .then(async (userCredential) => {
+        .then(async () => {
           const res = await fetch("/api/storeUser", {
             method: "POST",
             headers: {
