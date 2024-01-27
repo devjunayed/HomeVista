@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { mongoClient } from "@/database/database";
 
-const page = async () => {
+const Properties = async () => {
   const data = await propertyData();
   console.log(data);
   return (
@@ -40,7 +40,7 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Properties;
 
 const propertyData = async () => {
   const homevista = await mongoClient.db("homeVistaDB").collection("Estates");
