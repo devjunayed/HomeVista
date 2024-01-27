@@ -51,7 +51,7 @@ const Page = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ title, description }),
       })
         .then((response) => {
           console.log(response);

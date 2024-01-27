@@ -14,7 +14,7 @@ export async function POST(req, res) {
       return NextResponse.json({ error: "User already exists" });
     } else {
       const result = await homeVistaDB.insertOne(body);
-      console.log(result);
+
       return NextResponse.json({ message: result });
     }
   } catch (error) {

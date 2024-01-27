@@ -1,14 +1,15 @@
 import Link from "next/link";
 import React from "react";
-import { mongoClient } from "@/database/database";
 
-const Properties = async () => {
-  const data = await propertyData();
-  console.log(data);
+const page = async () => {
+  const data = await fetch("http://localhost:3000/api/property", {
+    method: "GET",
+  }).then((res) => res.json());
+
   return (
     <div>
       <ul className="flex gap-3 flex-wrap p-5">
-        {data?.map((item) => (
+        {data?.message?.map((item) => (
           <li key={item._id}>
             <div className="card w-96 bg-base-100 shadow-xl">
               <figure>
@@ -35,14 +36,8 @@ const Properties = async () => {
           </li>
         ))}
       </ul>
-      s
     </div>
   );
 };
 
-export default Properties;
-
-const propertyData = async () => {
-  const homevista = await mongoClient.db("homeVistaDB").collection("Estates");
-  return await homevista.find().toArray();
-};
+export default page;
