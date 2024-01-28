@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 const RegisterForm = () => {
   const userData = useContext(authContext);
   const router = useRouter();
-  console.log(userData);
+
   const handleSubmit = (formData) => {
     const email = formData.get("email");
     const password = formData.get("password");
@@ -18,7 +18,7 @@ const RegisterForm = () => {
     try {
       createUserWithEmailAndPassword(auth, email, password)
         .then(async () => {
-          const res = await fetch("/api/storeUser", {
+          await fetch("/api/user", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -27,8 +27,8 @@ const RegisterForm = () => {
               userName: name,
               email: email,
             }),
-          });
-          await res.json();
+          }).then((res) => res.json());
+
           return updateProfile(auth.currentUser, {
             displayName: name,
           }).then(() => {

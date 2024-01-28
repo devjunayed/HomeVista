@@ -6,7 +6,6 @@ export async function POST(req) {
   try {
     const { title, description } = await req.json();
     await mongodbConnect();
-    console.log(title, description);
     await Property.create({ title, description });
     return NextResponse.json({ message: "OK" });
   } catch (error) {
@@ -19,9 +18,7 @@ export async function GET() {
   try {
     await mongodbConnect();
     const homeVistaDB = await Property.find();
-
     // const result = await homeVistaDB.find().toArray();
-
     return NextResponse.json({ message: homeVistaDB });
   } catch (error) {
     return NextResponse.json({ error: error.message });
