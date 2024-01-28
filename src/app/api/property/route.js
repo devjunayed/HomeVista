@@ -18,7 +18,6 @@ export async function GET() {
   try {
     await mongodbConnect();
     const homeVistaDB = await Property.find();
-    // const result = await homeVistaDB.find().toArray();
     return NextResponse.json({ message: homeVistaDB });
   } catch (error) {
     return NextResponse.json({ error: error.message });

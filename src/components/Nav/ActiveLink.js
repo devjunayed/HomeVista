@@ -19,11 +19,11 @@ const ActiveLink = () => {
       <Link
         prefetch={false}
         className={
-          pathname === "/propertyes"
+          pathname === "/properties"
             ? "rounded-[1.875rem] bg-[#4361EE4D] px-[1.2rem] py-[0.5rem] font-medium "
             : ""
         }
-        href={"/propertyes"}
+        href={"/properties"}
       >
         Property
       </Link>

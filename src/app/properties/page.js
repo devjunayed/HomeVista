@@ -2,10 +2,8 @@ import Link from "next/link";
 import React from "react";
 
 const page = async () => {
-  const data = await fetch("https://home-vista.vercel.app/api/property", {
-    method: "GET",
-  }).then((res) => res.json());
-
+  const data = await property();
+  console.log(data);
   return (
     <div>
       <ul className="flex gap-3 flex-wrap p-5">
@@ -41,3 +39,10 @@ const page = async () => {
 };
 
 export default page;
+
+const property = async () => {
+  const data = await fetch("https://home-vista.vercel.app/api/property", {
+    next: { tags: ["property"], revalidate: 2 },
+  });
+  return data.json();
+};
