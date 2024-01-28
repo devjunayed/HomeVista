@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 const page = async () => {
-  const data = await fetch("/api/property", {
+  const data = await fetch("https://home-vista.vercel.app/api/property", {
     method: "GET",
   }).then((res) => res.json());
 
