@@ -42,7 +42,7 @@ export default page;
 
 const property = async () => {
   const data = await fetch("https://home-vista.vercel.app/api/property", {
-    next: { tags: ["property"], revalidate: 2 },
+    next: { tags: ["property"], revalidate: 0.1 },
   });
   return data.json();
 };
