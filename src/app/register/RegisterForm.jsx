@@ -50,45 +50,39 @@ const RegisterForm = () => {
       className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
     >
       <div className="pb-2 pt-4">
-        <input
-          type="text"
-          name="name"
-          id="name"
-          placeholder="Full Name"
-          className="block w-full p-4 text-lg  outline-none rounded-sm bg-gray-100"
-          required
-        />
-      </div>
-      <div className="pb-2 pt-4">
+        <h4 className={"text-left text-[0.875rem] font-normal text-[#4F4F4F]"}>
+          Email
+        </h4>
         <input
           type="email"
           name="email"
           id="email"
-          placeholder="Email"
-          className="block w-full outline-none p-4 text-lg rounded-sm bg-gray-100"
+          className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
           required
         />
       </div>
       <div className="pb-2 pt-4">
+        <h4 className={"text-left text-[0.875rem] font-normal text-[#4F4F4F]"}>
+          Password
+        </h4>
         <input
-          className="block w-full outline-none p-4 text-lg rounded-sm bg-gray-100"
           type="password"
           name="password"
           id="password"
-          placeholder="Password"
+          className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
           required
         />
       </div>
       <div className="px-4 pb-2 pt-4">
         <input
-          className="uppercase block w-full cursor-pointer p-4 text-lg rounded-full  text-white focus:outline-none  bg-mediumBlue hover:bg-highBlue"
+          className=" bg-[#3A0CA3] block w-full  cursor-pointer px-[10.38rem] py-[0.5rem] text-[0.9375rem]  font-normal  text-white focus:outline-none  rounded-[0.9375rem]"
           type={"submit"}
-          value={"Register"}
+          value={"Sign Up"}
         />
       </div>
       <p className={"text-center mt-3 font-medium text-gray-600"}>
         Already An User?{" "}
-        <Link href={"/login"} className={"text-highBlue"}>
+        <Link href={"/login"} className={"text-[#3A0CA3]"}>
           Login
         </Link>{" "}
       </p>
