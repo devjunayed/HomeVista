@@ -1,14 +1,13 @@
 import Link from "next/link";
 import React from "react";
-import { mongoClient } from "@/database/database";
 
 const page = async () => {
-  const data = await propertyData();
+  const data = await property();
   console.log(data);
   return (
     <div>
       <ul className="flex gap-3 flex-wrap p-5">
-        {data?.map((item) => (
+        {data?.message?.map((item) => (
           <li key={item._id}>
             <div className="card w-96 bg-base-100 shadow-xl">
               <figure>
@@ -35,14 +34,15 @@ const page = async () => {
           </li>
         ))}
       </ul>
-      s
     </div>
   );
 };
 
 export default page;
 
-const propertyData = async () => {
-  const homevista = await mongoClient.db("homeVistaDB").collection("Estates");
-  return await homevista.find().toArray();
+const property = async () => {
+  const data = await fetch("https://home-vista.vercel.app/api/property", {
+    next: { tags: ["property"], revalidate: 1 },
+  });
+  return data.json();
 };

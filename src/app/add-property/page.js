@@ -46,12 +46,9 @@ const Page = () => {
     };
 
     try {
-      await fetch("/api/add-property", {
+      await fetch("/api/property", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ title, description }),
       })
         .then((response) => {
           console.log(response);
