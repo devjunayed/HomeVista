@@ -4,7 +4,7 @@ export async function middleware(request) {
   let token = request.cookies.get("token");
   console.log(token);
   if (!token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/register", request.url));
   } else if (
     token &&
     token.value &&
