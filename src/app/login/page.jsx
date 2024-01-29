@@ -3,6 +3,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../../firebase.config";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { authContext } from "@/context/authContext/AuthProvider";
 
 const Login = () => {
   const router = useRouter();
