@@ -9,5 +9,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/add-property", "/contact"],
+  matcher: ["/add-property"],
 };

@@ -6,7 +6,6 @@ import NavbarSignOut from "@/components/Nav/NavbarSignOut";
 const Navbar = () => {
   return (
     <div className={"bg-white"}>
-      <NavbarSignOut />
       <div
         className={
           "py-[1.37rem] 2xl:px-[6.25rem] lg:px-[2rem]  flex justify-between items-center"
