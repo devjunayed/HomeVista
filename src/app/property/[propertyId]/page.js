@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import "../../../../node_modules/react-responsive-carousel/lib/styles/carousel.css";
 import { AiOutlineLike } from "react-icons/ai";
 import { LiaComments } from "react-icons/lia";
@@ -9,6 +9,8 @@ import { FaCartPlus } from "react-icons/fa6";
 import { Carousel } from "react-responsive-carousel";
 import { TbCurrencyTaka } from "react-icons/tb";
 import "./propertyStyle.css";
+import Review from "@/components/Review/Review";
+import { authContext } from "@/context/authContext/AuthProvider";
 
 // dummy data start
 const title = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum
@@ -29,6 +31,7 @@ const description =
 
 const Page = ({ params }) => {
   const propertyId = params.propertyId;
+  const {currentUser} = useContext(authContext);
   console.log(propertyId);
   return (
     <div className="mx-2 lg:mx-40">
@@ -100,6 +103,8 @@ const Page = ({ params }) => {
           <FaCartPlus /> Buy/Rent
         </button>
       </div>
+
+      <Review userId={currentUser?.uid} propertyId={propertyId}/>
     </div>
   );
 };
