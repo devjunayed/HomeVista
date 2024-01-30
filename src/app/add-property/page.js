@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, Checkbox, message, Select, Steps } from "antd";
 import divisions from "@/lib/divisions";
 import districts from "@/lib/districts";
+import Dragger from "antd/es/upload/Dragger";
 
 const CreateProperty = () => {
   const [current, setCurrent] = useState(0);
@@ -11,8 +12,27 @@ const CreateProperty = () => {
   const [division, setDivision] = useState("Dhaka");
   const [district, setDistrict] = useState("");
   const [place, setPlace] = useState([]);
-  const [selectedPlaces, setSelectedPlaces] = useState("");
-  console.log(place);
+  const [area, setArea] = useState("");
+
+  const props = {
+    name: "file",
+    multiple: true,
+    action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+      if (status === "done") {
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+    onDrop(e) {
+      console.log("Dropped files", e.dataTransfer.files);
+    },
+  };
   const steps = [
     {
       title: "Property Title",
@@ -90,12 +110,12 @@ const CreateProperty = () => {
                   "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
                 }
               >
-                Property Street
+                Street
               </h4>
               <input
                 type="text"
-                name="property_street"
-                id="property_street"
+                name="stree_adress"
+                id="stree_adress"
                 className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
                 required
               />
@@ -116,7 +136,7 @@ const CreateProperty = () => {
                   options={divisions}
                   onChange={(value) => {
                     setDistrict("");
-                    setSelectedPlaces("");
+                    setArea("");
                     setDivision(value);
                   }}
                 />
@@ -135,6 +155,7 @@ const CreateProperty = () => {
                   options={districts[division]}
                   value={district}
                   onChange={async (value) => {
+                    setArea("");
                     setPlace([]);
                     setDistrict(value);
                     const where = encodeURIComponent(
@@ -177,40 +198,16 @@ const CreateProperty = () => {
                     "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
                   }
                 >
-                  Place
+                  Area
                 </h4>
 
                 <Select
                   style={{ width: 120 }}
                   options={place}
-                  value={selectedPlaces}
-                  onChange={(value) => setSelectedPlaces(value)}
+                  value={area}
+                  onChange={(value) => setArea(value)}
                 />
               </div>
-            </div>
-            <div className="pb-2 pt-4 flex items-center justify-between">
-              <Checkbox
-                checked={rentCheckbox}
-                onChange={(e) => {
-                  setsaleCheckbox(false);
-                  setrentCheckbox(e.target.checked);
-                }}
-              >
-                <span className={" text-[0.875rem] font-normal text-[#4F4F4F]"}>
-                  Rent
-                </span>
-              </Checkbox>
-              <Checkbox
-                checked={saleCheckbox}
-                onChange={(e) => {
-                  setrentCheckbox(false);
-                  setsaleCheckbox(e.target.checked);
-                }}
-              >
-                <p className={" text-[0.875rem] font-normal text-[#4F4F4F]"}>
-                  Sell
-                </p>
-              </Checkbox>
             </div>
           </div>
         </>
@@ -218,7 +215,42 @@ const CreateProperty = () => {
     },
     {
       title: "Publish",
-      content: "Last-content",
+      content: (
+        <>
+          <div>
+            <div className="pb-2 pt-4">
+              <h4
+                className={
+                  "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
+                }
+              >
+                Price
+              </h4>
+              <input
+                type="number"
+                name="title"
+                id="title"
+                className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
+                required
+              />
+            </div>
+            <div className="pb-2 pt-4">
+              <Dragger {...props}>
+                <p className="ant-upload-drag-icon">
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA+klEQVR4nO3WSwrCMBAG4NwuV/MInmRAewCxeATbrCwuXbir6YiKNWD6SDN5UOaHHwKl5WOS0grBIYrcHDBmxRJgrEgG5jBBdetIa2bRmYwNVMa1aMDrvcOHRmw1vtfZAVv9u/+1XhVQTp1Jqi1uF24xnLu+wYDK4yUhAZaNxuMlU2DZ6P4BNmRRa9xViYAmzoYsao3b06dDyGBAG85EFgZuDBkEOIb7dl/9A21IcuAcHDggyYFzcTATmRwIE8gsgDCCzAYIA0hyYMhIBnpG8gQ9I1c7QRmxyhVoA1P/VauBMlClmmDMgivQBvb5PoNDGQipJhizgiNo8gTt26xvrs1I2gAAAABJRU5ErkJggg==" />
+                </p>
+                <p className="ant-upload-text">
+                  Click or drag file to this area to upload
+                </p>
+                <p className="ant-upload-hint">
+                  Support for a single or bulk upload. Strictly prohibited from
+                  uploading company data or other banned files.
+                </p>
+              </Dragger>
+            </div>
+          </div>
+        </>
+      ),
     },
   ];
   const next = () => {
@@ -244,26 +276,6 @@ const CreateProperty = () => {
       <div className={"py-[10rem]"}>
         <div className={"p-[2rem] border w-[37rem] mx-auto"}>
           {steps[current].content}{" "}
-          {current < steps.length - 1 && (
-            <button
-              className={
-                "px-6 py-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
-              }
-              onClick={() => {
-                next();
-              }}
-            >
-              Next
-            </button>
-          )}{" "}
-          {current === steps.length - 1 && (
-            <Button
-              type="primary"
-              onClick={() => message.success("Processing complete!")}
-            >
-              Done
-            </Button>
-          )}{" "}
           {current > 0 && (
             <button
               className={
@@ -274,6 +286,30 @@ const CreateProperty = () => {
               Previous
             </button>
           )}
+          {current < steps.length - 1 && (
+            <button
+              className={
+                "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
+              }
+              onClick={() => {
+                next();
+              }}
+            >
+              Next
+            </button>
+          )}{" "}
+          {current === steps.length - 1 && (
+            <button
+              className={
+                "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
+              }
+              onClick={() => {
+                return message.success("Property Created Successfully");
+              }}
+            >
+              Publish
+            </button>
+          )}{" "}
         </div>
       </div>
       <div
