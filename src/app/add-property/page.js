@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Button, Checkbox, message, Select, Steps } from "antd";
+import { Button, Checkbox, message, Select, Steps, Upload } from "antd";
 import divisions from "@/lib/divisions";
 import districts from "@/lib/districts";
 import Dragger from "antd/es/upload/Dragger";
+import Image from "next/image";
+import axios from "axios";
 
 const CreateProperty = () => {
   const [current, setCurrent] = useState(0);
@@ -13,25 +15,60 @@ const CreateProperty = () => {
   const [district, setDistrict] = useState("");
   const [place, setPlace] = useState([]);
   const [area, setArea] = useState("");
+  const [fileList, setFileList] = useState([]);
+  const [image, setImage] = useState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [street, setStreet] = useState("Street");
+  const [price, setPrice] = useState(0);
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
 
-  const props = {
-    name: "file",
-    multiple: true,
-    action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
-    },
+  const customRequest = async ({ file, onSuccess, onError }) => {
+    const image = { image: file };
+
+    const response = await axios.post(
+      "https://api.imgbb.com/1/upload?key=0ebb240c8ce479a4159793d2a4acc3f4",
+      image,
+      {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      },
+    );
+
+    if (response.data.success) {
+      setImage((prevState) => [...prevState, response.data.data.url]);
+      message.success("Image uploaded successfully");
+      onSuccess();
+    } else {
+      message.error("Error uploading image");
+      onError();
+    }
+  };
+  console.log(image);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      rentCheckbox,
+      saleCheckbox,
+      division,
+      district,
+      area,
+      image,
+      title,
+      description,
+      street,
+      price,
+    };
+    await fetch("/api/property", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+      .then((res) => console.log(res))
+      .then(() => message.success("data create successful"));
   };
   const steps = [
     {
@@ -45,14 +82,16 @@ const CreateProperty = () => {
                   "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
                 }
               >
-                Property Title
+                Title
               </h4>
               <input
                 type="text"
                 name="title"
                 id="title"
+                defaultValue={title}
                 className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
                 required
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <div className="pb-2 pt-4">
@@ -69,6 +108,7 @@ const CreateProperty = () => {
                 id="description"
                 className="block focus:shadow-md transition border border-[#CACACA]   w-full outline-none p-4 text-lg rounded-[0.125rem]"
                 required
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
             <div className="pb-2 pt-4 flex items-center justify-between">
@@ -114,10 +154,12 @@ const CreateProperty = () => {
               </h4>
               <input
                 type="text"
-                name="stree_adress"
-                id="stree_adress"
+                id={"street"}
+                name={"street"}
+                defaultValue={street}
                 className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
                 required
+                onChange={(e) => setStreet(e.target.value)}
               />
             </div>
             <div className="pb-2 pt-4 flex items-center justify-between">
@@ -218,7 +260,7 @@ const CreateProperty = () => {
       content: (
         <>
           <div>
-            <div className="pb-2 pt-4">
+            <div className="pb-2 pt-4 mb-4">
               <h4
                 className={
                   "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
@@ -228,16 +270,32 @@ const CreateProperty = () => {
               </h4>
               <input
                 type="number"
-                name="title"
-                id="title"
+                name="price"
+                id="price"
+                defaultValue={price}
                 className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
                 required
+                onChange={(e) => {
+                  const number = parseInt(e.target.value);
+                  setPrice(number);
+                }}
               />
             </div>
-            <div className="pb-2 pt-4">
-              <Dragger {...props}>
+            <div>
+              <Dragger
+                customRequest={customRequest}
+                onChange={onChange}
+                listType="picture"
+                fileList={fileList}
+              >
                 <p className="ant-upload-drag-icon">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA+klEQVR4nO3WSwrCMBAG4NwuV/MInmRAewCxeATbrCwuXbir6YiKNWD6SDN5UOaHHwKl5WOS0grBIYrcHDBmxRJgrEgG5jBBdetIa2bRmYwNVMa1aMDrvcOHRmw1vtfZAVv9u/+1XhVQTp1Jqi1uF24xnLu+wYDK4yUhAZaNxuMlU2DZ6P4BNmRRa9xViYAmzoYsao3b06dDyGBAG85EFgZuDBkEOIb7dl/9A21IcuAcHDggyYFzcTATmRwIE8gsgDCCzAYIA0hyYMhIBnpG8gQ9I1c7QRmxyhVoA1P/VauBMlClmmDMgivQBvb5PoNDGQipJhizgiNo8gTt26xvrs1I2gAAAABJRU5ErkJggg==" />
+                  <Image
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA+klEQVR4nO3WSwrCMBAG4NwuV/MInmRAewCxeATbrCwuXbir6YiKNWD6SDN5UOaHHwKl5WOS0grBIYrcHDBmxRJgrEgG5jBBdetIa2bRmYwNVMa1aMDrvcOHRmw1vtfZAVv9u/+1XhVQTp1Jqi1uF24xnLu+wYDK4yUhAZaNxuMlU2DZ6P4BNmRRa9xViYAmzoYsao3b06dDyGBAG85EFgZuDBkEOIb7dl/9A21IcuAcHDggyYFzcTATmRwIE8gsgDCCzAYIA0hyYMhIBnpG8gQ9I1c7QRmxyhVoA1P/VauBMlClmmDMgivQBvb5PoNDGQipJhizgiNo8gTt26xvrs1I2gAAAABJRU5ErkJggg=="
+                    alt={"upload image"}
+                    width={50}
+                    height={50}
+                    className={"mx-auto"}
+                  />
                 </p>
                 <p className="ant-upload-text">
                   Click or drag file to this area to upload
@@ -303,9 +361,7 @@ const CreateProperty = () => {
               className={
                 "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
               }
-              onClick={() => {
-                return message.success("Property Created Successfully");
-              }}
+              onClick={handleSubmit}
             >
               Publish
             </button>
