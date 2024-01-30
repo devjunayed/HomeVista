@@ -5,10 +5,12 @@ import { Avatar, Button, Dropdown, message } from "antd";
 import auth from "../../../firebase.config";
 import { signOut } from "firebase/auth";
 import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
 
 const NavbarSignOut = () => {
   const { currentUser } = useContext(authContext);
-  console.log(currentUser);
+  const router = useRouter();
+
   const items = [
     {
       key: "1",
@@ -27,6 +29,7 @@ const NavbarSignOut = () => {
             <Button
               onClick={() =>
                 signOut(auth).then(() => {
+                  router.push("/");
                   return message.success("Sign Out Successfully");
                 })
               }

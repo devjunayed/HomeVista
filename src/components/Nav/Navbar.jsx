@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ActiveLink from "@/components/Nav/ActiveLink";
 import LoginCondition from "@/components/Nav/LoginCondition";
+import NavbarSignOut from "@/components/Nav/NavbarSignOut";
 
 const Navbar = () => {
   return (

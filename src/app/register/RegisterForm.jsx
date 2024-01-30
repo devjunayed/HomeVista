@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  const userData = useContext(authContext);
   const router = useRouter();
 
   const handleSubmit = (formData) => {
@@ -49,6 +48,18 @@ const RegisterForm = () => {
       action={handleSubmit}
       className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
     >
+      <div className="pb-2 pt-4">
+        <h4 className={"text-left text-[0.875rem] font-normal text-[#4F4F4F]"}>
+          Name
+        </h4>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
+          required
+        />
+      </div>
       <div className="pb-2 pt-4">
         <h4 className={"text-left text-[0.875rem] font-normal text-[#4F4F4F]"}>
           Email
