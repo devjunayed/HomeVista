@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "../../../../node_modules/react-responsive-carousel/lib/styles/carousel.css";
 import { AiOutlineLike } from "react-icons/ai";
+import { MdCancel } from "react-icons/md";
+import Modal from "react-modal";
 import { LiaComments } from "react-icons/lia";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa6";
@@ -10,7 +12,9 @@ import { Carousel } from "react-responsive-carousel";
 import { TbCurrencyTaka } from "react-icons/tb";
 import "./propertyStyle.css";
 import Review from "@/components/Review/Review";
+import { CiMenuKebab } from "react-icons/ci";
 import { authContext } from "@/context/authContext/AuthProvider";
+import { MdOutlineReportGmailerrorred } from "react-icons/md";
 
 // dummy data start
 const title = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum
@@ -30,13 +34,118 @@ const description =
 // take data as props
 
 const Page = ({ params }) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
   const propertyId = params.propertyId;
-  const {currentUser} = useContext(authContext);
-  console.log(propertyId);
+  const { currentUser } = useContext(authContext);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  const handleReport = () => {
+
+  }
+
   return (
     <div className="mx-2 lg:mx-40">
-      {/* title */}
-      <h2 className="text-xl font-bold mt-6 mb-2">{title}</h2>
+      <div className="flex gap-4  justify-center items-center">
+        {/* title */}
+        <h2 className="text-xl font-bold mt-6 mb-2">{title}</h2>
+
+        {/* Options */}
+        <div className="relative dropdown">
+          <div tabIndex={0} role="button" className="text-xl">
+            <CiMenuKebab />
+          </div>
+
+          <ul
+            tabIndex={0}
+            class="menu dropdown-content absolute menu-md top-0 right-5 bg-base-200 w-56 rounded-box"
+          >
+            <li>
+              <button onClick={openModal} className="">
+                <span className="text-xl">
+                  <MdOutlineReportGmailerrorred />{" "}
+                </span>
+                Report post
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Modal is here */}
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        className="border-2 w-2/3 pb-10 bg-white left-1/2 top-1/2 absolute -translate-y-1/2 -translate-x-1/2"
+      >
+        <div className="flex flex-col  items-end">
+          <button className="m-4 text-3xl text-red-600" onClick={closeModal}>
+            <MdCancel />
+          </button>
+        </div>
+        <div className="flex flex-col items-center justify-center">
+          <h2 className="text-xl font-semibold">Submit your report</h2>
+          <form action={handleReport} className="w-full px-10">
+            {/* Name Field Start */}
+            <div className="form-control">
+              <label className="label  ">
+                <span className="label-text  ">Name</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="name"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            {/* Name Field End */}
+            {/* Email Field Start */}
+            <div className="form-control">
+              <label className="label  ">
+                <span className="label-text  ">Email</span>
+              </label>
+              <input
+                type="text"
+                name="email"
+                placeholder="email"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            {/* Email Field End */}
+            {/* Report Field Start */}
+            <div className="form-control">
+              <label className="label  ">
+                <span className="label-text ">Report</span>
+              </label>
+              <textarea
+                type="text"
+                name="report"
+                placeholder="tell us what's wrong in the post"
+                className="input pt-4 h-32 input-bordered"
+                required
+              ></textarea>
+            </div>
+            {/* Report Field End */}
+          
+            <div className="form-control mt-6">
+              <input
+                type="submit"
+                value="Submit Report"
+                className="btn bg-secondary hover:bg-blue-800 border-none text-white"
+              />
+            </div>
+          </form>
+        </div>
+      </Modal>
 
       {/* Author, Date */}
       <div className="flex gap-2 text-center justify-between mb-4">
@@ -50,24 +159,15 @@ const Page = ({ params }) => {
       <div>
         <Carousel thumbWidth={100} showThumbs={true} autoPlay={true}>
           <div>
-            <img
-              alt={title}
-              src="/property.jpg"
-            />
+            <img alt={title} src="/property.jpg" />
             <p className="legend">Legend 1</p>
           </div>
           <div>
-            <img
-              alt={title}
-              src="/property.jpg"
-            />
+            <img alt={title} src="/property.jpg" />
             <p className="legend">Legend 1</p>
           </div>
           <div>
-            <img
-              alt={title}
-              src="/property.jpg"
-            />
+            <img alt={title} src="/property.jpg" />
             <p className="legend">Legend 1</p>
           </div>
         </Carousel>
@@ -77,7 +177,10 @@ const Page = ({ params }) => {
       <div className="flex justify-between mt-6">
         <h2 className="font-bold">Address: {address}</h2>
         <h2>
-          <span className="badge text-xl p-4 bg-secondary text-white" ><TbCurrencyTaka />{price}</span>
+          <span className="badge text-xl p-4 bg-secondary text-white">
+            <TbCurrencyTaka />
+            {price}
+          </span>
         </h2>
       </div>
 
@@ -104,7 +207,7 @@ const Page = ({ params }) => {
         </button>
       </div>
 
-      <Review userId={currentUser?.uid} propertyId={propertyId}/>
+      <Review userId={currentUser?.uid} propertyId={propertyId} />
     </div>
   );
 };

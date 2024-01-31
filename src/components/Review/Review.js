@@ -23,6 +23,7 @@ const Review =   ({ propertyId, userId }) => {
    
   }, [propertyId, initialRating]);
 
+
   useEffect(()=> {
     try{
       fetch(`http://localhost:3000/api/property-rating?propertyId=${propertyId}&userId=${userId}`)
@@ -37,7 +38,6 @@ const Review =   ({ propertyId, userId }) => {
   
 
 
-
   function openModal() {
     setIsOpen(true);
   }
@@ -47,6 +47,7 @@ const Review =   ({ propertyId, userId }) => {
   }
 
   const handleSubmit = async () => {
+
     const ratingData = {
       userId,
       propertyId,
@@ -72,14 +73,6 @@ const Review =   ({ propertyId, userId }) => {
       console.log(err);
     }
   };
-  const handleSubmit = () => {
-    const ratingData = {
-        userId,
-        propertyId,
-        rating: initialRating
-    };
-    console.log(ratingData);
-  }
 
   return (
     <div>
