@@ -37,6 +37,7 @@ const Review =   ({ propertyId, userId }) => {
   
 
 
+
   function openModal() {
     setIsOpen(true);
   }
@@ -71,16 +72,26 @@ const Review =   ({ propertyId, userId }) => {
       console.log(err);
     }
   };
+  const handleSubmit = () => {
+    const ratingData = {
+        userId,
+        propertyId,
+        rating: initialRating
+    };
+    console.log(ratingData);
+  }
 
   return (
     <div>
       <div className="flex mb-6 justify-center items-center flex-col gap-4">
+
         <StarRatings
           rating={averageRating}
           starRatedColor="orange"
           numberOfStars={5}
           name="rating"
         />
+
 
         {/* Rating button */}
         <button
@@ -117,6 +128,7 @@ const Review =   ({ propertyId, userId }) => {
             onClick={handleSubmit}
             className="mt-6 btn bg-secondary text-white hover:bg-blue-800"
           >
+
             Submit
           </button>
         </div>
@@ -126,5 +138,4 @@ const Review =   ({ propertyId, userId }) => {
 };
 
 export default Review;
-
 
