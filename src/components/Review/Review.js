@@ -23,6 +23,7 @@ const Review =   ({ propertyId, userId }) => {
    
   }, [propertyId, initialRating]);
 
+
   useEffect(()=> {
     try{
       fetch(`http://localhost:3000/api/property-rating?propertyId=${propertyId}&userId=${userId}`)
@@ -46,6 +47,7 @@ const Review =   ({ propertyId, userId }) => {
   }
 
   const handleSubmit = async () => {
+
     const ratingData = {
       userId,
       propertyId,
@@ -75,12 +77,14 @@ const Review =   ({ propertyId, userId }) => {
   return (
     <div>
       <div className="flex mb-6 justify-center items-center flex-col gap-4">
+
         <StarRatings
           rating={averageRating}
           starRatedColor="orange"
           numberOfStars={5}
           name="rating"
         />
+
 
         {/* Rating button */}
         <button
@@ -117,6 +121,7 @@ const Review =   ({ propertyId, userId }) => {
             onClick={handleSubmit}
             className="mt-6 btn bg-secondary text-white hover:bg-blue-800"
           >
+
             Submit
           </button>
         </div>
@@ -126,5 +131,4 @@ const Review =   ({ propertyId, userId }) => {
 };
 
 export default Review;
-
 
