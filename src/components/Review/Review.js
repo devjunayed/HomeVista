@@ -1,16 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdCancel } from "react-icons/md";
 import Modal from "react-modal";
 import StarRatings from "react-star-ratings";
+import SuccessAlert from "../SuccessAlert/SuccessAlert";
 
-const Review = ({propertyId, userId}) => {
-
+const Review =   ({ propertyId, userId }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [averageRating, setAverageRating] = useState(3);
-  const [initialRating, setInitialRating] = useState(5);
+  const [averageRating, setAverageRating] = useState();
+  const [initialRating, setInitialRating] = useState(0);
+
+  useEffect(() => {
+    
+    try{
+      fetch(`http://localhost:3000/api/property-rating/${propertyId}`)
+      .then(res => res.json())
+      .then(data => {
+        setAverageRating(data.data);
+      });
+    }catch(err){
+      console.log(err);
+    }
+   
+  }, [propertyId, initialRating]);
+
+  useEffect(()=> {
+    try{
+      fetch(`http://localhost:3000/api/property-rating?propertyId=${propertyId}&userId=${userId}`)
+      .then(res => res.json())
+      .then(data => {
+        setInitialRating(data.data);
+      });
+    }catch(err){
+      console.log(err);
+    }
+  },[propertyId, userId]);
+  
 
 
-  console.log(initialRating);
 
   function openModal() {
     setIsOpen(true);
@@ -20,6 +46,32 @@ const Review = ({propertyId, userId}) => {
     setIsOpen(false);
   }
 
+  const handleSubmit = async () => {
+    const ratingData = {
+      userId,
+      propertyId,
+      rating: initialRating,
+    };
+
+    console.log(ratingData);
+
+    try {
+      console.log(`${process.env.DOMAIN_URL}`);
+      
+       fetch(`http://localhost:3000/api/property-rating`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ratingData),
+      }).then(()=>{
+        SuccessAlert("Rating submited");
+        closeModal();
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleSubmit = () => {
     const ratingData = {
         userId,
@@ -32,12 +84,14 @@ const Review = ({propertyId, userId}) => {
   return (
     <div>
       <div className="flex mb-6 justify-center items-center flex-col gap-4">
-      <StarRatings
-            rating={averageRating}
-            starRatedColor="orange"
-            numberOfStars={5}
-            name="rating"
-          />
+
+        <StarRatings
+          rating={averageRating}
+          starRatedColor="orange"
+          numberOfStars={5}
+          name="rating"
+        />
+
 
         {/* Rating button */}
         <button
@@ -64,11 +118,17 @@ const Review = ({propertyId, userId}) => {
           <StarRatings
             rating={initialRating}
             starRatedColor="orange"
-            changeRating={(rating) => {setInitialRating(rating)}}
+            changeRating={(rating) => {
+              setInitialRating(rating);
+            }}
             numberOfStars={5}
             name="rating"
           />
-          <button onClick={handleSubmit} className="mt-6 btn bg-secondary text-white hover:bg-blue-800">
+          <button
+            onClick={handleSubmit}
+            className="mt-6 btn bg-secondary text-white hover:bg-blue-800"
+          >
+
             Submit
           </button>
         </div>
@@ -78,3 +138,4 @@ const Review = ({propertyId, userId}) => {
 };
 
 export default Review;
+
