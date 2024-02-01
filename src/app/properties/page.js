@@ -43,7 +43,7 @@ const page = async () => {
 export default page;
 
 const property = async () => {
-  const data = await fetch("https://home-vista.vercel.app/api/property", {
+  const data = await fetch(`${process.env.DOMAIN_URL}/api/property`, {
     next: { tags: ["property"], revalidate: 1 },
   });
   return data.json();
