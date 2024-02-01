@@ -1,3 +1,4 @@
+import SearchForm from "@/components/SearchForm/SearchForm";
 import Link from "next/link";
 import React from "react";
 
@@ -5,7 +6,8 @@ const page = async () => {
   const data = await property();
   console.log(data);
   return (
-    <div>
+    <div className="grid grid-cols-8 py-8 gap-10">
+      <SearchForm />
       <ul className="flex gap-3 flex-wrap p-5">
         {data?.message?.map((item) => (
           <li key={item._id}>

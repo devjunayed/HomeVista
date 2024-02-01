@@ -4,9 +4,31 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { title, description } = await req.json();
+    const { name,
+      email,
+      phone,
+      title,
+      photoUrl1,
+      photoUrl2,
+      photoUrl3,
+      division,
+      district,
+      address,
+      price,
+      description, } = await req.json();
     await mongodbConnect();
-    await Property.create({ title, description });
+    await Property.create(name,
+      email,
+      phone,
+      title,
+      photoUrl1,
+      photoUrl2,
+      photoUrl3,
+      division,
+      district,
+      address,
+      price,
+      description,);
     return NextResponse.json({ message: "OK" });
   } catch (error) {
     console.log(error.message);

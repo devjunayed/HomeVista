@@ -48,7 +48,7 @@ const Page = () => {
     try {
       await fetch("/api/property", {
         method: "POST",
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify(formData),
       })
         .then((response) => {
           console.log(response);
