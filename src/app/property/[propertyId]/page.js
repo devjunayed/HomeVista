@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../../../node_modules/react-responsive-carousel/lib/styles/carousel.css";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdCancel } from "react-icons/md";
@@ -15,6 +15,7 @@ import Review from "@/components/Review/Review";
 import { CiMenuKebab } from "react-icons/ci";
 import { authContext } from "@/context/authContext/AuthProvider";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
+import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
 
 // dummy data start
 const title = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum
@@ -37,6 +38,7 @@ const Page = ({ params }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const propertyId = params.propertyId;
   const { currentUser } = useContext(authContext);
+  const [report, setReport] = useState();
 
   function openModal() {
     setIsOpen(true);
@@ -46,9 +48,34 @@ const Page = ({ params }) => {
     setIsOpen(false);
   }
 
-  const handleReport = () => {
+  useEffect(()=>{
 
-  }
+  }, []);
+
+  const handleReport = async (form) => {
+    const report = form.get("report");
+    const name = form.get("name");
+    const email = form.get("email");
+
+    const formData = {
+      propertyId,
+      report,
+      reporterName: name,
+      reporterEmail: email,
+      reporterId: currentUser.uid,
+      authorName: author,
+    };
+
+    fetch("http://localhost:3000/api/property-report", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => SuccessAlert(data.message));
+  };
 
   return (
     <div className="mx-2 lg:mx-40">
@@ -101,6 +128,7 @@ const Page = ({ params }) => {
               <input
                 type="text"
                 name="name"
+                defaultValue={currentUser?.displayName}
                 placeholder="name"
                 className="input input-bordered"
                 required
@@ -115,6 +143,7 @@ const Page = ({ params }) => {
               <input
                 type="text"
                 name="email"
+                defaultValue={currentUser?.email}
                 placeholder="email"
                 className="input input-bordered"
                 required
@@ -135,7 +164,7 @@ const Page = ({ params }) => {
               ></textarea>
             </div>
             {/* Report Field End */}
-          
+
             <div className="form-control mt-6">
               <input
                 type="submit"
