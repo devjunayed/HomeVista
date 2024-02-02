@@ -38,7 +38,7 @@ const Page =  ({ params }) => {
   const { currentUser } = useContext(authContext);
 
   const propertyId = params.propertyId;
-  const url = `http://localhost:3000/api/property-rating/${propertyId}`;
+  const url = `https://brogrammer-home-vista.vercel.app/api/property-rating/${propertyId}`;
   const {data, error, mutate} = useSWR(url, getPropertyAverageRating);
 
   

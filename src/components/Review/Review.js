@@ -9,7 +9,7 @@ import useSWR from 'swr';
 
 const Review = ({ propertyId, rating, refetch , userId}) => {
 
-  const url = `http://localhost:3000/api/property-rating?propertyId=${propertyId}&userId=${userId}`;
+  const url = `https://brogrammer-home-vista.vercel.app/api/property-rating?propertyId=${propertyId}&userId=${userId}`;
   const {data, error, mutate} =  useSWR(url, getRatingByUser);
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -37,7 +37,7 @@ const Review = ({ propertyId, rating, refetch , userId}) => {
 
 
     try {
-      await fetch(`http://localhost:3000/api/property-rating`, {
+      await fetch(`https://brogrammer-home-vista.vercel.app/api/property-rating`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
