@@ -1,11 +1,11 @@
+"use server";
+
 import SearchForm from "@/components/SearchForm/SearchForm";
 import Link from "next/link";
 import React from "react";
 
 const page = async () => {
   const data = await property();
-  console.log('property data');
-  console.log(data);
   return (
     <div className="grid grid-cols-8 py-8 gap-10">
       {/* <SearchForm /> */}
@@ -44,7 +44,7 @@ const page = async () => {
 export default page;
 
 const property = async () => {
-  const data = await fetch(`https://brogrammer-home-vista.vercel.app/api/property`, {
+  const data = await fetch(`http://localhost:3000/api/property`, {
     next: { tags: ["property"], revalidate: 1 },
   });
   return data.json();
