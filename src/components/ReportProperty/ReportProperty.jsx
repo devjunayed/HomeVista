@@ -33,7 +33,7 @@ const ReportProperty = ({ propertyId, author }) => {
             authorName: author,
         };
 
-        fetch("http://localhost:3000/api/property-report", {
+        fetch("https://brogrammer-home-vista.vercel.app/api/property-report", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
