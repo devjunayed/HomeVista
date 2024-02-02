@@ -4,16 +4,17 @@ import React from "react";
 
 const page = async () => {
   const data = await property();
+  console.log('property data');
   console.log(data);
   return (
     <div className="grid grid-cols-8 py-8 gap-10">
-      <SearchForm />
+      {/* <SearchForm /> */}
       <ul className="flex gap-3 flex-wrap p-5">
         {data?.message?.map((item) => (
           <li key={item._id}>
             <div className="card w-96 bg-base-100 shadow-xl">
               <figure>
-                <img src={item.photoUrl} alt="property" />
+                {/* <img src={} alt="property" /> */}
               </figure>
               <div className="card-body flex">
                 <h2 className="card-title">
