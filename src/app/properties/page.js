@@ -1,12 +1,13 @@
 import SearchForm from "@/components/SearchForm/SearchForm";
 import Link from "next/link";
 import React from "react";
+import queryString from "query-string";
 
-const page = async () => {
-  const data = await property();
+const page = async ({ searchParams }) => {
+  const data = await property(searchParams);
   console.log(data);
   return (
-    <div className="grid grid-cols-8 py-8 gap-10">
+    <div>
       <SearchForm />
       <ul className="flex gap-3 flex-wrap p-5">
         {data?.message?.map((item) => (
@@ -42,8 +43,15 @@ const page = async () => {
 
 export default page;
 
-const property = async () => {
-  const data = await fetch(`${process.env.DOMAIN_URL}/api/property`, {
+const property = async (searchParams) => {
+  const urlParms = {
+    keyword: searchParams.keyword,
+  };
+
+  const searchQuery = queryString.stringify(urlParms);
+  console.log('search query', searchQuery);
+
+  const data = await fetch(`${process.env.DOMAIN_URL}/api/property?${searchQuery}`, {
     next: { tags: ["property"], revalidate: 1 },
   });
   return data.json();
