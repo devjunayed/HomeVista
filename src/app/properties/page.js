@@ -44,7 +44,7 @@ const page = async () => {
 export default page;
 
 const property = async () => {
-  const data = await fetch(`http://localhost:3000/api/property`, {
+  const data = await fetch(`https://home-vista-ggjhsau0h-devjunayeds-projects.vercel.app/api/property`, {
     next: { tags: ["property"], revalidate: 1 },
   });
   return data.json();
