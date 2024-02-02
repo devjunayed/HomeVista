@@ -1,42 +1,23 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React, { useContext, useEffect, useState } from "react";
 import { MdCancel } from "react-icons/md";
 import Modal from "react-modal";
 import StarRatings from "react-star-ratings";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
+import useSWR from 'swr';
 
-const Review =   ({ propertyId, userId }) => {
+const Review = ({ propertyId, rating, refetch , userId}) => {
+
+  const url = `https://brogrammer-home-vista.vercel.app/api/property-rating?propertyId=${propertyId}&userId=${userId}`;
+  const {data, error, mutate} =  useSWR(url, getRatingByUser);
+
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [averageRating, setAverageRating] = useState();
   const [initialRating, setInitialRating] = useState(0);
 
-  useEffect(() => {
-    
-    try{
-      fetch(`http://localhost:3000/api/property-rating/${propertyId}`)
-      .then(res => res.json())
-      .then(data => {
-        setAverageRating(data.data);
-      });
-    }catch(err){
-      console.log(err);
-    }
-   
-  }, [propertyId, initialRating]);
-
-
   useEffect(()=> {
-    try{
-      fetch(`http://localhost:3000/api/property-rating?propertyId=${propertyId}&userId=${userId}`)
-      .then(res => res.json())
-      .then(data => {
-        setInitialRating(data.data);
-      });
-    }catch(err){
-      console.log(err);
-    }
-  },[propertyId, userId]);
-  
-
+    setInitialRating(data);
+  }, [data]);
 
   function openModal() {
     setIsOpen(true);
@@ -54,12 +35,9 @@ const Review =   ({ propertyId, userId }) => {
       rating: initialRating,
     };
 
-    console.log(ratingData);
 
     try {
-      console.log(`${process.env.DOMAIN_URL}`);
-      
-       fetch(`http://localhost:3000/api/property-rating`, {
+      await fetch(`https://brogrammer-home-vista.vercel.app/api/property-rating`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -67,6 +45,7 @@ const Review =   ({ propertyId, userId }) => {
         body: JSON.stringify(ratingData),
       }).then(()=>{
         SuccessAlert("Rating submited");
+        refetch();
         closeModal();
       });
     } catch (err) {
@@ -79,7 +58,7 @@ const Review =   ({ propertyId, userId }) => {
       <div className="flex mb-6 justify-center items-center flex-col gap-4">
 
         <StarRatings
-          rating={averageRating}
+          rating={rating}
           starRatedColor="orange"
           numberOfStars={5}
           name="rating"
@@ -132,3 +111,10 @@ const Review =   ({ propertyId, userId }) => {
 
 export default Review;
 
+
+const getRatingByUser = async(url) => {
+  const res = await fetch(url);
+  const data = await res.json();
+  
+  return data.data;
+}
