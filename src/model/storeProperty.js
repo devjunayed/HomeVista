@@ -11,12 +11,9 @@ const StorePropertySchema = new Schema({
   description: String,
   street: String,
   price: Number,
-},
-  {
-    timestamps: true,
-  });
+});
 
-const property =
-  mongoose.models.property || mongoose.model("property", StorePropertySchema);
+const propertyModel =
+  mongoose.models.properties || mongoose.model("property", StorePropertySchema);
 
-export default property;
+export default propertyModel;
