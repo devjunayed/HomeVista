@@ -1,5 +1,5 @@
-import RegisterForm from "@/app/register/RegisterForm";
-import GoogleSignUp from "@/app/register/GoogleSignUp";
+import RegisterForm from "@/Garbage/register/RegisterForm";
+import GoogleSignUp from "@/Garbage/register/GoogleSignUp";
 import Image from "next/image";
 
 const Register = async () => {

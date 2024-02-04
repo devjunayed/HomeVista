@@ -1,11 +1,11 @@
 import React from 'react';
 
 const ListProperty = ({ data }) => {
-    console.log(data);
 
     return (
         <div>
-            DD
+            Length of data: {data.length}
+            title of data: {data[0].title}
         </div>
     );
 };
