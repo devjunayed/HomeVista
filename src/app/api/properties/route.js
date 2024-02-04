@@ -1,5 +1,6 @@
 import mongodbConnect from "@/database/mongodbConnect";
-import Property from "@/model/storeProperty";
+import property from "@/model/storeProperty";
+import Properties from "@/model/storeProperty";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -7,7 +8,7 @@ export async function POST(req) {
     const data = await req.json();
     console.log(data);
     await mongodbConnect();
-    await Properties.create(data);
+    await property.create(data);
     return NextResponse.json({ message: "OK" });
   } catch (error) {
     console.log(error.message);
@@ -18,8 +19,9 @@ export async function POST(req) {
 export async function GET() {
   try {
     await mongodbConnect();
-    const homeVistaDB = await Property.find();
-    return NextResponse.json({ message: "property Created"},{status:201});
+    const homeVistaDB = await property.find();
+    console.log(homeVistaDB);
+    return NextResponse.json({message: homeVistaDB});
   } catch (error) {
     return NextResponse.json({ error: error.message });
   }
@@ -28,7 +30,7 @@ export async function GET() {
 export async function DELETE(req) {
   const id = req.nextUrl.searchParams.get('id');
   await mongodbConnect();
-  await Property.findByIdAndDelete(id);
-  return NextResponse.json({ message: "property deleted" },{status:200});
+  await Properties.findByIdAndDelete(id);
+  return NextResponse.json({ message: "property deleted" }, { status: 200 });
 
 }

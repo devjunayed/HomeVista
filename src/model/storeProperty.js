@@ -16,7 +16,7 @@ const StorePropertySchema = new Schema({
     timestamps: true,
   });
 
-const Properties =
-  mongoose.models.Properties || mongoose.model("Properties", StorePropertySchema);
+const property =
+  mongoose.models.property || mongoose.model("property", StorePropertySchema);
 
-export default Properties;
+export default property;
