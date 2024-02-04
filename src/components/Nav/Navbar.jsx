@@ -2,21 +2,37 @@
 
 import { authContext } from '@/context/authContext/AuthProvider';
 import Link from 'next/link';
+import { Alert, Button, Space, message } from 'antd';
 import { MdOutlineHomeWork } from "react-icons/md";
 import { usePathname } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+    const router = useRouter();
     const pathName = usePathname();
     const [hideLogic, setHideLogic] = useState();
-    const { currentUser } = useContext(authContext);
+    const { logOut, currentUser } = useContext(authContext);
+    const [messageApi, contextHolder] = message.useMessage();
 
     console.log(currentUser);
 
     useEffect(() => {
-        const logic = currentUser != null ? true : false;
+        const logic = currentUser?.user ? true : false;
         setHideLogic(logic);
-    }, [])
+    }, []);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                messageApi.open({
+                    type: 'success',
+                    content: 'Logout successfully',
+                });
+                router.push("/login");
+            })
+            .catch(err => console.log(err));
+    }
 
     const navLinks = [
         {
@@ -45,6 +61,7 @@ const Navbar = () => {
 
     return (
         <div className="navbar shadow-md bg-base-100">
+            {contextHolder}
             <div className="navbar-start hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     {
@@ -72,21 +89,20 @@ const Navbar = () => {
                         {
                             navLinks.map((menuItem, index) => {
                                 return !menuItem.hide &&
-                                !menuItem.hide &&
-                                <li
-                                    key={index}
-                                    className={
-                                        `${menuItem.link === pathName ? "rounded bg-secondary text-white" : ""}`
-                                    }>
-                                    <Link href={menuItem.link}>
-                                        {menuItem.text}
-                                    </Link>
-                                </li>
+                                    <li
+                                        key={index}
+                                        className={
+                                            `${menuItem.link === pathName ? "rounded bg-secondary text-white" : ""}`
+                                        }>
+                                        <Link href={menuItem.link}>
+                                            {menuItem.text}
+                                        </Link>
+                                    </li>
                             })
                         }
                         <div className="flex justify-center mt-4 ">
                             {
-                                !hideLogic &&
+                                !currentUser &&
                                 <Link href="/login" className="btn hover:bg-blue-800 md:btn-md btn-sm bg-secondary text-white">Login/Register</Link>
 
                             }
@@ -103,14 +119,36 @@ const Navbar = () => {
                 </Link>
             </div>
 
-            <div className="navbar-end ">
-                <div className="flex justify-end md:flex hidden">
+            <div className="navbar-end">
+                <div className=" justify-end md:flex hidden">
                     {
-                        !hideLogic &&
+                        !currentUser &&
                         <Link href="/login" className="btn hover:bg-blue-800 md:btn-md btn-sm bg-secondary text-white">Login/Register</Link>
 
                     }
                 </div>
+                {
+                    currentUser &&
+
+                    <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img alt="Tailwind CSS Navbar component" src={currentUser?.photoURL} />
+                            </div>
+                        </div>
+                        <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                            <li>
+                                <a className="justify-between">
+                                    Profile
+                                    <span className="badge">New</span>
+                                </a>
+                            </li>
+                            <li><a>Settings</a></li>
+                            <button onClick={handleLogOut} className='btn mt-4
+                     text-white bg-secondary hover:bg-blue-800'>Logout</button>
+                        </ul>
+                    </div>
+                }
             </div>
         </div>
     )
