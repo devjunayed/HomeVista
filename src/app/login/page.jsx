@@ -1,104 +1,103 @@
 "use client";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import auth from "../../../firebase.config";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
-import { authContext } from "@/context/authContext/AuthProvider";
+import { authContext } from '@/context/authContext/AuthProvider';
+import { Alert, Button, Space, message } from 'antd';
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation';
+import React, { useContext, useState } from 'react'
+import { FcGoogle } from "react-icons/fc";
 
-const Login = () => {
-  const router = useRouter();
-  const handleLogin = (formData) => {
-    try {
-      const email = formData.get("email");
-      const password = formData.get("password");
-      return signInWithEmailAndPassword(auth, email, password).then(() =>
-        router.push("/"),
-      );
-    } catch (error) {
-      console.log(error);
+const page = () => {
+    const router = useRouter();
+    const [messageApi, contextHolder] = message.useMessage();
+    const { googleSignIn } = useContext(authContext);
+
+    const handleSubmit = () => {
+
     }
-  };
-  return (
-    <div>
-      <div
-        className="bg-gray-800 h-screen  "
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(loginBanner.jpg)",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="p-8 lg:w-1/2 xl:w-1/3 mx-auto xl:absolute xl:top-[50%] xl:-translate-y-[50%] xl:left-[50%] xl:-translate-x-[50%] ">
-          <div className="bg-gray-100 rounded-lg py-12 px-4 lg:px-24">
-            <div>
-              <h1 className={"text-center font-bold text-[#28D7C5] text-3xl"}>
-                Home Vista
-              </h1>
-              <p className={"text-center font-semibold text-xl mt-3 "}>Login</p>
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(res => {
+                if (res.user) {
+                    messageApi.open({
+                        type: 'success',
+                        content: 'Logged in successfully',
+                    });
+                }
+                router.push("/");
+            })
+            .catch(err => console.log(err));
+    }
+
+    return (
+        <div>
+            {contextHolder}
+
+            <div className='flex flex-row-reverse mx-10 md:mx-0'>
+                <div className='w-1/2 hidden md:flex relative'>
+                    <Image
+                        fill
+                        src={"/registerlogo.svg"}
+                        className={"w-full h-full object-cover absolute"}
+                        alt={"register-logo"}
+                        priority
+                    />
+                </div>
+                <div className='relative w-full md:w-1/2 my-20'>
+                    <button onClick={() => handleGoogleSignIn()} className='flex hover:bg-orange-500 hover:text-white  w-full sm:w-2/3 mx-auto justify-center items-center gap-2 border-2'>
+                        <div className=' text-3xl my-2'>
+                            <FcGoogle />
+                        </div>
+                        <p>Sign In With Google</p>
+                    </button>
+                    <p className='text-center mt-4'>OR</p>
+                    <form
+                        className="sm:w-2/3 bg-right bg-contain bg-no-repeat w-full  bg-[url('/illustration-1.svg')]  lg:px-0 mx-auto"
+                    >
+
+                        <div className="pb-2 pt-4">
+                            <h4 className={"text-left text-[0.875rem] font-normal text-[#4F4F4F]"}>
+                                Email
+                            </h4>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
+                                required
+                            />
+                        </div>
+                        <div className="pb-2 pt-4">
+                            <h4 className={"text-left text-[0.875rem] font-normal text-[#4F4F4F]"}>
+                                Password
+                            </h4>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
+                                required
+                            />
+                        </div>
+                        <div className="my-6">
+                            <input
+                                className=" bg-[#3A0CA3] block w-full  cursor-pointer btn  font-normal  text-white focus:outline-none text-center hover:bg-blue-800"
+                                type={"submit"}
+                                value={"Sign In"}
+                            />
+                        </div>
+                        <p className={"text-center mt-3 font-medium text-gray-600"}>
+                            Don't have an account? {" "}
+                            <Link href={"/register"} className={"text-[#3A0CA3]"}>
+                                Sign up
+                            </Link>
+                        </p>
+                    </form>
+                </div>
             </div>
-            <form className="mt-6" action={handleLogin}>
-              <div className="relative mt-3">
-                <input
-                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline focus:border-mediumBlue focus:border-2"
-                  id="email"
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                />
-                <div className="absolute left-0 inset-y-0 flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 ml-3 text-gray-400 p-1"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                </div>
-              </div>
-              <div className="relative mt-3">
-                <input
-                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline focus:border-mediumBlue focus:border-2"
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                />
-                <div className="absolute left-0 inset-y-0 flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 ml-3 text-gray-400 p-1"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-center mt-8">
-                <input
-                  value={"Login"}
-                  type="submit"
-                  className="text-white py-2 px-4 uppercase rounded bg-highBlue cursor-pointer hover:bg-[#28D7C5] shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
-                />
-              </div>
-              <p className={"text-center mt-3 font-medium text-gray-600"}>
-                Not an user?{" "}
-                <Link href={"/register"} className={"text-highBlue "}>
-                  Register
-                </Link>{" "}
-              </p>
-            </form>
-          </div>
         </div>
-      </div>
-    </div>
-  );
-};
+    )
+}
 
-export default Login;
+export default page
