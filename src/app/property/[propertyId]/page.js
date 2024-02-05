@@ -14,7 +14,6 @@ import React, { useContext } from "react";
 import ResponsiveSlider from "@/components/ResponsiveSlider/ResponsiveSlider";
 import useSWR from "swr";
 import { authContext } from "@/context/authContext/AuthProvider";
-import doFetch from "@/lib/doFetch";
 
 // dummy data start
 const title = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum
@@ -37,7 +36,7 @@ const Page = ({ params }) => {
   const { currentUser } = useContext(authContext);
 
   const propertyId = params.propertyId;
-  const url = `/property-rating/${propertyId}`;
+  const url = `/api/property-rating/${propertyId}`;
   const { data, error, mutate } = useSWR(url, GetPropertyAverageRating);
 
   return (
@@ -123,7 +122,7 @@ const Page = ({ params }) => {
 export default Page;
 
 const GetPropertyAverageRating = async (url) => {
-  const res = await doFetch(url);
+  const res = await fetch(url);
   const data = await res.json();
   return data.data;
 };
