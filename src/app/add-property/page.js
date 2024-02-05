@@ -8,7 +8,7 @@ import Image from "next/image";
 import axios from "axios";
 import doFetch from "@/lib/doFetch";
 
-const page = () => {
+const Page = () => {
   const [current, setCurrent] = useState(0);
   const [rentCheckbox, setrentCheckbox] = useState(false);
   const [saleCheckbox, setsaleCheckbox] = useState(false);
@@ -377,4 +377,4 @@ const page = () => {
     </>
   );
 };
-export default page;
+export default Page;
