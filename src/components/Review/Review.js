@@ -6,10 +6,11 @@ import Modal from "react-modal";
 import StarRatings from "react-star-ratings";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import useSWR from 'swr';
+import useFetch from "@/hooks/useFetch";
 
 const Review = ({ propertyId, rating, refetch , userId}) => {
 
-  const url = `https://brogrammer-home-vista.vercel.app/api/property-rating?propertyId=${propertyId}&userId=${userId}`;
+  const url = `/property-rating?propertyId=${propertyId}&userId=${userId}`;
   const {data, error, mutate} =  useSWR(url, getRatingByUser);
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -37,7 +38,7 @@ const Review = ({ propertyId, rating, refetch , userId}) => {
 
 
     try {
-      await fetch(`https://brogrammer-home-vista.vercel.app/api/property-rating`, {
+      await useFetch(`/property-rating`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -113,8 +114,9 @@ export default Review;
 
 
 const getRatingByUser = async(url) => {
-  const res = await fetch(url);
+  const res = await useFetch(url);
   const data = await res.json();
   
+  console.log(data);
   return data.data;
 }

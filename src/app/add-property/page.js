@@ -6,6 +6,7 @@ import districts from "@/lib/districts";
 import Dragger from "antd/es/upload/Dragger";
 import Image from "next/image";
 import axios from "axios";
+import useFetch from "@/hooks/useFetch";
 
 const CreateProperty = () => {
   const [current, setCurrent] = useState(0);
@@ -63,7 +64,7 @@ const CreateProperty = () => {
       street,
       price,
     };
-    await fetch("/api/property", {
+    await useFetch("/property", {
       method: "POST",
       body: JSON.stringify(data),
     })
