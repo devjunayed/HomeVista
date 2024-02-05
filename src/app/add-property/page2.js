@@ -52,7 +52,6 @@ const TestPage = () => {
         body: JSON.stringify({ title, description }),
       })
         .then((response) => {
-          console.log(response);
           SuccessAlert("Property added");
         })
         .catch(() => SuccessAlert("Something went wrong"));
