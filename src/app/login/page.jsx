@@ -88,7 +88,7 @@ const Page = () => {
                             />
                         </div>
                         <p className={"text-center mt-3 font-medium text-gray-600"}>
-                            Don't have an account? {" "}
+                            Don&lsquo;t have an account? {" "}
                             <Link href={"/register"} className={"text-[#3A0CA3]"}>
                                 Sign up
                             </Link>
