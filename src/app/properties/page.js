@@ -1,3 +1,4 @@
+"use client";
 import ListProperty from "@/components/properties/ListProperty";
 import doFetch from "@/lib/doFetch";
 import React from "react";
