@@ -7,7 +7,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { Alert, Button, Space, message } from 'antd'
 import { useRouter } from 'next/navigation';
 
-const page = () => {
+const Page = () => {
     const { googleSignIn } = useContext(authContext);
     const [messageApi, contextHolder] = message.useMessage();
     const router = useRouter();
@@ -114,4 +114,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

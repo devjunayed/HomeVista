@@ -12,11 +12,9 @@ import { CiMenuKebab } from "react-icons/ci";
 import ReportProperty from "@/components/ReportProperty/ReportProperty";
 import React, { useContext } from "react";
 import ResponsiveSlider from "@/components/ResponsiveSlider/ResponsiveSlider";
-import useSWR from 'swr';
+import useSWR from "swr";
 import { authContext } from "@/context/authContext/AuthProvider";
-import useFetch from "@/hooks/useFetch";
-
-
+import doFetch from "@/lib/doFetch";
 
 // dummy data start
 const title = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum
@@ -35,14 +33,12 @@ const description =
 // dummy data end
 // take data as props
 
-const Page =  ({ params }) => {
+const Page = ({ params }) => {
   const { currentUser } = useContext(authContext);
 
   const propertyId = params.propertyId;
   const url = `/property-rating/${propertyId}`;
-  const {data, error, mutate} = useSWR(url, getPropertyAverageRating);
-
-  
+  const { data, error, mutate } = useSWR(url, GetPropertyAverageRating);
 
   return (
     <div className="mx-2 lg:mx-40">
@@ -58,7 +54,7 @@ const Page =  ({ params }) => {
 
           <ul
             tabIndex={0}
-            class="menu dropdown-content absolute menu-md top-0 right-5  w-56 rounded-box bg-white"
+            className="menu dropdown-content absolute menu-md top-0 right-5  w-56 rounded-box bg-white"
           >
             <ReportProperty propertyId={propertyId} author={author} />
           </ul>
@@ -113,7 +109,12 @@ const Page =  ({ params }) => {
       </div>
 
       <div className="my-12">
-        <Review propertyId={propertyId} rating={data} userId={currentUser?.uid} refetch={mutate} />
+        <Review
+          propertyId={propertyId}
+          rating={data}
+          userId={currentUser?.uid}
+          refetch={mutate}
+        />
       </div>
     </div>
   );
@@ -121,9 +122,8 @@ const Page =  ({ params }) => {
 
 export default Page;
 
-
-const getPropertyAverageRating = async(url) => {
-  const res = await useFetch(url);
+const GetPropertyAverageRating = async (url) => {
+  const res = await doFetch(url);
   const data = await res.json();
   return data.data;
-}
+};

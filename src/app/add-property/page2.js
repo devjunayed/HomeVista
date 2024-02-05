@@ -1,7 +1,7 @@
 "use client";
 
 import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
-import useFetch from "@/hooks/useFetch";
+import doFetch from "@/hooks/doFetch";
 import districts from "@/lib/districts";
 import divisions from "@/lib/divisions";
 import { useState } from "react";
@@ -47,7 +47,7 @@ const TestPage = () => {
     };
 
     try {
-      await useFetch("/property", {
+      await doFetch("/property", {
         method: "POST",
         body: JSON.stringify({ title, description }),
       })
