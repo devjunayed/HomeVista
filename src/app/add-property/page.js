@@ -6,7 +6,7 @@ import districts from "@/lib/districts";
 import Dragger from "antd/es/upload/Dragger";
 import Image from "next/image";
 import axios from "axios";
-import doFetch from "@/hooks/doFetch";
+import doFetch from "@/lib/doFetch";
 
 const page = () => {
   const [current, setCurrent] = useState(0);

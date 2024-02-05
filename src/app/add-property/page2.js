@@ -1,9 +1,9 @@
 "use client";
 
 import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
-import doFetch from "@/hooks/doFetch";
 import districts from "@/lib/districts";
 import divisions from "@/lib/divisions";
+import doFetch from "@/lib/doFetch";
 import { useState } from "react";
 
 const TestPage = () => {
