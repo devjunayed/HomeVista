@@ -48,7 +48,6 @@ const Page = () => {
       onError();
     }
   };
-  console.log(image);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

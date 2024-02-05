@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   try {
     const data = await req.json();
-    console.log(data);
     await MongodbConnect();
     await propertyModel.create(data);
     return NextResponse.json({ message: "OK" });
@@ -19,9 +18,9 @@ export async function GET() {
   try {
     await MongodbConnect();
     const data = await propertyModel.find();
-    return NextResponse.json(data);
+    return NextResponse.json({data: data});
   } catch (error) {
-    return NextResponse.json({ error: error.message });
+    return NextResponse.json({data: [],  error: error.message });
   }
 }
 
