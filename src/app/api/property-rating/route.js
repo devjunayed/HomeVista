@@ -33,9 +33,6 @@ export async function GET(req, res) {
     const propertyId = req.nextUrl.searchParams.get("propertyId");
     const userId = req.nextUrl.searchParams.get("userId");
 
-    console.log(propertyId);
-    console.log(userId);
-
     await MongodbConnect();
 
     const query = { propertyId, userId };

@@ -13,7 +13,7 @@ const StorePropertySchema = new Schema({
   price: Number,
 });
 
-const Property =
+const propertyModel =
   mongoose.models.property || mongoose.model("property", StorePropertySchema);
 
-export default Property;
+export default propertyModel;

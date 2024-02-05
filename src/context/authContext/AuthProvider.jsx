@@ -1,16 +1,28 @@
 "use client";
-import { onAuthStateChanged } from "firebase/auth";
+import { GoogleAuthProvider, signOut, onAuthStateChanged, signInWithPopup } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../../../firebase.config";
+import doFetch from "@/lib/doFetch";
 export const authContext = createContext(null);
+
+
 export const AuthProvider = ({ children }) => {
+  const googleProvider = new GoogleAuthProvider();
   const [currentUser, setCurrentUser] = useState(null);
+
+  const googleSignIn = () => {
+    return signInWithPopup(auth, googleProvider);
+  }
+
+  const logOut = () =>{
+    return signOut(auth);
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setCurrentUser(currentUser);
-        await fetch("/api/jwt", {
+        await doFetch("/jwt", {
           method: "POST",
           body: JSON.stringify({
             email: currentUser.email,
@@ -20,7 +32,7 @@ export const AuthProvider = ({ children }) => {
           .then((data) => console.log(data));
       } else {
         setCurrentUser(null);
-        await fetch("/api/jwt", {
+        await doFetch("/jwt", {
           method: "DELETE",
         });
       }
@@ -30,6 +42,8 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
+    googleSignIn,
+    logOut,
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;

@@ -4,7 +4,7 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/component/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/component/**/*.{js,ts,jsx,tsx,mdx}", 
   ],
   theme: {
     extend: {
@@ -24,6 +24,17 @@ module.exports = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light"],
+    themes: [
+      {
+        myTheme: {
+          extend: {
+            ".menu-item.active": {
+              color: "#ffffff",
+            },
+          },
+        },
+      },
+      "light",
+    ],
   },
 };

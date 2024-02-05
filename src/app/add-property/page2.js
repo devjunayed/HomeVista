@@ -3,6 +3,7 @@
 import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
 import districts from "@/lib/districts";
 import divisions from "@/lib/divisions";
+import doFetch from "@/lib/doFetch";
 import { useState } from "react";
 
 const TestPage = () => {
@@ -46,12 +47,11 @@ const TestPage = () => {
     };
 
     try {
-      await fetch("/api/property", {
+      await doFetch("/property", {
         method: "POST",
         body: JSON.stringify({ title, description }),
       })
         .then((response) => {
-          console.log(response);
           SuccessAlert("Property added");
         })
         .catch(() => SuccessAlert("Something went wrong"));

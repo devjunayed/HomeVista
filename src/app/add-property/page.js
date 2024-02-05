@@ -6,8 +6,9 @@ import districts from "@/lib/districts";
 import Dragger from "antd/es/upload/Dragger";
 import Image from "next/image";
 import axios from "axios";
+import doFetch from "@/lib/doFetch";
 
-const CreateProperty = () => {
+const Page = () => {
   const [current, setCurrent] = useState(0);
   const [rentCheckbox, setrentCheckbox] = useState(false);
   const [saleCheckbox, setsaleCheckbox] = useState(false);
@@ -35,7 +36,7 @@ const CreateProperty = () => {
         headers: {
           "content-type": "multipart/form-data",
         },
-      },
+      }
     );
 
     if (response.data.success) {
@@ -47,7 +48,6 @@ const CreateProperty = () => {
       onError();
     }
   };
-  console.log(image);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +63,7 @@ const CreateProperty = () => {
       street,
       price,
     };
-    await fetch("/api/property", {
+    await doFetch("/property", {
       method: "POST",
       body: JSON.stringify(data),
     })
@@ -203,7 +203,7 @@ const CreateProperty = () => {
                     const where = encodeURIComponent(
                       JSON.stringify({
                         adminName2: value,
-                      }),
+                      })
                     );
                     const data = await fetch(
                       `https://parseapi.back4app.com/classes/BD?where=${where}`,
@@ -214,14 +214,14 @@ const CreateProperty = () => {
                           "X-Parse-Master-Key":
                             "t6EjVCUOwutr1ruorlXNsH3Rz65g0jiVtbILtAYU", // This is the fake app's readonly master key
                         },
-                      },
+                      }
                     );
                     const res = await data.json();
 
                     const updatedPlace = [];
                     res.results.map((item) => {
                       const exist = updatedPlace.find(
-                        (data) => data.value === item.adminName3,
+                        (data) => data.value === item.adminName3
                       );
                       if (!exist) {
                         updatedPlace.push({
@@ -376,4 +376,4 @@ const CreateProperty = () => {
     </>
   );
 };
-export default CreateProperty;
+export default Page;

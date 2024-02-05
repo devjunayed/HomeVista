@@ -1,48 +1,37 @@
-import Link from "next/link";
-import React from "react";
+import React from 'react'
 
-const page = async () => {
-  const data = await property();
-  console.log(data);
+const Page = () => {
   return (
     <div>
-      <ul className="flex gap-3 flex-wrap p-5">
-        {data?.message?.map((item) => (
-          <li key={item._id}>
-            <div className="card w-96 bg-base-100 shadow-xl">
-              <figure>
-                <img src={item.photoUrl} alt="property" />
-              </figure>
-              <div className="card-body flex">
-                <h2 className="card-title">
-                  {item.title}
-                  <div className="badge badge-secondary">NEW</div>
-                </h2>
-                <p>{item.description}</p>
-                <p>{item.division}</p>
-                <p>{item.district}</p>
-                <div className="card-actions justify-end">
-                  <Link
-                    href={`property/${item._id}`}
-                    className="btn btn-primary"
-                  >
-                    Details
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      page
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default Page
 
-const property = async () => {
-  const data = await fetch(`${process.env.DOMAIN_URL}/api/property`, {
-    next: { tags: ["property"], revalidate: 1 },
-  });
-  return data.json();
-};
+
+
+// import ListProperty from "@/components/ListProperty/ListProperty";
+// import doFetch from "@/lib/doFetch";
+// import React from "react";
+
+// const Page = async () => {
+//   const propertyData = await GetProperty();
+//   return <ListProperty data={propertyData} />;
+// };
+
+// export default Page;
+
+// const GetProperty = async () => {
+//   try {
+//     const res = await doFetch("/properties");
+//     const data = await res.json();
+//     console.log('null from where');
+//     console.log(data);
+//     return data;
+//   } catch (error) {
+//     console.error("Error fetching properties", error);
+//     throw error; // Propagate the error
+//   }
+// };

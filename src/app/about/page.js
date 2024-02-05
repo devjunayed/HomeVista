@@ -17,9 +17,6 @@ const AboutUs = () => {
               Welcome to Home Vista – Your Gateway to Seamless Property
               Transactions!
             </p>
-            <button className="btn bg-[#FF1493] hover:bg-[#FF1484] border-none text-white">
-              Get Started
-            </button>
           </div>
         </div>
       </div>
