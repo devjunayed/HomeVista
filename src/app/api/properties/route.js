@@ -18,7 +18,11 @@ export async function GET() {
   try {
     await MongodbConnect();
     const data = await propertyModel.find();
-    return NextResponse.json({data: data});
+    console.log(data);
+    if(data){
+      return NextResponse.json({data: data});
+    }
+    return NextResponse.json({message: "error"});
   } catch (error) {
     return NextResponse.json({data: [],  error: error.message });
   }

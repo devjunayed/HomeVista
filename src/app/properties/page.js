@@ -1,5 +1,4 @@
-"use client";
-import ListProperty from "@/components/properties/ListProperty";
+import ListProperty from "@/components/ListProperty/ListProperty";
 import doFetch from "@/lib/doFetch";
 import React from "react";
 
@@ -14,6 +13,8 @@ const GetProperty = async () => {
   try {
     const res = await doFetch("/properties");
     const data = await res.json();
+    console.log('null from where');
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching properties", error);
