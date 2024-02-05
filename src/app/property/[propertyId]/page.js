@@ -14,6 +14,7 @@ import React, { useContext } from "react";
 import ResponsiveSlider from "@/components/ResponsiveSlider/ResponsiveSlider";
 import useSWR from 'swr';
 import { authContext } from "@/context/authContext/AuthProvider";
+import useFetch from "@/hooks/useFetch";
 
 
 
@@ -38,7 +39,7 @@ const Page =  ({ params }) => {
   const { currentUser } = useContext(authContext);
 
   const propertyId = params.propertyId;
-  const url = `https://brogrammer-home-vista.vercel.app/api/property-rating/${propertyId}`;
+  const url = `/property-rating/${propertyId}`;
   const {data, error, mutate} = useSWR(url, getPropertyAverageRating);
 
   
@@ -57,7 +58,7 @@ const Page =  ({ params }) => {
 
           <ul
             tabIndex={0}
-            class="menu dropdown-content absolute menu-md top-0 right-5 bg-base-200 w-56 rounded-box"
+            class="menu dropdown-content absolute menu-md top-0 right-5  w-56 rounded-box bg-white"
           >
             <ReportProperty propertyId={propertyId} author={author} />
           </ul>
@@ -122,7 +123,7 @@ export default Page;
 
 
 const getPropertyAverageRating = async(url) => {
-  const res = await fetch(url);
+  const res = await useFetch(url);
   const data = await res.json();
   return data.data;
 }

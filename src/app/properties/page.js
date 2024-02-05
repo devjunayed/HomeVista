@@ -1,19 +1,20 @@
 import ListProperty from '@/components/properties/ListProperty';
-import axios from 'axios';
+import useFetch from '@/hooks/useFetch';
 import React from 'react'
 
-const Page = async () => {
+const page = async () => {
   const propertyData = await getProperty();
   return (
     <ListProperty data={propertyData} />
   );
 }
 
-export default Page;
+export default page;
+
 
 const getProperty = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/properties`);
+    const res = await useFetch('/properties');
     const data = await res.json();
     return data;
   } catch (error) {

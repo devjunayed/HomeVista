@@ -6,6 +6,7 @@ import Modal from "react-modal";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
 import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
 import { authContext } from '@/context/authContext/AuthProvider';
+import useFetch from '@/hooks/useFetch';
 
 const ReportProperty = ({ propertyId, author }) => {
     const { currentUser } = useContext(authContext);
@@ -33,7 +34,7 @@ const ReportProperty = ({ propertyId, author }) => {
             authorName: author,
         };
 
-        fetch("https://brogrammer-home-vista.vercel.app/api/property-report", {
+        useFetch("/property-report", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -44,7 +45,7 @@ const ReportProperty = ({ propertyId, author }) => {
             .then((data) => SuccessAlert(data.message));
     };
     return (
-        <li>
+        <li className='hover:bg-gray-200'>
 
             <button onClick={openModal} className="">
                 <span className="text-xl">
