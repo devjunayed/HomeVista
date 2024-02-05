@@ -1,20 +1,17 @@
-import ListProperty from '@/components/properties/ListProperty';
-import useFetch from '@/hooks/useFetch';
-import React from 'react'
+import ListProperty from "@/components/properties/ListProperty";
+import doFetch from "@/lib/doFetch";
+import React from "react";
 
-const page = async () => {
-  const propertyData = await getProperty();
-  return (
-    <ListProperty data={propertyData} />
-  );
-}
+const Page = async () => {
+  const propertyData = await GetProperty();
+  return <ListProperty data={propertyData} />;
+};
 
-export default page;
+export default Page;
 
-
-const getProperty = async () => {
+const GetProperty = async () => {
   try {
-    const res = await useFetch('/properties');
+    const res = await doFetch("/properties");
     const data = await res.json();
     return data;
   } catch (error) {

@@ -5,18 +5,17 @@ import { MdCancel } from "react-icons/md";
 import Modal from "react-modal";
 import StarRatings from "react-star-ratings";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
-import useSWR from 'swr';
-import useFetch from "@/hooks/useFetch";
+import useSWR from "swr";
+import doFetch from "@/lib/doFetch";
 
-const Review = ({ propertyId, rating, refetch , userId}) => {
-
+const Review = ({ propertyId, rating, refetch, userId }) => {
   const url = `/property-rating?propertyId=${propertyId}&userId=${userId}`;
-  const {data, error, mutate} =  useSWR(url, getRatingByUser);
+  const { data, error, mutate } = useSWR(url, getRatingByUser);
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [initialRating, setInitialRating] = useState(0);
 
-  useEffect(()=> {
+  useEffect(() => {
     setInitialRating(data);
   }, [data]);
 
@@ -29,22 +28,20 @@ const Review = ({ propertyId, rating, refetch , userId}) => {
   }
 
   const handleSubmit = async () => {
-
     const ratingData = {
       userId,
       propertyId,
       rating: initialRating,
     };
 
-
     try {
-      await useFetch(`/property-rating`, {
+      await doFetch(`/property-rating`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(ratingData),
-      }).then(()=>{
+      }).then(() => {
         SuccessAlert("Rating submited");
         refetch();
         closeModal();
@@ -57,14 +54,12 @@ const Review = ({ propertyId, rating, refetch , userId}) => {
   return (
     <div>
       <div className="flex mb-6 justify-center items-center flex-col gap-4">
-
         <StarRatings
           rating={rating}
           starRatedColor="orange"
           numberOfStars={5}
           name="rating"
         />
-
 
         {/* Rating button */}
         <button
@@ -101,7 +96,6 @@ const Review = ({ propertyId, rating, refetch , userId}) => {
             onClick={handleSubmit}
             className="mt-6 btn bg-secondary text-white hover:bg-blue-800"
           >
-
             Submit
           </button>
         </div>
@@ -112,11 +106,10 @@ const Review = ({ propertyId, rating, refetch , userId}) => {
 
 export default Review;
 
-
-const getRatingByUser = async(url) => {
-  const res = await useFetch(url);
+const getRatingByUser = async (url) => {
+  const res = await doFetch(url);
   const data = await res.json();
-  
+
   console.log(data);
   return data.data;
-}
+};
