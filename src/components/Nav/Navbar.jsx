@@ -15,7 +15,6 @@ const Navbar = () => {
     const { logOut, currentUser } = useContext(authContext);
     const [messageApi, contextHolder] = message.useMessage();
 
-    console.log(currentUser);
 
     useEffect(() => {
         const logic = currentUser?.user ? true : false;

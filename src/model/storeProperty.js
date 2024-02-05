@@ -14,6 +14,6 @@ const StorePropertySchema = new Schema({
 });
 
 const propertyModel =
-  mongoose.models.properties || mongoose.model("property", StorePropertySchema);
+  mongoose.models.property || mongoose.model("property", StorePropertySchema);
 
 export default propertyModel;
