@@ -11,6 +11,7 @@ const StorePropertySchema = new Schema({
   description: String,
   street: String,
   price: Number,
+  email: String,
 });
 
 const propertyModel =
