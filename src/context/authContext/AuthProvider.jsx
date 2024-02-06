@@ -7,7 +7,6 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../../../firebase.config";
-import doFetch from "@/lib/doFetch";
 export const authContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
@@ -26,7 +25,7 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setCurrentUser(currentUser);
-        await doFetch("jwt", {
+        await fetch("/api/jwt", {
           method: "POST",
           body: JSON.stringify({
             email: currentUser.email,
@@ -36,7 +35,7 @@ export const AuthProvider = ({ children }) => {
           .then((data) => console.log(data));
       } else {
         setCurrentUser(null);
-        await doFetch("/jwt", {
+        await fetch("/api/jwt", {
           method: "DELETE",
         });
       }

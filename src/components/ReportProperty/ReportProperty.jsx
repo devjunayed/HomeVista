@@ -6,7 +6,6 @@ import Modal from "react-modal";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
 import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
 import { authContext } from '@/context/authContext/AuthProvider';
-import doFetch from '@/lib/doFetch';
 
 const ReportProperty = ({ propertyId, author }) => {
     const { currentUser } = useContext(authContext);
@@ -34,7 +33,7 @@ const ReportProperty = ({ propertyId, author }) => {
             authorName: author,
         };
 
-        doFetch("/property-report", {
+        fetch("/api/property-report", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

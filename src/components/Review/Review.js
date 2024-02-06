@@ -6,10 +6,10 @@ import Modal from "react-modal";
 import StarRatings from "react-star-ratings";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import useSWR from "swr";
-import doFetch from "@/lib/doFetch";
 
 const Review = ({ propertyId, rating, refetch, userId }) => {
-  const url = `/property-rating?propertyId=${propertyId}&userId=${userId}`;
+  const url = `/api/property-rating?propertyId=${propertyId}&userId=${userId}`;
+
   const { data, error, mutate } = useSWR(url, getRatingByUser);
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -35,7 +35,7 @@ const Review = ({ propertyId, rating, refetch, userId }) => {
     };
 
     try {
-      await doFetch(`/property-rating`, {
+      await fetch(`/api/property-rating`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +107,7 @@ const Review = ({ propertyId, rating, refetch, userId }) => {
 export default Review;
 
 const getRatingByUser = async (url) => {
-  const res = await doFetch(url);
+  const res = await fetch(url);
   const data = await res.json();
 
   console.log(data);

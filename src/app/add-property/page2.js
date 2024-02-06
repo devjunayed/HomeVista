@@ -3,7 +3,6 @@
 import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
 import districts from "@/lib/districts";
 import divisions from "@/lib/divisions";
-import doFetch from "@/lib/doFetch";
 import { useState } from "react";
 
 const TestPage = () => {
@@ -47,7 +46,7 @@ const TestPage = () => {
     };
 
     try {
-      await doFetch("/property", {
+      await fetch("/api/property", {
         method: "POST",
         body: JSON.stringify({ title, description }),
       })
