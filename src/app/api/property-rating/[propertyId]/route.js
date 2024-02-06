@@ -15,12 +15,12 @@ export async function GET(req, { params }) {
 
       const sumOfRating = allRating.reduce(
         (rating, currRating) => rating + currRating.rating,
-        0
+        0,
       );
 
       const averageRating = Math.round(sumOfRating / noOfRating);
 
-      return NextResponse.json({data: averageRating});
+      return NextResponse.json({ data: averageRating });
     }
 
     return NextResponse.json({ message: "No property rating" });
