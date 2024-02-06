@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
-import { Checkbox, message, Select, Steps } from "antd";
+import React, { useContext, useState } from "react";
+import { Checkbox, message, Select, Spin, Steps } from "antd";
 import divisions from "@/lib/add-property-divisions";
 import Dragger from "antd/es/upload/Dragger";
 import Image from "next/image";
 import axios from "axios";
 import districtsData from "@/lib/add-property-districts";
+import { authContext } from "@/context/authContext/AuthProvider";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [current, setCurrent] = useState(0);
@@ -21,6 +23,10 @@ const Page = () => {
   const [description, setDescription] = useState("");
   const [street, setStreet] = useState("Street");
   const [price, setPrice] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const { currentUser } = useContext(authContext);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const router = useRouter();
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -35,7 +41,7 @@ const Page = () => {
         headers: {
           "content-type": "multipart/form-data",
         },
-      }
+      },
     );
 
     if (response.data.success) {
@@ -50,6 +56,7 @@ const Page = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitLoading(true);
     const data = {
       rentCheckbox,
       saleCheckbox,
@@ -61,13 +68,18 @@ const Page = () => {
       description,
       street,
       price,
+      email: currentUser.email,
     };
-    await fetch("/api/property", {
+    await fetch("/api/properties", {
       method: "POST",
       body: JSON.stringify(data),
     })
       .then((res) => console.log(res))
-      .then(() => message.success("data create successful"));
+      .then(() => {
+        setSubmitLoading(false);
+        message.success("Successfully submitted");
+        router.push("/");
+      });
   };
   const steps = [
     {
@@ -196,31 +208,34 @@ const Page = () => {
                   options={districtsData[division]}
                   value={district}
                   onChange={async (value) => {
+                    setLoading(true);
                     setArea("");
                     setPlace([]);
                     setDistrict(value);
                     const where = encodeURIComponent(
                       JSON.stringify({
                         adminName2: value,
-                      })
+                      }),
                     );
                     const data = await fetch(
                       `https://parseapi.back4app.com/classes/BD?where=${where}`,
                       {
                         headers: {
                           "X-Parse-Application-Id":
-                            "zS2XAEVEZAkD081UmEECFq22mAjIvX2IlTYaQfai", // This is the fake app's application id
+                            "zS2XAEVEZAkD081UmEECFq22mAjIvX2IlTYaQfai",
                           "X-Parse-Master-Key":
-                            "t6EjVCUOwutr1ruorlXNsH3Rz65g0jiVtbILtAYU", // This is the fake app's readonly master key
+                            "t6EjVCUOwutr1ruorlXNsH3Rz65g0jiVtbILtAYU",
                         },
-                      }
-                    );
-                    const res = await data.json();
+                      },
+                    ).then((res) => {
+                      setLoading(false);
+                      return res.json();
+                    });
 
                     const updatedPlace = [];
-                    res.results.map((item) => {
+                    data.results.map((item) => {
                       const exist = updatedPlace.find(
-                        (data) => data.value === item.adminName3
+                        (data) => data.value === item.adminName3,
                       );
                       if (!exist) {
                         updatedPlace.push({
@@ -242,12 +257,15 @@ const Page = () => {
                   Area
                 </h4>
 
-                <Select
-                  style={{ width: 120 }}
-                  options={place}
-                  value={area}
-                  onChange={(value) => setArea(value)}
-                />
+                <div>
+                  <Select
+                    style={{ width: 120 }}
+                    loading={loading}
+                    options={place}
+                    value={area}
+                    onChange={(value) => setArea(value)}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -323,6 +341,7 @@ const Page = () => {
 
   return (
     <>
+      <Spin spinning={submitLoading} fullscreen />
       <Steps
         type="navigation"
         current={current}
