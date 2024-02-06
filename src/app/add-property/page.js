@@ -1,12 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Button, Checkbox, message, Select, Steps, Upload } from "antd";
-import divisions from "@/lib/divisions";
-import districts from "@/lib/districts";
+import { Checkbox, message, Select, Steps } from "antd";
+import divisions from "@/lib/add-property-divisions";
 import Dragger from "antd/es/upload/Dragger";
 import Image from "next/image";
 import axios from "axios";
-import doFetch from "@/lib/doFetch";
+import districtsData from "@/lib/add-property-districts";
 
 const Page = () => {
   const [current, setCurrent] = useState(0);
@@ -36,7 +35,7 @@ const Page = () => {
         headers: {
           "content-type": "multipart/form-data",
         },
-      }
+      },
     );
 
     if (response.data.success) {
@@ -194,7 +193,7 @@ const Page = () => {
 
                 <Select
                   style={{ width: 120 }}
-                  options={districts[division]}
+                  options={districtsData[division]}
                   value={district}
                   onChange={async (value) => {
                     setArea("");
@@ -203,7 +202,7 @@ const Page = () => {
                     const where = encodeURIComponent(
                       JSON.stringify({
                         adminName2: value,
-                      })
+                      }),
                     );
                     const data = await fetch(
                       `https://parseapi.back4app.com/classes/BD?where=${where}`,
@@ -214,14 +213,14 @@ const Page = () => {
                           "X-Parse-Master-Key":
                             "t6EjVCUOwutr1ruorlXNsH3Rz65g0jiVtbILtAYU", // This is the fake app's readonly master key
                         },
-                      }
+                      },
                     );
                     const res = await data.json();
 
                     const updatedPlace = [];
                     res.results.map((item) => {
                       const exist = updatedPlace.find(
-                        (data) => data.value === item.adminName3
+                        (data) => data.value === item.adminName3,
                       );
                       if (!exist) {
                         updatedPlace.push({
