@@ -14,6 +14,7 @@ import React, { useContext } from "react";
 import ResponsiveSlider from "@/components/ResponsiveSlider/ResponsiveSlider";
 import useSWR from "swr";
 import { authContext } from "@/context/authContext/AuthProvider";
+import AddToFav from "@/components/AddToFav/AddToFav";
 
 // dummy data start
 const title = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum
@@ -99,9 +100,10 @@ const Page = ({ params }) => {
           <LiaComments />
           Comments
         </button>
-        <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
-          <FaRegHeart /> Favourite
-        </button>
+
+        {/* Add to Favourite */}
+        <AddToFav userId={currentUser?.uid} propertyId={propertyId} />
+
         <button className="btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
           <FaCartPlus /> Buy/Rent
         </button>
