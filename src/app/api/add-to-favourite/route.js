@@ -42,7 +42,7 @@ export async function GET(req) {
 }
 
 // PUT API for adding property to favorite
-export async function PUT(req) {
+export async function PATCH(req) {
   try {
     // Getting search params from url
     const propertyId = req.nextUrl.searchParams.get("propertyId");
@@ -69,7 +69,8 @@ export async function PUT(req) {
         return NextResponse.error(500, "Failed to add to favorite");
       }
     } else {
-      const res = await favModel.findOneAndDelete(query);
+      const res = await favModel.deleteOne(query);
+
       if (res) {
         return NextResponse.json({
           status: "ok",

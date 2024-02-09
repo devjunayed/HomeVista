@@ -47,7 +47,7 @@ const Page = ({ params }) => {
   const handleFav = () => {
     if (favData && favData.isFound !== undefined) {
         fetch(favUrl, {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             }
