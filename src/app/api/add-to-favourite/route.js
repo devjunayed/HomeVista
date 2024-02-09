@@ -79,29 +79,3 @@ export async function PUT(req) {
     return NextResponse.json({ message: err });
   }
 }
-
-// // DELETE API for un favourite a property
-// export async function DELETE(req) {
-
-//   // getting ID's from search params in url
-//   const propertyId = req.nextUrl.searchParams.get("propertyId");
-//   const userId = req.nextUrl.searchParams.get("userId");
-
-//   // Connecting to the database
-//   MongodbConnect();
-
-//   // deleting data from database
-//   const res = await favModel.findOneAndDelete({ propertyId, userId });
-
-//   // if delted than send response
-//   if (res) {
-//     return NextResponse.json({
-//       status: "ok",
-//       deleted: true,
-//       message: "Removed form favourite",
-//     });
-//   }
-
-//   // if not data deleted than send response
-//   return NextResponse.json({ message: "property not found" });
-// }

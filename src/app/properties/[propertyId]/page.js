@@ -3,7 +3,6 @@
 
 import { AiOutlineLike } from "react-icons/ai";
 import { LiaComments } from "react-icons/lia";
-import { FaRegHeart } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa6";
 import { TbCurrencyTaka } from "react-icons/tb";
 import "./propertyStyle.css";
