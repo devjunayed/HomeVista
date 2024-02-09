@@ -1,4 +1,4 @@
-export async function GET(){
+export async function GET(req){
     try{
         const userId = req.nextUrl.searchParams.get("userId");
         
