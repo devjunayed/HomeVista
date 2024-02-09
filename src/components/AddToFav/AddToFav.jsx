@@ -10,16 +10,21 @@ const AddToFav = ({ userId, propertyId, setFavourite }) => {
 
     const url = `/api/add-to-favourite?userId=${userId}&propertyId=${propertyId}`;
 
-    const { data: favData, error } = useSWR(url, getFav);
+    const { data, mutate } = useSWR(url, getFav);
 
-    useEffect(() => {
+
+    useEffect(()=>{
+        const favData = data;
         if (favData) {
-            setFavourite(() => favData?.favCount);
+            setFavourite(favData?.favCount);
         }
-    }, [favData]);
+    },[data]);
+
+   
+
 
     const handleFav = () => {
-        if (favData && favData.isFound !== undefined) {
+        if (data && data.isFound !== undefined) {
             fetch(url, {
                 method: "PUT",
                 headers: {
@@ -27,13 +32,13 @@ const AddToFav = ({ userId, propertyId, setFavourite }) => {
                 }
             })
                 .then(res => res.json())
-                .then(data => {
-                    if (data?.status === "ok") {
+                .then(resData => {
+                    if (resData?.status === "ok") {
                         messageApi.open({
                             type: "success",
-                            content: data.message,
+                            content: resData.message,
                         });
-                        mutate(url);
+                        mutate();
                     }
 
                 });
@@ -45,7 +50,7 @@ const AddToFav = ({ userId, propertyId, setFavourite }) => {
             <button onClick={handleFav} className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
                 {contextHolder}
                 {
-                    favData?.isFound ? <><LuHeartOff /> Unfavourite </> :
+                    data?.isFound ? <><LuHeartOff /> Unfavourite </> :
                         <><LuHeart /> Favourite</>
                 }
             </button>
@@ -55,9 +60,7 @@ const AddToFav = ({ userId, propertyId, setFavourite }) => {
 
 
 const getFav = async (url) => {
-    const res = await fetch(url, {
-        method: "GET"
-    });
+    const res = await fetch(url);
 
     const result = await res.json();
 

@@ -7,19 +7,22 @@ import { MdOutlineHomeWork } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { LuHeart } from "react-icons/lu";
 
 const Navbar = () => {
   const router = useRouter();
   const pathName = usePathname();
-  const [hideLogic, setHideLogic] = useState(false);
+  const [hideLogic, setHideLogic] = useState(true);
   const { logOut, currentUser } = useContext(authContext);
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    const logic = currentUser?.user ? true : false;
-    setHideLogic(logic);
-  }, [currentUser?.user]);
+    const logic = currentUser ? false : true;
+    setHideLogic(() => logic);
+  }, [currentUser, logOut]);
 
+
+  console.log(currentUser);
   const handleLogOut = () => {
     logOut()
       .then(() => {
@@ -32,6 +35,7 @@ const Navbar = () => {
       .catch((err) => console.log(err));
   };
 
+
   const navLinks = [
     {
       link: "/",
@@ -42,6 +46,11 @@ const Navbar = () => {
       link: "/properties",
       text: "Properties",
       hide: false,
+    },
+    {
+      link: "/add-property",
+      text: "Add Property",
+      hide: hideLogic
     },
     {
       link: "/about",
@@ -65,11 +74,10 @@ const Navbar = () => {
               !menuItem.hide && (
                 <li
                   key={index}
-                  className={`${
-                    menuItem.link === pathName
-                      ? "rounded bg-secondary text-white"
-                      : ""
-                  }`}
+                  className={`${menuItem.link === pathName
+                    ? "rounded bg-secondary text-white"
+                    : ""
+                    }`}
                 >
                   <Link href={menuItem.link}>{menuItem.text}</Link>
                 </li>
@@ -105,11 +113,10 @@ const Navbar = () => {
                 !menuItem.hide && (
                   <li
                     key={index}
-                    className={`${
-                      menuItem.link === pathName
-                        ? "rounded bg-secondary text-white"
-                        : ""
-                    }`}
+                    className={`${menuItem.link === pathName
+                      ? "rounded bg-secondary text-white"
+                      : ""
+                      }`}
                   >
                     <Link href={menuItem.link}>{menuItem.text}</Link>
                   </li>
@@ -158,8 +165,8 @@ const Navbar = () => {
             >
               <div className="w-10 rounded-full">
                 <img
-                  alt="Tailwind CSS Navbar component"
-                  src={currentUser?.photoURL}
+                  alt="avater"
+                  src={currentUser.photoURL}
                 />
               </div>
             </div>
@@ -167,15 +174,13 @@ const Navbar = () => {
               tabIndex={0}
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
+
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+                <Link href="/favourites" className="">
+                  <LuHeart /> Favourites
+                </Link>
               </li>
-              <li>
-                <a>Settings</a>
-              </li>
+
               <button
                 onClick={handleLogOut}
                 className="btn mt-4
