@@ -12,6 +12,7 @@ export const authContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
   const [currentUser, setCurrentUser] = useState(null);
+  const [uid, setUid] = useState("");
 
   const googleSignIn = () => {
     return signInWithPopup(auth, googleProvider);
@@ -25,6 +26,7 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setCurrentUser(currentUser);
+        setUid(currentUser.uid);
         await fetch("/api/jwt", {
           method: "POST",
           body: JSON.stringify({
@@ -44,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const value = {
-    currentUser,
+    uid,
     googleSignIn,
     logOut,
   };

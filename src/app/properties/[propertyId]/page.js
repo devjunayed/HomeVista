@@ -1,19 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-
+import { message } from 'antd';
 import { AiOutlineLike } from "react-icons/ai";
 import { LiaComments } from "react-icons/lia";
-import { FaRegHeart } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa6";
 import { TbCurrencyTaka } from "react-icons/tb";
 import "./propertyStyle.css";
 import Review from "@/components/Review/Review";
 import { CiMenuKebab } from "react-icons/ci";
 import ReportProperty from "@/components/ReportProperty/ReportProperty";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ResponsiveSlider from "@/components/ResponsiveSlider/ResponsiveSlider";
 import useSWR from "swr";
 import { authContext } from "@/context/authContext/AuthProvider";
+import AddToFav from "@/components/AddToFav/AddToFav";
 
 // dummy data start
 const title = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum
@@ -33,14 +33,43 @@ const description =
 // take data as props
 
 const Page = ({ params }) => {
-  const { currentUser } = useContext(authContext);
-
   const propertyId = params.propertyId;
-  const url = `/api/property-rating/${propertyId}`;
-  const { data, error, mutate } = useSWR(url, GetPropertyAverageRating);
+  const { uid } = useContext(authContext);
+  const [messageApi, contextHolder] = message.useMessage();
+  
+  const ratingUrl = `/api/property-rating/${propertyId}`;
+  const favUrl = `/api/add-to-favourite?userId=${uid}&propertyId=${propertyId}`;
+  
+  const { data: getRatingData, error, mutate: refetchRating } = useSWR(ratingUrl, GetPropertyAverageRating);
+  
+  const { data: favData, mutate: refetchFav } = useSWR(favUrl, getFav);
+
+  const handleFav = () => {
+    if (favData && favData.isFound !== undefined) {
+        fetch(favUrl, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(resData => {
+                if (resData?.status === "ok") {
+                    messageApi.open({
+                        type: "success",
+                        content: resData.message,
+                    });
+                    refetchFav();
+                }
+
+            });
+    }
+
+}
 
   return (
     <div className="mx-2 lg:mx-40">
+       {contextHolder}
       <div className="flex gap-4  justify-center items-center">
         {/* title */}
         <h2 className="text-xl font-bold mt-6 mb-2">{title}</h2>
@@ -91,6 +120,9 @@ const Page = ({ params }) => {
       <span className="divider"></span>
 
       {/* like, comments, favourite bar */}
+      <span className="-mb-10 text-gray-400">0 likes, 0 comments and {favData && favData?.favCount} favourites</span>
+
+
       <div className=" my-4 gap-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center text-xl">
         <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
           <AiOutlineLike /> Like
@@ -99,9 +131,10 @@ const Page = ({ params }) => {
           <LiaComments />
           Comments
         </button>
-        <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
-          <FaRegHeart /> Favourite
-        </button>
+
+        {/* Add to Favourite */}
+        <AddToFav data={favData} handleFav={handleFav} />
+
         <button className="btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
           <FaCartPlus /> Buy/Rent
         </button>
@@ -110,9 +143,9 @@ const Page = ({ params }) => {
       <div className="my-12">
         <Review
           propertyId={propertyId}
-          rating={data}
-          userId={currentUser?.uid}
-          refetch={mutate}
+          rating={getRatingData}
+          userId={uid}
+          refetch={refetchRating}
         />
       </div>
     </div>
@@ -121,8 +154,15 @@ const Page = ({ params }) => {
 
 export default Page;
 
-const GetPropertyAverageRating = async (url) => {
-  const res = await fetch(url);
+const GetPropertyAverageRating = async (ratingUrl) => {
+  const res = await fetch(ratingUrl);
   const data = await res.json();
   return data.data;
 };
+
+
+const getFav = async (favUrl) => {
+  const res = await fetch(favUrl);
+  const result = await res.json();
+  return result;
+}
