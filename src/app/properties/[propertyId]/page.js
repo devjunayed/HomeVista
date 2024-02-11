@@ -42,7 +42,10 @@ const Page = ({ params }) => {
   
   const { data: getRatingData, error, mutate: refetchRating } = useSWR(ratingUrl, GetPropertyAverageRating);
   
-  const { data: favData, mutate: refetchFav } = useSWR(favUrl, getFav);
+  const { data: favData, isLoading, isValidating, mutate: refetchFav } = useSWR(favUrl, getFav);
+
+
+  console.log(favData?.favCount);
 
   const handleFav = () => {
     if (favData && favData.isFound !== undefined) {
@@ -120,7 +123,7 @@ const Page = ({ params }) => {
       <span className="divider"></span>
 
       {/* like, comments, favourite bar */}
-      <span className="-mb-10 text-gray-400">0 likes, 0 comments and {favData && favData?.favCount} favourites</span>
+      <p className="-mb-2 text-gray-400">0 likes, 0 comments and {(!isLoading && !isValidating && favData) ? favData?.favCount : "0"} favourites</p>
 
 
       <div className=" my-4 gap-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center text-xl">

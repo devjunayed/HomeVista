@@ -10,7 +10,7 @@ const Page =  () => {
   if(data){
     return < ListProperty data={data} />;
   }
-  return <h1>Loading...</h1>
+  return <span className="loading loading-bars loading-lg"></span>
 };
 
 export default Page;
