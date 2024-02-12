@@ -6,15 +6,14 @@ import { LiaComments } from "react-icons/lia";
 import { FaCartPlus } from "react-icons/fa6";
 import { TbCurrencyTaka } from "react-icons/tb";
 import "./propertyStyle.css";
-import Review from "@/components/Review/Review";
+import Review from "@/components/ui-components/Review/Review";
 import { CiMenuKebab } from "react-icons/ci";
-import ReportProperty from "@/components/ReportProperty/ReportProperty";
+import ReportProperty from "@/components/ui-components/ReportProperty/ReportProperty";
 import React, { useContext, useEffect, useState } from "react";
-import ResponsiveSlider from "@/components/ResponsiveSlider/ResponsiveSlider";
+import ResponsiveSlider from "@/components/ui-components/ResponsiveSlider/ResponsiveSlider";
 import useSWR from "swr";
 import { authContext } from "@/context/authContext/AuthProvider";
-import AddToFav from "@/components/AddToFav/AddToFav";
-import { LuHeart, LuHeartOff } from "react-icons/lu";
+import AddToFav from "@/components/ui-components/AddToFav/AddToFav";
 
 // dummy data start
 const title = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas eum
