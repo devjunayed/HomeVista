@@ -14,8 +14,10 @@ export async function POST(req) {
   }
 }
 
-export async function GET() {
+export async function GET(req) {
   try {
+    const title = req.nextUrl.searchParams.get("title");
+    console.log(title);
     await MongodbConnect();
     const data = await propertyModel.find();
     console.log(data);
