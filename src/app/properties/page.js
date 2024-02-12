@@ -1,14 +1,21 @@
 "use client"
 import ListProperty from "@/components/ListProperty/ListProperty";
+import SearchForm from "@/components/SearchForm/SearchForm";
 import { data } from "autoprefixer";
 import React from "react";
 import useSWR from "swr";
 
-const Page =  () => {
+const Page = ({ searchParams }) => {
+  console.log(searchParams);
   const url = "/api/properties";
-  const {data, error, mutate} = useSWR(url, GetProperty);
-  if(data){
-    return < ListProperty data={data} />;
+  const { data, error, mutate } = useSWR(url, GetProperty);
+  if (data) {
+    return (
+      <>
+        <SearchForm />
+        < ListProperty data={data} />;
+      </>
+    )
   }
   return <span className="loading loading-bars loading-lg"></span>
 };

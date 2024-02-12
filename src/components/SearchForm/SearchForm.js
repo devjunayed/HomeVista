@@ -1,29 +1,38 @@
 "use client"
 
-import { Router } from "next/router";
+import { usePathname, useSearchParams } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { useState } from "react";
 
-const SearchForm = ({ onSearch }) => {
+const SearchForm = () => {
     const [keyword, setKeyword] = useState("");
-
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const {replace} = useRouter();
     const submitHandler = (e) => {
         e.preventDefault();
+        const params = new URLSearchParams(searchParams);
         if (keyword) {
-            Router.push(`/?keyword=${keyword}`)
+            params.set('title', keyword);
+        }else{
+            params.set('title');
         }
+        replace(`${pathname}?${params.toString()}`);
+        
     };
 
     return (
-        <form onSubmit={submitHandler}>
-            <div className="join">
-                <div>
-                    <div>
+        <form onSubmit={submitHandler} className="flex justify-center items-center">
+            <div className="join p-5">
+                <div >
+                    <div >
                         <input
                             className="input input-bordered join-item"
                             placeholder="Search"
                             type="text"
                             value={keyword}
                             onChange={(e) => setKeyword(e.target.value)}
+                            defaultChecked={searchParams.get('title')?.toString()}
                         />
                     </div>
                 </div>

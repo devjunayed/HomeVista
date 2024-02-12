@@ -19,12 +19,12 @@ export async function GET() {
     await MongodbConnect();
     const data = await propertyModel.find();
     console.log(data);
-    if(data){
-      return NextResponse.json({data: data});
+    if (data) {
+      return NextResponse.json({ data: data });
     }
-    return NextResponse.json({message: "error"});
+    return NextResponse.json({ message: "error" });
   } catch (error) {
-    return NextResponse.json({data: [],  error: error.message });
+    return NextResponse.json({ data: [], error: error.message });
   }
 }
 
