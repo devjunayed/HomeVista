@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import ListProperty from "@/components/ListProperty/ListProperty";
 import SearchForm from "@/components/SearchForm/SearchForm";
 import { data } from "autoprefixer";
@@ -17,7 +17,11 @@ const Page = ({ searchParams }) => {
       </>
     )
   }
-  return <span className="loading loading-bars loading-lg"></span>
+  return (
+    <div>
+      <span className="loading loading-bars loading-lg"></span>
+    </div>
+  );
 };
 
 export default Page;
