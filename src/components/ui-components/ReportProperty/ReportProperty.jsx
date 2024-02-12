@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import { MdCancel } from "react-icons/md";
 import Modal from "react-modal";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
-import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
+import SuccessAlert from "@/components/ui-components/SuccessAlert/SuccessAlert";
 import { authContext } from '@/context/authContext/AuthProvider';
 
 const ReportProperty = ({ propertyId, author }) => {
