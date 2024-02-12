@@ -1,9 +1,9 @@
 import { Poppins } from "next/font/google";
 import "@/app/globals.css";
 import { AuthProvider } from "@/context/authContext/AuthProvider";
-import Navbar from "@/components/Nav/Navbar";
+import Navbar from "@/components/ui-components/Nav/Navbar";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import Footer from "@/components/Footer/Footer";
+import Footer from "@/components/ui-components/Footer/Footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
