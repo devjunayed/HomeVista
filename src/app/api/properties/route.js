@@ -19,7 +19,7 @@ export async function GET(req) {
     const title = req.nextUrl.searchParams.get("title");
     await MongodbConnect();
     console.log(title);
-    if (title === 'undefined') {
+    if (title === 'undefined' || title === null) {
       const data = await propertyModel.find();
       console.log(data);
       if (data) {
