@@ -1,5 +1,5 @@
 import { Poppins } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import { AuthProvider } from "@/context/authContext/AuthProvider";
 import Navbar from "@/components/Nav/Navbar";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
