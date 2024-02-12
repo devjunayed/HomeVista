@@ -1,16 +1,23 @@
-"use client"
+"use client";
 import ListProperty from "@/components/ListProperty/ListProperty";
-import { data } from "autoprefixer";
 import React from "react";
 import useSWR from "swr";
 
-const Page =  () => {
+const Page = () => {
   const url = "/api/properties";
-  const {data, error, mutate} = useSWR(url, GetProperty);
-  if(data){
-    return < ListProperty data={data} />;
+  const { data, error, mutate } = useSWR(url, GetProperty);
+  if (data) {
+    return (
+      <div>
+        <ListProperty data={data} />
+      </div>
+    );
   }
-  return <span className="loading loading-bars loading-lg"></span>
+  return (
+    <div>
+      <span className="loading loading-bars loading-lg"></span>
+    </div>
+  );
 };
 
 export default Page;
