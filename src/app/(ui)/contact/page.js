@@ -2,7 +2,7 @@
 
 import React from "react";
 import emailjs from "emailjs-com";
-import SuccessAlert from "@/components/SuccessAlert/SuccessAlert";
+import SuccessAlert from "@/components/ui-components/SuccessAlert/SuccessAlert";
 
 const ContactUS = () => {
   const handleMessageSent = (formData) => {

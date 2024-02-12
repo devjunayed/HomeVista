@@ -1,7 +1,6 @@
 "use client";
-import ListProperty from "@/components/ListProperty/ListProperty";
-import SearchForm from "@/components/SearchForm/SearchForm";
-import { data } from "autoprefixer";
+import ListProperty from "@/components/ui-components/ListProperty/ListProperty";
+import SearchForm from "@/components/ui-components/SearchForm/SearchForm";
 import React from "react";
 import useSWR from "swr";
 
