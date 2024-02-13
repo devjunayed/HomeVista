@@ -8,17 +8,17 @@ import { usePathname } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LuHeart } from "react-icons/lu";
-import useSWR from "swr";
+
 
 const Navbar = () => {
   const router = useRouter();
   const pathName = usePathname();
   const [hideLogic, setHideLogic] = useState(true);
-  const { logOut, currentUser, uid } = useContext(authContext);
+  const { logOut, currentUser, uid, logInfo } = useContext(authContext);
   const [messageApi, contextHolder] = message.useMessage();
 
-  const url = `/api/user?userId=${uid}`;
-  const {data} = useSWR(url, GetLogInfo);
+
+  
 
   useEffect(() => {
     const logic = currentUser ? false : true;
@@ -26,7 +26,6 @@ const Navbar = () => {
   }, [currentUser, logOut]);
 
 
-  console.log(currentUser);
   const handleLogOut = () => {
     logOut()
       .then(() => {
@@ -79,9 +78,9 @@ const Navbar = () => {
                 <li
                   key={index}
                   className={`${menuItem.link === pathName
-                    ? "rounded bg-secondary text-white"
+                    ? " bg-secondary text-white"
                     : ""
-                    }`}
+                    } hover:bg-secondary rounded hover:text-white`}
                 >
                   <Link href={menuItem.link}>{menuItem.text}</Link>
                 </li>
@@ -118,9 +117,9 @@ const Navbar = () => {
                   <li
                     key={index}
                     className={`${menuItem.link === pathName
-                      ? "rounded bg-secondary text-white"
+                      ? "bg-secondary text-white"
                       : ""
-                      }`}
+                      } hover:bg-secondary rounded hover:text-white`}
                   >
                     <Link href={menuItem.link}>{menuItem.text}</Link>
                   </li>
@@ -179,7 +178,7 @@ const Navbar = () => {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link href={`/dashboard/${data?.role}`} className="">
+                <Link href={`/dashboard/${logInfo?.role}`} className="">
                   <MdSpaceDashboard /> Dashbaord
                 </Link>
               </li>
@@ -209,8 +208,3 @@ const Navbar = () => {
 export default Navbar;
 
 
-const GetLogInfo = async (url) => {
-  const res = await fetch(url);
-  const result = await res.json();
-  return result.data;
-}
