@@ -2,8 +2,9 @@ import { Poppins } from "next/font/google";
 import "@/app/globals.css";
 import { AuthProvider } from "@/context/authContext/AuthProvider";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import Footer from "@/components/ui-components/Footer/Footer";
 import AdminNavBar from "@/components/admin-components/AdminNavBar/AdminNavBar";
+import Navbar from "@/components/ui-components/Nav/Navbar";
+import AdminTopNavBar from "@/components/admin-components/AdminTopNavBar/AdminTopNavBar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -16,11 +17,12 @@ export default function AdminLayout({ children }) {
       <body className={poppins.className}>
         <AuthProvider>
           <AntdRegistry>
-            <div className="flex gap-2">
-              <div className="w-2/12 bg-gray-200">
+            <AdminTopNavBar />
+            <div className="flex gap-4">
+              <div className=" hidden md:flex min-h-screen  justify-start   bg-gray-200">
                 <AdminNavBar />
               </div>
-              <div className="w-11/12">{children}</div>
+              <div className="">{children}</div>
             </div>
           </AntdRegistry>
         </AuthProvider>
