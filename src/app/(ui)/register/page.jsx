@@ -12,7 +12,7 @@ const Page = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const router = useRouter();
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => { };
 
   const handleGoogleSignIn = () => {
     return googleSignIn()
@@ -22,6 +22,19 @@ const Page = () => {
             type: "success",
             content: "Logged in successfully",
           });
+
+          fetch("/api/user", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              email: res.user.email,
+              userName: res.user.displayName,
+              role: "user",
+              userId: res.user.uid
+            })
+          })
         }
         router.push("/");
       })

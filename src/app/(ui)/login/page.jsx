@@ -13,7 +13,6 @@ const Page = () => {
     const { googleSignIn } = useContext(authContext);
 
     const handleSubmit = () => {
-
     }
 
     const handleGoogleSignIn = () => {
@@ -24,6 +23,18 @@ const Page = () => {
                         type: 'success',
                         content: 'Logged in successfully',
                     });
+                    fetch("/api/user", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            email: res.user.email,
+                            userName: res.user.displayName,
+                            role: "user",
+                            userId: res.user.uid
+                        })
+                    })
                 }
                 router.push("/");
             })
