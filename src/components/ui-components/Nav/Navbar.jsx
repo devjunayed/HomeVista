@@ -3,18 +3,22 @@
 import { authContext } from "@/context/authContext/AuthProvider";
 import Link from "next/link";
 import { Alert, Button, Space, message } from "antd";
-import { MdOutlineHomeWork } from "react-icons/md";
+import { MdOutlineHomeWork, MdSpaceDashboard } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LuHeart } from "react-icons/lu";
+import useSWR from "swr";
 
 const Navbar = () => {
   const router = useRouter();
   const pathName = usePathname();
   const [hideLogic, setHideLogic] = useState(true);
-  const { logOut, currentUser } = useContext(authContext);
+  const { logOut, currentUser, uid } = useContext(authContext);
   const [messageApi, contextHolder] = message.useMessage();
+
+  const url = `/api/user?userId=${uid}`;
+  const {data} = useSWR(url, GetLogInfo);
 
   useEffect(() => {
     const logic = currentUser ? false : true;
@@ -174,12 +178,18 @@ const Navbar = () => {
               tabIndex={0}
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
+              <li>
+                <Link href={`/dashboard/${data?.role}`} className="">
+                  <MdSpaceDashboard /> Dashbaord
+                </Link>
+              </li>
 
               <li>
                 <Link href="/favourites" className="">
                   <LuHeart /> Favourites
                 </Link>
               </li>
+
 
               <button
                 onClick={handleLogOut}
@@ -197,3 +207,10 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+const GetLogInfo = async (url) => {
+  const res = await fetch(url);
+  const result = await res.json();
+  return result.data;
+}
