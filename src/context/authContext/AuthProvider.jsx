@@ -10,6 +10,7 @@ import auth from "../../../firebase.config";
 export const authContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
   const [currentUser, setCurrentUser] = useState(null);
   const [uid, setUid] = useState("");
@@ -34,7 +35,10 @@ export const AuthProvider = ({ children }) => {
           }),
         })
           .then((res) => res.json())
-          .then((data) => console.log(data));
+          .then((data) => {
+            console.log(data);
+            setIsLoading(false);
+          });
       } else {
         setCurrentUser(null);
         await fetch("/api/jwt", {
@@ -50,6 +54,7 @@ export const AuthProvider = ({ children }) => {
     uid,
     googleSignIn,
     logOut,
+    isLoading
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
