@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../../../firebase.config";
+import useSWR from "swr";
 export const authContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
@@ -18,6 +19,9 @@ export const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
   const [currentUser, setCurrentUser] = useState(null);
   const [uid, setUid] = useState("");
+
+  const url = `/api/user?userId=${uid}`;
+  const {data: logInfo} = useSWR(url, GetLogInfo);
 
   const googleSignIn = () => {
     return signInWithPopup(auth, googleProvider);
@@ -75,8 +79,16 @@ export const AuthProvider = ({ children }) => {
     isLoading,
     emailSignIn,
     emailSignUp,
-    updateUser
+    updateUser,
+    logInfo
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
 };
+
+
+const GetLogInfo = async (url) => {
+  const res = await fetch(url);
+  const result = await res.json();
+  return result.data;
+}

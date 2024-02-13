@@ -19,7 +19,7 @@ export default function AdminLayout({ children }) {
           <AntdRegistry>
             <AdminTopNavBar />
             <div className="flex gap-4">
-              <div className=" hidden md:flex min-h-screen  justify-start   bg-gray-200">
+              <div className=" hidden md:flex min-h-[90vh]  justify-start   bg-gray-200">
                 <AdminNavBar />
               </div>
               <div className="">{children}</div>
