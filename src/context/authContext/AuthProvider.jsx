@@ -12,16 +12,18 @@ import {
 import { createContext, useEffect, useState } from "react";
 import auth from "../../../firebase.config";
 import useSWR from "swr";
+import { usePathname, useRouter } from "next/navigation";
 export const authContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+
   const [isLoading, setIsLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
   const [currentUser, setCurrentUser] = useState(null);
   const [uid, setUid] = useState("");
 
   const url = `/api/user?userId=${uid}`;
-  const {data: logInfo} = useSWR(url, GetLogInfo);
+  const { data: logInfo } = useSWR(url, GetLogInfo);
 
   const googleSignIn = () => {
     return signInWithPopup(auth, googleProvider);
@@ -35,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
-  const updateUser = (userName)=> {
+  const updateUser = (userName) => {
     return updateProfile(currentUser, {
       displayName: userName
     })
@@ -45,8 +47,15 @@ export const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+
+
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+
+
+
+
       if (currentUser) {
         setCurrentUser(currentUser);
         setUid(currentUser.uid);
