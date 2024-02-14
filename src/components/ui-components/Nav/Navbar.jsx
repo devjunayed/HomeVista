@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LuHeart } from "react-icons/lu";
+import Image from "next/image";
 
 
 const Navbar = () => {
@@ -167,9 +168,11 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
+                <Image
                   alt="avater"
                   src={currentUser.photoURL}
+                  width={500}
+                  height={500}
                 />
               </div>
             </div>
