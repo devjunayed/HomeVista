@@ -9,7 +9,6 @@ export async function PUT(req, res) {
 
     const query = { propertyId: data.propertyId, reporterId: data.reporterId };
     const isExist = await reportModel.findOne(query);
-
     if (isExist) {
       await reportModel.updateOne(query, {
         $set: {
