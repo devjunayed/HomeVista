@@ -89,7 +89,7 @@ const AdminTopNavBar = () => {
                 <button
                   onClick={handleLogOut}
                   className="btn mt-4
-         text-white bg-secondary hover:bg-blue-800"
+                 text-white bg-secondary hover:bg-blue-800"
                 >
                   Logout
                 </button>
