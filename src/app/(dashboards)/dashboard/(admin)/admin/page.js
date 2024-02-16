@@ -1,7 +1,7 @@
 import React from 'react'
 import ProtectAdmin from '@/components/admin-components/ProtectAdmin/ProtectAdmin'
 
-const page = () => {
+const Page = () => {
   return (
     <ProtectAdmin>
       <div>
@@ -10,4 +10,5 @@ const page = () => {
     </ProtectAdmin>
   )
 }
-export default page;
+
+export default Page
