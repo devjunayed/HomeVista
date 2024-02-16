@@ -21,9 +21,10 @@ export async function GET(req) {
     console.log(title);
     if (title === 'undefined' || title === null) {
       const data = await propertyModel.find();
+      const dataCount = await propertyModel.countDocuments({});
       console.log(data);
       if (data) {
-        return NextResponse.json({ data });
+        return NextResponse.json({ data, dataCount });
       }
       return NextResponse.json({ message: "error" });
     } else {
