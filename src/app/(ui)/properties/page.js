@@ -11,12 +11,17 @@ const Page = ({ searchParams }) => {
     return (
       <>
         <SearchForm />
-        < ListProperty data={data} />;
+        <div className="flex">
+          <div className="w-2/12">filter</div>
+          <div className="w-10/12">
+            <ListProperty data={data} />;
+          </div>
+        </div>
       </>
-    )
+    );
   }
   return (
-    <div>
+    <div className="min-h-[60vh] flex items-center justify-center">
       <span className="loading loading-bars loading-lg"></span>
     </div>
   );
