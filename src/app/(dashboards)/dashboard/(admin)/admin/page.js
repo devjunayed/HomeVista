@@ -1,13 +1,13 @@
-import ProtectAdmin from '@/components/admin-components/ProtectAdmin/ProtectAdmin'
 import React from 'react'
+import ProtectAdmin from '@/components/admin-components/ProtectAdmin/ProtectAdmin'
 
 const Page = () => {
   return (
-   <ProtectAdmin>
-     <div>
-      admin
-    </div>
-   </ProtectAdmin>
+    <ProtectAdmin>
+      <div>
+        admin
+      </div>
+    </ProtectAdmin>
   )
 }
 
