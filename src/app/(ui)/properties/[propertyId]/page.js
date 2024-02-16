@@ -15,12 +15,7 @@ import useSWR from "swr";
 import { authContext } from "@/context/authContext/AuthProvider";
 import AddToFav from "@/components/ui-components/AddToFav/AddToFav";
 
-const author = "kuddus";
-const date = "4";
-// take data as props
-
 const Page = ({ params }) => {
-
   const propertyId = params.propertyId;
   const { uid } = useContext(authContext);
   const [messageApi, contextHolder] = message.useMessage();
@@ -42,14 +37,14 @@ const Page = ({ params }) => {
     mutate: refetchFav,
   } = useSWR(favUrl, getFav);
 
-
   const {
     data: SinglePropertyData,
-    isLoading: isSinglePropertyData,
-    isValidating: ValidatingSingleProperty,
-    mutate: refetchSinglePropertyData,
+    isLoading: isSinglePropertyLoading,
+    isValidating: isSinglePropertyValidating,
+    mutate: refetchSingleProperty,
   } = useSWR(SingleUrl, getSingleProperty);
 
+  console.log(SinglePropertyData);
 
   const handleFav = () => {
     if (favData && favData.isFound !== undefined) {
@@ -73,97 +68,116 @@ const Page = ({ params }) => {
   };
 
   return (
+    <div>
+      {!SinglePropertyData === undefined &&
+      !isSinglePropertyLoading &&
+      !isFavDataValidating ? (
+        <div className="mx-2 lg:mx-40">
+          {contextHolder}
+          <div className="flex gap-4  justify-between items-center">
+            {/* title */}
+            <h2 className="text-xl font-bold mt-6 mb-2">
+              {SinglePropertyData?.title}
+            </h2>
 
-    <div className="mx-2 lg:mx-40">
-      {contextHolder}
-      <div className="flex gap-4  justify-between items-center">
-        {/* title */}
-        <h2 className="text-xl font-bold mt-6 mb-2">{SinglePropertyData?.title}</h2>
+            {/* Options */}
+            <div className="relative dropdown">
+              <div tabIndex={0} role="button" className="text-xl">
+                <CiMenuKebab />
+              </div>
 
-        {/* Options */}
-        <div className="relative dropdown">
-          <div tabIndex={0} role="button" className="text-xl">
-            <CiMenuKebab />
+              <ul
+                tabIndex={0}
+                className="menu dropdown-content absolute menu-md top-0 right-5  w-56 rounded-box bg-white"
+              >
+                <ReportProperty
+                  propertyId={propertyId}
+                  author={SinglePropertyData?.author}
+                />
+              </ul>
+            </div>
           </div>
 
-          <ul
-            tabIndex={0}
-            className="menu dropdown-content absolute menu-md top-0 right-5  w-56 rounded-box bg-white"
-          >
-            <ReportProperty propertyId={propertyId} author={SinglePropertyData?.author} />
-          </ul>
+          {/* Author, Date */}
+          <div className="flex gap-2 text-center justify-between mb-4">
+            <p>
+              <span className="font-semibold">Author:</span>{" "}
+              {SinglePropertyData?.author}
+            </p>
+            <p className="font-semibold">{SinglePropertyData?.date}</p>
+          </div>
+
+          {/* Image slider */}
+          <div>
+            <ResponsiveSlider
+              imgLinks={SinglePropertyData?.image}
+              title={SinglePropertyData?.title}
+            />
+          </div>
+
+          {/* price, address */}
+          <div className="flex justify-between mt-6">
+            {/*         <h2 className="font-bold">Address: {address}</h2>
+             */}{" "}
+            <h2>
+              <span className="badge text-xl p-4 bg-secondary text-white">
+                <TbCurrencyTaka />
+                {SinglePropertyData?.price}
+              </span>
+            </h2>
+          </div>
+
+          {/* description of property */}
+          <h2 className="font-bold text-3xl my-4">Description</h2>
+          <p>{SinglePropertyData?.description}</p>
+
+          <span className="divider"></span>
+
+          {/* like, comments, favourite bar */}
+          <p className="-mb-2 text-gray-400">
+            0 likes, 0 comments and{" "}
+            {!isFavDataLoading && !isFavDataValidating && favData
+              ? favData?.favCount
+              : "0"}{" "}
+            favourites
+          </p>
+
+          <div className=" my-4 gap-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center text-xl">
+            <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
+              <AiOutlineLike /> Like
+            </button>
+            <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
+              <LiaComments />
+              Comments
+            </button>
+
+            {/* Add to Favourite */}
+            <AddToFav
+              favData={favData}
+              handleFav={handleFav}
+              isLoading={isFavDataLoading}
+              isValidating={isFavDataValidating}
+            />
+
+            <button className="btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
+              <FaCartPlus /> Buy/Rent
+            </button>
+          </div>
+
+          <div className="my-12">
+            <Review
+              propertyId={propertyId}
+              rating={getRatingData}
+              userId={uid}
+              refetch={refetchRating}
+            />
+          </div>
         </div>
-      </div>
-
-      {/* Author, Date */}
-      <div className="flex gap-2 text-center justify-between mb-4">
-        <p>
-          {/*           <span className="font-semibold">Author:</span> {author}
- */}        </p>
-        <p className="font-semibold">{date}</p>
-      </div>
-
-      {/* Image slider */}
-      <div>
-        <ResponsiveSlider title={SinglePropertyData?.title} />
-      </div>
-
-      {/* price, address */}
-      <div className="flex justify-between mt-6">
-        {/*         <h2 className="font-bold">Address: {address}</h2>
- */}        <h2>
-          <span className="badge text-xl p-4 bg-secondary text-white">
-            <TbCurrencyTaka />
-            {SinglePropertyData?.price}
-          </span>
-        </h2>
-      </div>
-
-      {/* description of property */}
-      <h2 className="font-bold text-3xl my-4">Description</h2>
-      <p>{SinglePropertyData?.description}</p>
-
-      <span className="divider"></span>
-
-      {/* like, comments, favourite bar */}
-      <p className="-mb-2 text-gray-400">
-        0 likes, 0 comments and{" "}
-        {!isFavDataLoading && !isFavDataValidating && favData
-          ? favData?.favCount
-          : "0"}{" "}
-        favourites
-      </p>
-
-      <div className=" my-4 gap-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center text-xl">
-        <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
-          <AiOutlineLike /> Like
-        </button>
-        <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
-          <LiaComments />
-          Comments
-        </button>
-
-        {/* Add to Favourite */}
-        <AddToFav
-          favData={favData}
-          handleFav={handleFav}
-          isLoading={isFavDataLoading}
-          isValidating={isFavDataValidating}
-        />
-
-        <button className="btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
-          <FaCartPlus /> Buy/Rent
-        </button>
-      </div>
-
-      <div className="my-12">
-        <Review
-          propertyId={propertyId}
-          rating={getRatingData}
-          userId={uid}
-          refetch={refetchRating}
-        />
-      </div>
+      ) : (
+        <div className="flex w-full min-h-screen items-center justify-center">
+          <span className="loading loading-bars loading-lg"></span>
+        </div>
+      )}
     </div>
   );
 };
@@ -185,5 +199,4 @@ const getSingleProperty = async (SingleUrl) => {
   const res = await fetch(SingleUrl, { cache: "no-cache" });
   const result = await res.json();
   return result.Properties;
-
 };
