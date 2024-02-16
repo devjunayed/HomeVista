@@ -41,6 +41,8 @@ const Page = ({ params }) => {
     isValidating: isFavDataValidating,
     mutate: refetchFav,
   } = useSWR(favUrl, getFav);
+
+
   const {
     data: SinglePropertyData,
     isLoading: isSinglePropertyData,
@@ -74,7 +76,7 @@ const Page = ({ params }) => {
 
     <div className="mx-2 lg:mx-40">
       {contextHolder}
-      <div className="flex gap-4  justify-center items-center">
+      <div className="flex gap-4  justify-between items-center">
         {/* title */}
         <h2 className="text-xl font-bold mt-6 mb-2">{SinglePropertyData?.title}</h2>
 

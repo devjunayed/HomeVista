@@ -17,6 +17,7 @@ const Page = () => {
   const handleGoogleSignIn = () => {
     return googleSignIn()
       .then((res) => {
+        
         if (res.user) {
           messageApi.open({
             type: "success",
