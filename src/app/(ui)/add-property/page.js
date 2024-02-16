@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useState } from "react";
-import { Checkbox, message, Select, Spin, Steps } from "antd";
+import { Checkbox, Input, message, Select, Spin, Steps } from "antd";
 import divisions from "@/lib/add-property-divisions";
 import Dragger from "antd/es/upload/Dragger";
 import Image from "next/image";
@@ -8,25 +8,30 @@ import axios from "axios";
 import districtsData from "@/lib/add-property-districts";
 import { authContext } from "@/context/authContext/AuthProvider";
 import { useRouter } from "next/navigation";
+import { SiZelle } from "react-icons/si";
+import "./steps.css";
+import TextArea from "antd/es/input/TextArea";
 
 const Page = () => {
   const [current, setCurrent] = useState(0);
-  const [rentCheckbox, setrentCheckbox] = useState(false);
+  const [rentCheckbox, setrentCheckbox] = useState(true);
   const [saleCheckbox, setsaleCheckbox] = useState(false);
   const [division, setDivision] = useState("Dhaka");
-  const [district, setDistrict] = useState("");
+  const [district, setDistrict] = useState();
   const [place, setPlace] = useState([]);
-  const [area, setArea] = useState("");
+  const [area, setArea] = useState();
   const [fileList, setFileList] = useState([]);
   const [image, setImage] = useState([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [street, setStreet] = useState("Street");
-  const [price, setPrice] = useState(0);
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [street, setStreet] = useState();
+  const [price, setPrice] = useState();
   const [loading, setLoading] = useState(false);
   const { currentUser } = useContext(authContext);
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [size, setSize] = useState();
   const router = useRouter();
+
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -41,7 +46,7 @@ const Page = () => {
         headers: {
           "content-type": "multipart/form-data",
         },
-      },
+      }
     );
 
     if (response.data.success) {
@@ -55,8 +60,17 @@ const Page = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();  
+
+    if(!size || !price || image.length === 0){
+      message.error("Please fill out all required fields.");
+      return;
+    }
+
     setSubmitLoading(true);
+    const date = new Date();
+    const currentDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+
     const data = {
       rentCheckbox,
       saleCheckbox,
@@ -68,7 +82,11 @@ const Page = () => {
       description,
       street,
       price,
+      size,
+      date: currentDate,
       email: currentUser.email,
+      author: currentUser.displayName,
+      authorId: currentUser.uid,
     };
     await fetch("/api/properties", {
       method: "POST",
@@ -99,7 +117,7 @@ const Page = () => {
                 type="text"
                 name="title"
                 id="title"
-                defaultValue={title}
+                value={title}
                 className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
                 required
                 onChange={(e) => setTitle(e.target.value)}
@@ -114,11 +132,15 @@ const Page = () => {
                 Description
               </h4>
 
-              <textArea
+              <TextArea
                 name="description"
+                rows={6}
                 id="description"
-                className="block focus:shadow-md transition border border-[#CACACA]   w-full outline-none p-4 text-lg rounded-[0.125rem]"
+                className="text-xl block focus:shadow-md transition border border-[#CACACA]   w-full outline-none p-4 rounded-[0.125rem]"
+                style={{fontSize: '1.25rem'}}
                 required
+                defaultValue={description}
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
@@ -135,6 +157,7 @@ const Page = () => {
                 </span>
               </Checkbox>
               <Checkbox
+              className="checked:text-red-600 checked:bg-black"
                 checked={saleCheckbox}
                 onChange={(e) => {
                   setrentCheckbox(false);
@@ -163,11 +186,11 @@ const Page = () => {
               >
                 Street
               </h4>
-              <input
+              <Input
                 type="text"
-                id={"street"}
-                name={"street"}
-                defaultValue={street}
+                id="street"
+                name="street"
+                value={street}
                 className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
                 required
                 onChange={(e) => setStreet(e.target.value)}
@@ -215,7 +238,7 @@ const Page = () => {
                     const where = encodeURIComponent(
                       JSON.stringify({
                         adminName2: value,
-                      }),
+                      })
                     );
                     const data = await fetch(
                       `https://parseapi.back4app.com/classes/BD?where=${where}`,
@@ -226,7 +249,7 @@ const Page = () => {
                           "X-Parse-Master-Key":
                             "t6EjVCUOwutr1ruorlXNsH3Rz65g0jiVtbILtAYU",
                         },
-                      },
+                      }
                     ).then((res) => {
                       setLoading(false);
                       return res.json();
@@ -235,7 +258,7 @@ const Page = () => {
                     const updatedPlace = [];
                     data.results.map((item) => {
                       const exist = updatedPlace.find(
-                        (data) => data.value === item.adminName3,
+                        (data) => data.value === item.adminName3
                       );
                       if (!exist) {
                         updatedPlace.push({
@@ -283,7 +306,29 @@ const Page = () => {
                   "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
                 }
               >
-                Price
+                Size
+              </h4>
+              <input
+                type="number"
+                name="price"
+                id="price"
+                min="100"
+                defaultValue={SiZelle}
+                className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
+                required
+                onChange={(e) => {
+                  const number = parseInt(e.target.value);
+                  setSize(number);
+                }}
+              />
+            </div>
+            <div className="pb-2 pt-4 mb-4">
+              <h4
+                className={
+                  "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
+                }
+              >
+                {rentCheckbox ? "Rent per day" : "Price"}
               </h4>
               <input
                 type="number"
@@ -329,6 +374,18 @@ const Page = () => {
     },
   ];
   const next = () => {
+    if(current == 0){
+      console.log(current);
+      if(!title || !description){
+        message.error("Please fill out all required fields.");
+        return;
+      }
+    }else if(current == 1){
+      if(!street || !division || !district || !area ){
+        message.error("Please fill out all required fields.");
+        return;
+      }
+    }
     setCurrent(current + 1);
   };
   const prev = () => {
@@ -394,4 +451,4 @@ const Page = () => {
     </>
   );
 };
-export default Page
+export default Page;
