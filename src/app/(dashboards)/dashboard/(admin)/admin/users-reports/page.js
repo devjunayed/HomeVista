@@ -2,7 +2,7 @@
 import React from "react";
 import useSWR from "swr";
 
-const page = () => {
+const Page = () => {
   const reportUrl = `/api/get-all-report`;
   const { data: allReportData } = useSWR(reportUrl, getAllReport);
 
@@ -11,7 +11,7 @@ const page = () => {
   return <div>Users report</div>;
 };
 
-export default page;
+export default Page;
 
 const getAllReport = async (reportUrl) => {
   const res = await fetch(reportUrl);

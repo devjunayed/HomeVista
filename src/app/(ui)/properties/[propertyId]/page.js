@@ -27,7 +27,7 @@ const Page = ({ params }) => {
 
   const SingleUrl = `/api/properties/${propertyId}`;
   const ratingUrl = `/api/property-rating/${propertyId}`;
-  const favUrl = `/api/add-to-favourite?userId=${uid}&propertyId=${propertyId}`;
+  const favUrl = `/api/favourite?userId=${uid}&propertyId=${propertyId}`;
 
   const {
     data: getRatingData,
@@ -126,7 +126,9 @@ const Page = ({ params }) => {
       {/* like, comments, favourite bar */}
       <p className="-mb-2 text-gray-400">
         0 likes, 0 comments and{" "}
-        {!isFavDataLoading && !isFavDataValidating && favData ? favData?.favCount : "0"}{" "}
+        {!isFavDataLoading && !isFavDataValidating && favData
+          ? favData?.favCount
+          : "0"}{" "}
         favourites
       </p>
 

@@ -22,6 +22,8 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [uid, setUid] = useState("");
 
+  console.log(currentUser);
+  
   const url = `/api/user?userId=${uid}`;
   const { data: logInfo } = useSWR(url, GetLogInfo);
 
