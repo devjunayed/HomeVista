@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 import { FaEye } from "react-icons/fa6";
-import { TbHeartOff } from "react-icons/tb";
+import { TbCurrencyTaka, TbHeartOff } from "react-icons/tb";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import useSWR from "swr";
@@ -23,7 +23,7 @@ const Favourites = () => {
   } = useSWR(url, GetFavouriteProperty);
 
   console.log(uid);
-
+  console.log(url);
   console.log(favourites);
 
   const handleUnfavourite = (propertyId) => {
@@ -51,65 +51,91 @@ const Favourites = () => {
       });
   };
 
+  console.log(favourites);
+
   return (
-    <div className="mx-4 lg:mx-10 justify-center flex flex-col">
+    <div className="my-6">
       {contextHolder}
-      {favourites?.length !== 0 && (
+      {favourites?.length !== 0 && !isLoading && (
         <h2 className="text-center text-3xl text-gray-500 my-6">
           Favourite Property
         </h2>
       )}
       {isLoading && (
-        <div className="min-h-[60vh] flex items-center justify-center">
-          <span className="loading loading-bars loading-md"></span>
+        <div className="w-full min-h-[60vh] flex justify-center items-center">
+          <span className="loading loading-bars loading-lg"></span>
         </div>
       )}
-      <div className="grid justify-center grid-cols-1  md:grid-cols-3 mb-6">
-        {favourites !== undefined &&
-          favourites.map((singleData) => (
-            <div
-              key={singleData._id}
-              className="card w-96 bg-base-100 shadow-xl"
-            >
-              <figure>
-                <Carousel
-                  className="w-full h-52"
-                  autoPlay={true}
-                  showArrows={true}
-                >
-                  {singleData.image.map((singleImg, index) => (
-                    <div key={index} className="w-full h-52">
-                      <Image
-                        objectFit="cover"
-                        fill
-                        src={singleImg}
-                        alt={`Image ${index}`}
-                      />
+      <div className="mx-4  md:mx-10 gap-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 ">
+        {!isLoading &&
+          favourites != undefined &&
+          favourites?.length !== 0 &&
+          favourites?.map((property) => (
+            <div key={property._id} className="my-4">
+              <div className="card py-4 card-compact w-full bg-base-100 shadow-xl transform transition-transform duration-500 hover:scale-[1.03] hover:shadow-gray-200 hover:duration-500">
+                <figure>
+                  <div className="h-40 w-full relative z-0">
+                    <Carousel
+                      showThumbs={false}
+                      autoPlay={true}
+                      interval={2000}
+                      infiniteLoop={true}
+                    >
+                      {property.image.map((imgSrc, index) => (
+                        <div
+                          key={index}
+                          className="w-full h-40 carousel-image-container"
+                        >
+                          <Image
+                            src={imgSrc}
+                            fill
+                            alt="Property Image"
+                            objectFit="cover"
+                          />
+                        </div>
+                      ))}
+                    </Carousel>
+                    <div className="bottom-2   absolute z-10 w-full">
+                      <div className="flex justify-between mx-2 ">
+                        <p className="badge badge-sm bg-secondary border-none text-white p-4">
+                          {property?.rentCheckbox ? "Rent" : "Sale"}
+                        </p>
+                        <p className="badge badge-sm bg-secondary border-none text-white p-4">
+                          <TbCurrencyTaka />
+                          {property.rentCheckbox
+                            ? `${property?.price}/day`
+                            : property?.price}
+                        </p>
+                      </div>
                     </div>
-                  ))}
-                </Carousel>
-              </figure>
-              <div className="card-body">
-                <div className="card-actions justify-end">
-                  <div className="badge bg-secondary text-white p-4 ">
-                    ${singleData.price}
                   </div>
-                </div>
-                <h2 className="card-title">{singleData.title}</h2>
-                <p>{singleData.description}</p>
-                <div className="flex gap-2 justify-center">
-                  <Link
-                    href={`/properties/${singleData?._id}`}
-                    className="btn bg-secondary hover:bg-blue-800 text-white"
-                  >
-                    <FaEye /> View
-                  </Link>
-                  <button
-                    onClick={() => handleUnfavourite(singleData._id)}
-                    className="btn bg-secondary hover:bg-blue-800 text-white"
-                  >
-                    <TbHeartOff /> Unfavourite
-                  </button>
+                </figure>
+
+                <div className="flex flex-col">
+                  <div className=" p-3">
+                    <h2 className="text-md md:text-base">{property?.title}</h2>
+                    <p className="text-sm text-gray-400">
+                      {property?.area}, {property?.district},{" "}
+                      {property?.division}
+                    </p>
+                  </div>
+                  <p className="px-3 flex-grow mb-4 text-sm">
+                    Area: {property?.size} (sqft)
+                  </p>
+                  <div className="flex flex-grow gap-2 justify-center">
+                    <Link
+                      href={`/properties/${property?._id}`}
+                      className="btn btn-md bg-secondary hover:bg-blue-800 text-white"
+                    >
+                      <FaEye /> View
+                    </Link>
+                    <button
+                      onClick={() => handleUnfavourite(property._id)}
+                      className="btn btn-md bg-secondary hover:bg-blue-800 text-white"
+                    >
+                      <TbHeartOff /> Unfavourite
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
