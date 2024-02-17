@@ -19,7 +19,7 @@ export async function GET(req) {
     const title = req.nextUrl.searchParams.get("title");
     await MongodbConnect();
     console.log(title);
-    if (title === 'undefined' || title === null) {
+    if (title === "undefined" || title === null) {
       const data = await propertyModel.find();
       const dataCount = await propertyModel.countDocuments({});
       console.log(data);
@@ -28,7 +28,12 @@ export async function GET(req) {
       }
       return NextResponse.json({ message: "error" });
     } else {
-      const data = await propertyModel.find({title});
+      const query = title;
+      const data = await propertyModel.find({
+        $or: [
+          { title: { $regex: query, $options: "i" } },
+        ],
+      });
       return NextResponse.json({ data });
     }
   } catch (error) {

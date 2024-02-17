@@ -3,7 +3,7 @@
 import { message } from "antd";
 import { AiOutlineLike } from "react-icons/ai";
 import { LiaComments } from "react-icons/lia";
-import { FaCartPlus } from "react-icons/fa6";
+
 import { TbCurrencyTaka } from "react-icons/tb";
 import "./propertyStyle.css";
 import Review from "@/components/ui-components/Review/Review";
@@ -14,6 +14,7 @@ import ResponsiveSlider from "@/components/ui-components/ResponsiveSlider/Respon
 import useSWR from "swr";
 import { authContext } from "@/context/authContext/AuthProvider";
 import AddToFav from "@/components/ui-components/AddToFav/AddToFav";
+import HandleAddToCart from "@/components/ui-components/HandleAddToCart/HandleAddToCart";
 
 const Page = ({ params }) => {
   const propertyId = params.propertyId;
@@ -69,9 +70,7 @@ const Page = ({ params }) => {
 
   return (
     <div>
-      {!SinglePropertyData === undefined &&
-      !isSinglePropertyLoading &&
-      !isFavDataValidating ? (
+      {!isSinglePropertyLoading && !isFavDataValidating ? (
         <div className="mx-2 lg:mx-40">
           {contextHolder}
           <div className="flex gap-4  justify-between items-center">
@@ -117,12 +116,17 @@ const Page = ({ params }) => {
 
           {/* price, address */}
           <div className="flex justify-between mt-6">
-            {/*         <h2 className="font-bold">Address: {address}</h2>
-             */}{" "}
+            <h2 className="text-gray-400 font-semibold">
+              Location: {SinglePropertyData?.area},{" "}
+              {SinglePropertyData?.district}, {SinglePropertyData?.division}
+            </h2>
+
             <h2>
               <span className="badge text-xl p-4 bg-secondary text-white">
                 <TbCurrencyTaka />
-                {SinglePropertyData?.price}
+                {SinglePropertyData?.rentCheckbox
+                  ? `${SinglePropertyData?.price}/day`
+                  : SinglePropertyData?.price}
               </span>
             </h2>
           </div>
@@ -159,9 +163,8 @@ const Page = ({ params }) => {
               isValidating={isFavDataValidating}
             />
 
-            <button className="btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
-              <FaCartPlus /> Buy/Rent
-            </button>
+            {/* Add to Cart */}
+            <HandleAddToCart propertyData={SinglePropertyData} userId={uid} />
           </div>
 
           <div className="my-12">
