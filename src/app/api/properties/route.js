@@ -18,11 +18,9 @@ export async function GET(req) {
   try {
     const title = req.nextUrl.searchParams.get("title");
     await MongodbConnect();
-    console.log(title);
     if (title === "undefined" || title === null) {
       const data = await propertyModel.find();
       const dataCount = await propertyModel.countDocuments({});
-      console.log(data);
       if (data) {
         return NextResponse.json({ data, dataCount });
       }
