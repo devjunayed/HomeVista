@@ -7,13 +7,14 @@ import useSWR from "swr";
 const Page = ({ searchParams }) => {
   const url = `/api/properties?title=${searchParams.title}`;
   const { data, error, mutate } = useSWR(url, GetProperty);
+  
   if (data) {
     return (
       <>
         <SearchForm />
         <div className="flex">
           <div className="w-full h-[76vh] overflow-scroll">
-            <ListProperty data={data} />;
+            <ListProperty refetch={mutate} data={data} />;
           </div>
         </div>
       </>
@@ -21,7 +22,7 @@ const Page = ({ searchParams }) => {
   }
   return (
     <div className="min-h-[90vh] flex items-center justify-center">
-      <span className="loading loading-bars loading-lg"></span>
+      <span className="loading loading-bars loading-md"></span>
     </div>
   );
 };

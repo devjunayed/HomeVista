@@ -1,4 +1,4 @@
-import { Tooltip } from "antd";
+import { Tooltip, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -10,7 +10,24 @@ import { TbCurrencyTaka } from "react-icons/tb";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-const ListProperty = ({ data }) => {
+const ListProperty = ({ data, refetch }) => {
+  const handleDelete = (propertyId) => {
+    console.log(propertyId);
+
+    fetch(`/api/properties/${propertyId}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((resData) => {
+        console.log(resData.deletedCount);
+        if (resData.deletedCount >= 1) {
+          message.success("Property Deleted");
+          refetch();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
       <div className="mx-4 md:mx-10 gap-6 grid grid-cols-1 md:grid-cols-3 ">
@@ -43,16 +60,17 @@ const ListProperty = ({ data }) => {
                   ))}
                 </Carousel>
                 <div className=" flex  gap-2  m-2 absolute top-0 right-0">
-                  <Tooltip title="Edit" color={"green"}>
-                    <button
-                      className="btn text-white hover:bg-green-800 items-center border-none flex bg-green-700"
-                    >
+                  <Tooltip title="Edit" color={"#166534"}>
+                    <button className="btn text-white hover:bg-green-800 items-center border-none flex bg-green-700">
                       <FaEdit />
                     </button>
                   </Tooltip>
 
-                  <Tooltip title="Delete" color={"red"}>
-                    <button className="btn text-white hover:bg-red-700 border-none flex bg-red-600">
+                  <Tooltip title="Delete" color={"#B91C1C"}>
+                    <button
+                      onClick={() => handleDelete(property._id)}
+                      className="btn text-white hover:bg-red-700 border-none flex bg-red-600"
+                    >
                       <BiTrash />
                     </button>
                   </Tooltip>
