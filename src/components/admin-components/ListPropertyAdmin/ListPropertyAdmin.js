@@ -1,7 +1,7 @@
 import { Tooltip, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { FaDeleteLeft, FaEye } from "react-icons/fa6";
@@ -9,8 +9,19 @@ import { LuDelete } from "react-icons/lu";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import EditPropertyModal from "../EditPropertyModal/EditPropertyModal";
 
 const ListProperty = ({ data, refetch }) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [propertyData, setPropertyData] = useState();
+
+  function openModal(data) {
+    setIsOpen(true);
+    setPropertyData(data);
+  }
+
+  console.log(propertyData);
+
   const handleDelete = (propertyId) => {
     console.log(propertyId);
 
@@ -30,6 +41,11 @@ const ListProperty = ({ data, refetch }) => {
 
   return (
     <div>
+      <EditPropertyModal
+        data={propertyData}
+        setIsOpen={setIsOpen}
+        modalIsOpen={modalIsOpen}
+      />
       <div className="mx-4 md:mx-10 gap-6 grid grid-cols-1 md:grid-cols-3 ">
         {data.map((property) => (
           <div
@@ -61,7 +77,10 @@ const ListProperty = ({ data, refetch }) => {
                 </Carousel>
                 <div className=" flex  gap-2  m-2 absolute top-0 right-0">
                   <Tooltip title="Edit" color={"#166534"}>
-                    <button className="btn text-white hover:bg-green-800 items-center border-none flex bg-green-700">
+                    <button
+                      onClick={() => openModal(property)}
+                      className="btn text-white hover:bg-green-800 items-center border-none flex bg-green-700"
+                    >
                       <FaEdit />
                     </button>
                   </Tooltip>
