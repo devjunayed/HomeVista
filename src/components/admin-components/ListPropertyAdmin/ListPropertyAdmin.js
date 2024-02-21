@@ -4,8 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
-import { FaDeleteLeft, FaEye } from "react-icons/fa6";
-import { LuDelete } from "react-icons/lu";
+import { FaEye } from "react-icons/fa6";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -19,8 +18,6 @@ const ListProperty = ({ data, refetch }) => {
     setIsOpen(true);
     setPropertyData(data);
   }
-
-  console.log(propertyData);
 
   const handleDelete = (propertyId) => {
     console.log(propertyId);
@@ -41,11 +38,15 @@ const ListProperty = ({ data, refetch }) => {
 
   return (
     <div>
-      <EditPropertyModal
-        data={propertyData}
-        setIsOpen={setIsOpen}
-        modalIsOpen={modalIsOpen}
-      />
+      <div className="w-1/2">
+        {propertyData !== undefined && (
+          <EditPropertyModal
+            data={propertyData}
+            setIsOpen={setIsOpen}
+            modalIsOpen={modalIsOpen}
+          />
+        )}
+      </div>
       <div className="mx-4 md:mx-10 gap-6 grid grid-cols-1 md:grid-cols-3 ">
         {data.map((property) => (
           <div
