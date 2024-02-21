@@ -14,7 +14,7 @@ const Page = ({ searchParams }) => {
         <SearchForm />
         <div className="flex">
           <div className="w-full h-[76vh] overflow-scroll">
-            <ListProperty refetch={mutate} data={data} />;
+            <ListProperty refetch={mutate} data={data} />
           </div>
         </div>
       </>
