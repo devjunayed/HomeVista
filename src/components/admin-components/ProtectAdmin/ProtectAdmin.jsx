@@ -12,7 +12,9 @@ const ProtectAdmin = ({children}) => {
   }else if(logInfo?.role === "user"){
     return router.push("/dashboard/user");
   }else{
-    return <span className='loading'></span>
+    return <div className='flex w-[70vw] items-center justify-center min-h-[80vh]'>
+      <span className='loading text-center loading-bars'></span>
+    </div>
   }
 }
 

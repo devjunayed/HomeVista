@@ -18,11 +18,9 @@ export async function GET(req) {
   try {
     const title = req.nextUrl.searchParams.get("title");
     await MongodbConnect();
-    console.log(title);
     if (title === "undefined" || title === null) {
       const data = await propertyModel.find();
       const dataCount = await propertyModel.countDocuments({});
-      console.log(data);
       if (data) {
         return NextResponse.json({ data, dataCount });
       }
@@ -41,9 +39,4 @@ export async function GET(req) {
   }
 }
 
-export async function DELETE(req) {
-  const id = req.nextUrl.searchParams.get("id");
-  await MongodbConnect();
-  await Properties.findByIdAndDelete(id);
-  return NextResponse.json({ message: "property deleted" }, { status: 200 });
-}
+

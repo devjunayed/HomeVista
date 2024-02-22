@@ -9,14 +9,14 @@ import Image from 'next/image';
 const ResponsiveSlider = ({ title, imgLinks }) => {
 
   console.log(imgLinks);
-  return <div className='w-full h-96'>
+  return <div className='w-full min-h-[90vh]'>
 
     <Carousel thumbWidth={100} showThumbs={true} autoPlay={true}>
 
       {
         imgLinks?.length != 0 &&
-        imgLinks?.map((imgLink, index) => 
-          <div className='w-full h-96' key={index}>
+        imgLinks?.map((imgLink, index) =>
+          <div className='w-full min-h-[90vh]' key={index}>
             <Image fill objectFit="cover" alt={title} src={imgLink} />
           </div>
         )
