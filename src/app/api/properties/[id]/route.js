@@ -6,7 +6,9 @@ import { NextResponse } from "next/server";
 export async function PUT(req, { params }) {
   const { id } = params;
   const data = await req.json();
-  await MongodbConnect();
+  console.log('hitting');
+  console.log(id);
+  MongodbConnect();
   await propertyModel.findByIdAndUpdate(id, data);
   return NextResponse.json(
     { message: "Property updated successfully" },
