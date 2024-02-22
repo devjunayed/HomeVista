@@ -41,6 +41,7 @@ const ListProperty = ({ data, refetch }) => {
       <div className="w-1/2">
         {propertyData !== undefined && (
           <EditPropertyModal
+            refetch={refetch}
             data={propertyData}
             setIsOpen={setIsOpen}
             modalIsOpen={modalIsOpen}

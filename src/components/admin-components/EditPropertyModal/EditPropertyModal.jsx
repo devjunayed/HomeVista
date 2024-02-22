@@ -1,6 +1,6 @@
 import { CgClose } from 'react-icons/cg';
 import Modal from 'react-modal';
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Checkbox, Input, message, Select, Spin, Steps } from "antd";
 import divisions from "@/lib/add-property-divisions";
 import Dragger from "antd/es/upload/Dragger";
@@ -9,13 +9,12 @@ import axios from "axios";
 import districtsData from "@/lib/add-property-districts";
 import { authContext } from "@/context/authContext/AuthProvider";
 import { useRouter } from "next/navigation";
-import { SiZelle } from "react-icons/si";
 import "@/app/(ui)/add-property/steps.css";
 import TextArea from "antd/es/input/TextArea";
 import { BiTrash } from 'react-icons/bi';
 import "./propertyModelStyle.css";
 
-const EditPropertyModal = ({ data, setIsOpen, modalIsOpen }) => {
+const EditPropertyModal = ({ data: propertyData, setIsOpen, modalIsOpen, refetch }) => {
 
     function closeModal() {
         setIsOpen(false);
@@ -24,25 +23,40 @@ const EditPropertyModal = ({ data, setIsOpen, modalIsOpen }) => {
 
 
     const [current, setCurrent] = useState(0);
-    const [rentCheckbox, setrentCheckbox] = useState(data?.rentCheckbox);
-    const [saleCheckbox, setsaleCheckbox] = useState(data?.saleCheckbox);
-    const [division, setDivision] = useState(data?.division);
-    const [district, setDistrict] = useState(data?.district);
+    const [rentCheckbox, setrentCheckbox] = useState();
+    const [saleCheckbox, setsaleCheckbox] = useState();
+    const [division, setDivision] = useState();
+    const [district, setDistrict] = useState();
     const [place, setPlace] = useState([]);
-    const [area, setArea] = useState(data?.area);
+    const [area, setArea] = useState();
     const [fileList, setFileList] = useState([]);
-    const [image, setImage] = useState(data?.image);
-    const [title, setTitle] = useState(data?.title);
-    const [description, setDescription] = useState(data?.description);
-    const [street, setStreet] = useState(data?.street);
-    const [price, setPrice] = useState(data?.price);
+    const [image, setImage] = useState([]);
+    const [title, setTitle] = useState();
+    const [description, setDescription] = useState();
+    const [street, setStreet] = useState();
+    const [price, setPrice] = useState();
     const [loading, setLoading] = useState(false);
-    const { currentUser } = useContext(authContext);
     const [submitLoading, setSubmitLoading] = useState(false);
-    const [size, setSize] = useState(data?.size);
-    const router = useRouter();
+    const [size, setSize] = useState();
 
-
+    // reseting state
+    useEffect(() => {
+        if (modalIsOpen) {
+            setrentCheckbox(propertyData?.rentCheckbox);
+            setsaleCheckbox(propertyData?.saleCheckbox);
+            setDivision(propertyData?.division);
+            setDistrict(propertyData?.district);
+            setPlace(propertyData?.place);
+            setArea(propertyData?.area);
+            setImage(propertyData?.image);
+            setTitle(propertyData?.title);
+            setDescription(propertyData?.description);
+            setStreet(propertyData?.street);
+            setPrice(propertyData?.price);
+            setSize(propertyData?.size);
+            setCurrent(0);
+        }
+    }, [modalIsOpen, propertyData]);
 
     const onChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
@@ -78,7 +92,6 @@ const EditPropertyModal = ({ data, setIsOpen, modalIsOpen }) => {
         }
     };
 
-    console.log(image);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -89,8 +102,7 @@ const EditPropertyModal = ({ data, setIsOpen, modalIsOpen }) => {
         }
 
         setSubmitLoading(true);
-        const date = new Date();
-        const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
 
         const data = {
             rentCheckbox,
@@ -104,20 +116,17 @@ const EditPropertyModal = ({ data, setIsOpen, modalIsOpen }) => {
             street,
             price,
             size,
-            date: currentDate,
-            email: currentUser.email,
-            author: currentUser.displayName,
-            authorId: currentUser.uid,
         };
-        await fetch("/api/properties", {
-            method: "POST",
+        await fetch(`/api/properties/${propertyData._id}`, {
+            method: "PUT",
             body: JSON.stringify(data),
         })
             .then((res) => console.log(res))
             .then(() => {
                 setSubmitLoading(false);
-                message.success("Successfully submitted");
-                router.push("/");
+                message.success("Successfully updated");
+                refetch();
+                closeModal();
             });
     };
 
@@ -452,58 +461,64 @@ const EditPropertyModal = ({ data, setIsOpen, modalIsOpen }) => {
                     </button>
                 </div>
 
-                <div>
-                    <Spin spinning={submitLoading} fullscreen />
-                    <Steps
-                        type="navigation"
-                        current={current}
-                        className="site-navigation-steps"
-                        items={items}
-                        style={{ marginTop: "1rem" }}
-                    />
-                    <div className={"py-2"}>
-                        <div className={"pb-2 w-2/3 mx-auto"}>
-                            {steps[current].content}{" "}
-                            {current > 0 && (
-                                <button
-                                    className={
-                                        "px-6 py-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
-                                    }
-                                    onClick={() => prev()}
-                                >
-                                    Previous
-                                </button>
-                            )}
-                            {current < steps.length - 1 && (
-                                <button
-                                    className={
-                                        "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
-                                    }
-                                    onClick={() => {
-                                        next();
-                                    }}
-                                >
-                                    Next
-                                </button>
-                            )}{" "}
-                            {current === steps.length - 1 && (
-                                <button
-                                    className={
-                                        "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
-                                    }
-                                    onClick={handleSubmit}
-                                >
-                                    Publish
-                                </button>
-                            )}{" "}
+                {
+                    submitLoading ?
+                        <div className='h-[80vh] w-full flex items-center justify-center'>
+                            <span className="loading loading-bars"></span>
                         </div>
-                    </div>
-                    <div
-                        style={{
-                            marginTop: 24,
-                        }}
-                    ></div>
-                </div>
+                        :
+                        <div>
+                            <Steps
+                                type="navigation"
+                                current={current}
+                                className="site-navigation-steps"
+                                items={items}
+                                style={{ marginTop: "1rem" }}
+                            />
+                            <div className={"py-2"}>
+                                <div className={"pb-2 w-2/3 mx-auto"}>
+                                    {steps[current].content}{" "}
+                                    {current > 0 && (
+                                        <button
+                                            className={
+                                                "px-6 py-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
+                                            }
+                                            onClick={() => prev()}
+                                        >
+                                            Previous
+                                        </button>
+                                    )}
+                                    {current < steps.length - 1 && (
+                                        <button
+                                            className={
+                                                "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
+                                            }
+                                            onClick={() => {
+                                                next();
+                                            }}
+                                        >
+                                            Next
+                                        </button>
+                                    )}{" "}
+                                    {current === steps.length - 1 && (
+                                        <button
+                                            className={
+                                                "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
+                                            }
+                                            onClick={handleSubmit}
+                                        >
+                                            Publish
+                                        </button>
+                                    )}{" "}
+                                </div>
+                            </div>
+                            <div
+                                style={{
+                                    marginTop: 24,
+                                }}
+                            ></div>
+                        </div>
+                }
 
             </Modal>
         </div>

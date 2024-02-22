@@ -39,9 +39,4 @@ export async function GET(req) {
   }
 }
 
-export async function DELETE(req) {
-  const id = req.nextUrl.searchParams.get("id");
-  await MongodbConnect();
-  await Properties.findByIdAndDelete(id);
-  return NextResponse.json({ message: "property deleted" }, { status: 200 });
-}
+
