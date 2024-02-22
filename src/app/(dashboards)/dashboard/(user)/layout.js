@@ -19,9 +19,9 @@ export default function AdminLayout({ children }) {
             <AdminTopNavBar />
             <div className="flex gap-4">
               <div className=" hidden md:flex min-h-[90vh]  justify-start   bg-gray-200">
-                <UserNavBer/>
+                <UserNavBer />
               </div>
-              <div className="">{children}</div>
+              <div className=" ">{children}</div>
             </div>
           </AntdRegistry>
         </AuthProvider>

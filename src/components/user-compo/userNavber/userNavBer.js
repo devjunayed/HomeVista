@@ -13,13 +13,13 @@ const UserNavBer = () => {
         {
             link: "/dashboard/user",
             icon: <FaHouse />,
-            linkText: "Dashboard"
+            linkText: "Profile"
         },
 
         {
-            link: "/dashboard/user/manage-properties",
+            link: "/dashboard/user/My-properties",
             icon: <LuTableProperties />,
-            linkText: "Manage Properties"
+            linkText: "My Properties"
         },
         {
             link: "/dashboard/user/users-reports",
