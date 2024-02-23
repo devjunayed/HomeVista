@@ -27,7 +27,7 @@ const Page = () => {
       .then((result) => {
         console.log(result);
         if (result.deletedCount === 1) {
-          message.success("Report Deleted");
+          message.success("Report is resovled");
           mutate();
         }
       });
