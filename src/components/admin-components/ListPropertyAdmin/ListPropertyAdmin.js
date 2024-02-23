@@ -10,7 +10,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import EditPropertyModal from "../EditPropertyModal/EditPropertyModal";
 
-const ListProperty = ({ data, refetch }) => {
+const ListPropertyAdmin = ({ data, refetch }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [propertyData, setPropertyData] = useState();
 
@@ -137,4 +137,4 @@ const ListProperty = ({ data, refetch }) => {
   );
 };
 
-export default ListProperty;
+export default ListPropertyAdmin;
