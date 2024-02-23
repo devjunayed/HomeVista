@@ -12,7 +12,6 @@ const Page = () => {
         <div className="card-body">
           <h2 className="card-title">{currentUser?.displayName}</h2>
           <p>{currentUser?.email}</p>
-
         </div>
       </div>
     </div>
