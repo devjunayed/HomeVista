@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { message } from "antd";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { LiaComments } from "react-icons/lia";
 
 import { TbCurrencyTaka } from "react-icons/tb";
@@ -24,6 +24,7 @@ const Page = ({ params }) => {
   const SingleUrl = `/api/properties/${propertyId}`;
   const ratingUrl = `/api/property-rating/${propertyId}`;
   const favUrl = `/api/favourite?userId=${uid}&propertyId=${propertyId}`;
+  const likeUrl = `/api/like?userId=${uid}&propertyId=${propertyId}`;
 
   const {
     data: getRatingData,
@@ -37,6 +38,12 @@ const Page = ({ params }) => {
     isValidating: isFavDataValidating,
     mutate: refetchFav,
   } = useSWR(favUrl, getFav);
+  const {
+    data: likeData,
+    isLoading: islikeDataLoading,
+    isValidating: islikeDataValidating,
+    mutate: refetchLike,
+  } = useSWR(likeUrl, getLike);
 
   const {
     data: SinglePropertyData,
@@ -67,6 +74,35 @@ const Page = ({ params }) => {
         });
     }
   };
+  const handleLike = () => {
+    if (likeData && likeData.isFound !== undefined) {
+      fetch(likeUrl, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((resData) => {
+          if (resData?.status === "ok") {
+            messageApi.open({
+              type: "success",
+              content: resData.message,
+            });
+            refetchLike();
+          }
+        });
+    }
+  };
+  //! handle Likse
+  const [like, setLike] = useState(false);
+  const handleLikse = () => {
+    if (!like) {
+      setLike(true);
+    } else {
+      setLike(false);
+    }
+  }
 
   return (
     <div>
@@ -148,7 +184,7 @@ const Page = ({ params }) => {
 
           <div className=" my-4 gap-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center text-xl">
             <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
-              <AiOutlineLike /> Like
+              {like ? <AiFillLike size={36} onClick={handleLikse} /> : <AiOutlineLike size={36} onClick={handleLikse} />}
             </button>
             <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
               <LiaComments />
@@ -195,6 +231,11 @@ const GetPropertyAverageRating = async (ratingUrl) => {
 
 const getFav = async (favUrl) => {
   const res = await fetch(favUrl, { cache: "no-cache" });
+  const result = await res.json();
+  return result;
+};
+const getLike = async (likeUrl) => {
+  const res = await fetch(likeUrl, { cache: "no-cache" });
   const result = await res.json();
   return result;
 };
