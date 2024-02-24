@@ -49,7 +49,7 @@ export async function GET(req) {
             // Sending response for result
             if (isExist) {
                 return NextResponse.json({
-                    favCount: allLikeLength,
+                    likeCount: allLikeLength,
                     isFound: true,
                     status: "ok",
                 });
