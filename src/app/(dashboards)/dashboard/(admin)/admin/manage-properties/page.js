@@ -1,5 +1,5 @@
 "use client";
-import ListProperty from "@/components/admin-components/ListPropertyAdmin/ListPropertyAdmin";
+import ListPropertyAdmin from "@/components/admin-components/ListPropertyAdmin/ListPropertyAdmin";
 import SearchForm from "@/components/ui-components/SearchForm/SearchForm";
 import React from "react";
 import useSWR from "swr";
@@ -14,11 +14,11 @@ const Page = ({ searchParams }) => {
         <SearchForm />
         <div className="flex">
           <div className="w-full h-[76vh] overflow-scroll">
-            <ListProperty refetch={mutate} data={data} />
+            <ListPropertyAdmin refetch={mutate} data={data} />
           </div>
         </div>
       </>
-    );
+    ); 
   }
   return (
     <div className="min-h-[90vh] flex items-center justify-center">
