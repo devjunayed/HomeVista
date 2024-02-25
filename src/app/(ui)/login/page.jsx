@@ -10,9 +10,35 @@ import { FcGoogle } from "react-icons/fc";
 const Page = () => {
     const router = useRouter();
     const [messageApi, contextHolder] = message.useMessage();
-    const { googleSignIn } = useContext(authContext);
+    const { googleSignIn, emailSignIn} = useContext(authContext);
 
-    const handleSubmit = () => {
+    const handleSignIn = async (form) => {
+        const email = form.get('email');
+        const password = form.get('password');
+        emailSignIn(email, password)
+        .then(res => {
+            if(res.user){
+                messageApi.open({
+                    type: "success",
+                    content: "Logged in successfully",
+                  });
+        
+                  fetch("/api/user", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      email: res.user.email,
+                      userName: res.user.displayName,
+                      role: "user",
+                      userId: res.user.uid
+                    })
+                  })
+            }
+        })
+        .catch(err => console.log(err));
+
     }
 
     const handleGoogleSignIn = () => {
@@ -64,6 +90,7 @@ const Page = () => {
                     </button>
                     <p className='text-center mt-4'>OR</p>
                     <form
+                        action={handleSignIn}
                         className="sm:w-2/3 bg-right bg-contain bg-no-repeat w-full  bg-[url('/illustration-1.svg')]  lg:px-0 mx-auto"
                     >
 

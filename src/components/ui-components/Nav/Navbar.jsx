@@ -170,7 +170,9 @@ const Navbar = () => {
               <div className="w-10 rounded-full">
                 <Image
                   alt="avater"
-                  src={currentUser.photoURL}
+                  src={
+                    currentUser.photoURL ? currentUser.photoURL : "/gameravatar.png"
+                  }
                   width={500}
                   height={500}
                 />
