@@ -18,7 +18,7 @@ const NavbarSignOut = () => {
         <div className={"relative pt-4"}>
           <Avatar
             src={
-              currentUser?.photoURL ? currentUser.photoURL : "gameravatar.png"
+              currentUser?.photoURL ? currentUser.photoURL : "/gameravatar.png"
             }
             className={"absolute left-[50%] -translate-x-[50%] "}
           />
@@ -53,7 +53,7 @@ const NavbarSignOut = () => {
             <Avatar
               className="h-10 w-10 rounded-full"
               src={
-                currentUser.photoURL ? currentUser.photoURL : "gameravatar.png"
+                currentUser.photoURL ? currentUser.photoURL : "/gameravatar.png"
               }
             />
           </Dropdown>

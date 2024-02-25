@@ -8,11 +8,46 @@ import { Alert, Button, Space, message } from "antd";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
-  const { googleSignIn } = useContext(authContext);
+  const { googleSignIn, emailSignUp, updateUser } = useContext(authContext);
   const [messageApi, contextHolder] = message.useMessage();
   const router = useRouter();
 
-  const handleSubmit = () => { };
+  const handleSignUp = async (form) => {
+    const name = form.get("name");
+    const email = form.get("email");
+    const password = form.get("password");
+
+    emailSignUp(email, password)
+    .then(res => {
+      if(res.user){
+        updateUser(name)
+        .then(res => console.log(res))
+        .catch(err=> console.log(err));
+
+        messageApi.open({
+          type: "success",
+          content: "Logged in successfully",
+        });
+
+        fetch("/api/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email: res.user.email,
+            userName: res.user.displayName,
+            role: "user",
+            userId: res.user.uid
+          })
+        })
+
+      }
+    })
+    .catch(err => console.log(err));
+    console.log(name, email, password);
+
+   };
 
   const handleGoogleSignIn = () => {
     return googleSignIn()
@@ -70,7 +105,7 @@ const Page = () => {
             <p>Sign In With Google</p>
           </button>
           <p className="text-center mt-4">OR</p>
-          <form className="sm:w-2/3 bg-right bg-contain bg-no-repeat  w-full  bg-[url('/illustration-1.svg')]  lg:px-0 mx-auto">
+          <form action={handleSignUp} className="sm:w-2/3 bg-right bg-contain bg-no-repeat  w-full  bg-[url('/illustration-1.svg')]  lg:px-0 mx-auto">
             <div className="pb-2 pt-4">
               <h4
                 className={

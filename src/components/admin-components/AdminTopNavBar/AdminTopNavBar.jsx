@@ -71,7 +71,9 @@ const AdminTopNavBar = () => {
                 <div className="w-10 rounded-full border border-secondary">
                   <img
                     alt="avater"
-                    src={currentUser.photoURL}
+                    src={
+                      currentUser.photoURL ? currentUser.photoURL : "gameravatar.png"
+                    }
                   />
                 </div>
               </div>
