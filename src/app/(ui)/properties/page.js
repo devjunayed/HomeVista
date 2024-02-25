@@ -8,9 +8,9 @@ import React, { useState } from "react";
 import useSWR from "swr";
 
 const Page = ({ searchParams }) => {
-/*   const [division, setDivision] = useState("Dhaka");
-  const [district, setDistrict] = useState();
-  const [type, setType] = useState(); */
+  /*   const [division, setDivision] = useState("Dhaka");
+    const [district, setDistrict] = useState();
+    const [type, setType] = useState(); */
   const url = `/api/properties?title=${searchParams.title}`;
   const { data, error, mutate } = useSWR(url, GetProperty);
   if (data) {
@@ -18,7 +18,7 @@ const Page = ({ searchParams }) => {
       <>
         <SearchForm />
         <div className="flex">
-         {/*  <div className="w-2/12 flex flex-col px-5 gap-3">
+          {/*  <div className="w-2/12 flex flex-col px-5 gap-3">
             <div>
               <h1>Type</h1>
               <label htmlFor="option1">
