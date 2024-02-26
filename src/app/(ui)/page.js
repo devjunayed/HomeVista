@@ -11,8 +11,7 @@ export default async function Home() {
         <Banners />
         <Brand />
         <WhoWeAre />
-        {/*property section*/}
-        <OurService />
+
       </div>
     </>
   );
