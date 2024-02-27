@@ -11,7 +11,7 @@ const Page = () => {
         <figure>
           <img
             src={
-              currentUser.photoURL ? currentUser.photoURL : "gameravatar.png"
+              currentUser.photoURL !== null ? currentUser.photoURL : "gameravatar.png"
             }
             alt="Movie"
           />

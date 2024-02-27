@@ -1,4 +1,5 @@
 import { authContext } from "@/context/authContext/AuthProvider";
+import { NextResponse } from "next/server";
 import { useContext } from "react";
 
 
