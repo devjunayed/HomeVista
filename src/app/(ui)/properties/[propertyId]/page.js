@@ -15,7 +15,7 @@ import useSWR from "swr";
 import { authContext } from "@/context/authContext/AuthProvider";
 import AddToFav from "@/components/ui-components/AddToFav/AddToFav";
 import HandleAddToCart from "@/components/ui-components/HandleAddToCart/HandleAddToCart";
-import Likesbtn from "@/components/ui-components/Likesbtn/likesbtn";
+import Likesbtn from "@/components/ui-components/Likesbtn/Likesbtn";
 
 const Page = ({ params }) => {
   const propertyId = params.propertyId;
