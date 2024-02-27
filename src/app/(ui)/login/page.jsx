@@ -22,6 +22,8 @@ const Page = () => {
                     type: "success",
                     content: "Logged in successfully",
                   });
+
+                  console.log(res.user);
         
                   fetch("/api/user", {
                     method: "POST",
