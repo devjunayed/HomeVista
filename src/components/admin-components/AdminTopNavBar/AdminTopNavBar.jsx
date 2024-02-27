@@ -72,7 +72,7 @@ const AdminTopNavBar = () => {
                   <img
                     alt="avater"
                     src={
-                      currentUser.photoURL ? currentUser.photoURL : "gameravatar.png"
+                      currentUser.photoURL != null ? currentUser.photoURL : "/gameravatar.png"
                     }
                   />
                 </div>

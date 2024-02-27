@@ -6,6 +6,8 @@ import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Alert, Button, Space, message } from "antd";
 import { useRouter } from "next/navigation";
+import { updateProfile } from "firebase/auth";
+import auth from "firebase.config";
 
 const Page = () => {
   const { googleSignIn, emailSignUp, updateUser } = useContext(authContext);
@@ -18,41 +20,38 @@ const Page = () => {
     const password = form.get("password");
 
     emailSignUp(email, password)
-    .then(res => {
-      if(res.user){
-        updateUser(name)
-        .then(res => console.log(res))
-        .catch(err=> console.log(err));
-
-        messageApi.open({
-          type: "success",
-          content: "Logged in successfully",
-        });
-
-        fetch("/api/user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email: res.user.email,
-            userName: res.user.displayName,
-            role: "user",
-            userId: res.user.uid
-          })
-        })
-
-      }
-    })
-    .catch(err => console.log(err));
-    console.log(name, email, password);
-
+      .then(res => {
+        if (res.user) {
+          updateProfile(auth.currentUser, { displayName: name })
+            .then(() => {
+              fetch("/api/user", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  email: res.user.email,
+                  userName: res.user.displayName,
+                  role: "user",
+                  userId: res.user.uid
+                })
+              }).then(() => {
+                messageApi.open({
+                  type: "success",
+                  content: "Logged in successfully",
+                });
+              })
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
    };
 
   const handleGoogleSignIn = () => {
     return googleSignIn()
       .then((res) => {
-        
+
         if (res.user) {
           messageApi.open({
             type: "success",

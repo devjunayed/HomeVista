@@ -39,11 +39,6 @@ export const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
-  const updateUser = (userName) => {
-    return updateProfile(currentUser, {
-      displayName: userName
-    })
-  }
 
   const logOut = () => {
     return signOut(auth);
@@ -54,9 +49,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-
-
-
 
       if (currentUser) {
         setCurrentUser(currentUser);
@@ -90,7 +82,6 @@ export const AuthProvider = ({ children }) => {
     isLoading,
     emailSignIn,
     emailSignUp,
-    updateUser,
     logInfo
   };
 
