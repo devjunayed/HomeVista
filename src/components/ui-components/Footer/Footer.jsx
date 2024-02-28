@@ -1,6 +1,7 @@
 import React from "react";
 
 const Footer = () => {
+
   return (
     <>
       <footer className=" p-10 bg-[#EDF0FE] text-black ">
@@ -81,8 +82,8 @@ const Footer = () => {
         </div>
         <br />
       </footer>
-      <div className="text-center bg-black text-[#AAAAAA] pt-[1.9rem] pb-[1.25rem]">
-        <p> © Home-Vista 2024 - All right reserved</p>
+      <div className="text-center bg-blue-100 text-black pt-[1.9rem] pb-[1.25rem]">
+        <p> © Home-Vista {new Date().getFullYear()}  - All right reserved</p>
       </div>
     </>
   );

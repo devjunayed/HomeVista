@@ -3,7 +3,7 @@
 import { authContext } from "@/context/authContext/AuthProvider";
 import Link from "next/link";
 import { Alert, Button, Space, message } from "antd";
-import { MdOutlineHomeWork, MdSpaceDashboard } from "react-icons/md";
+import { MdOutlineAddHomeWork, MdOutlineHomeWork, MdSpaceDashboard } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -50,11 +50,6 @@ const Navbar = () => {
       link: "/properties",
       text: "Properties",
       hide: false,
-    },
-    {
-      link: "/add-property",
-      text: "Add Property",
-      hide: hideLogic
     },
     {
       link: "/about",
@@ -185,6 +180,11 @@ const Navbar = () => {
               <li>
                 <Link href={`/dashboard/${logInfo?.role}`} className="">
                   <MdSpaceDashboard /> Dashbaord
+                </Link>
+              </li>
+              <li>
+                <Link href="/add-property" className="">
+                <MdOutlineAddHomeWork /> Add property
                 </Link>
               </li>
 
