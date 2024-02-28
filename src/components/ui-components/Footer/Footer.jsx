@@ -4,10 +4,10 @@ const Footer = () => {
 
   return (
     <>
-      <footer className=" p-10 bg-[#EDF0FE] text-black ">
-        <div className="flex justify-around items-center">
-          <aside className="mx-10">
-            <div className={"flex items-center  gap-[1rem] mb-4"}>
+      <footer className=" py-10 md:p-10 bg-[#EDF0FE] text-black ">
+        <div className="flex space-y-10 justify-around md:flex-row flex-col items-center">
+          <aside className="mx-4 md:mx-10">
+            <div className={"flex md:justify-start justify-center items-center  gap-[1rem] mb-4"}>
               <div className={" rounded-full p-[0.81rem] bg-[#3A0CA3]"}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +41,8 @@ const Footer = () => {
               Providing reliable tech since 1992
             </p>
           </aside>
-          <nav className="mx-10">
-            <header className="footer-title">Social</header>
+          <nav className="md:mx-10">
+            <h1 className="text-xl font-bolder mb-6 text-center">Social</h1>
             <div className="grid grid-flow-col gap-4">
               <a>
                 <svg

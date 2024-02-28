@@ -16,7 +16,9 @@ const Page = ({ searchParams }) => {
   if (data) {
     return (
       <>
-        <SearchForm />
+      <div className="flex mx-6 justify-center">
+      <SearchForm />
+      </div>
         <div className="flex">
           {/*  <div className="w-2/12 flex flex-col px-5 gap-3">
             <div>
@@ -118,8 +120,8 @@ const Page = ({ searchParams }) => {
               />
             </div>
           </div> */}
-          <div className="w-10/12">
-            <ListProperty data={data} />;
+          <div className=" mb-4 w-full md:w-10/12">
+            <ListProperty data={data} />
           </div>
         </div>
       </>
