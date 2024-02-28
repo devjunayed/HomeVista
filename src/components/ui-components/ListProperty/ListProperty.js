@@ -8,7 +8,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 const ListProperty = ({ data }) => {
   return (
     <div>
-      <div className="mx-4 md:mx-10 gap-6 grid grid-cols-1 md:grid-cols-3 ">
+      <div className="mx-6 md:mx-10 justify-center gap-6 grid grid-cols-1 md:grid-cols-3 ">
         {data.map((property) => (
           <div
             key={property._id}
