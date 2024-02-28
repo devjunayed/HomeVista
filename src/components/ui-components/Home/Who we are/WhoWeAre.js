@@ -2,7 +2,9 @@ import Image from "next/image";
 
 const WhoWeAre = () => {
   return (
-    <div className={"xl:px-[5rem] 2xl:px-[10rem] mt-[8rem] pb-[12.5rem]"}>
+    <div
+      className={"md:mx-10 mx-6 mt-10"}
+    >
       <h1
         className={
           "text-[1.2125rem]  font-medium leading-normal text-[#4361EE] tracking-[0.18188rem] "
@@ -10,31 +12,33 @@ const WhoWeAre = () => {
       >
         WHO ARE WE
       </h1>
-      <div className={"mt-[2.5rem] flex  justify-between"}>
-        <div>
+      <div className={"mt-[2.5rem] flex md:flex-row flex-col-reverse justify-between"}>
+        <div className="space-y-4">
           <h1
             className={
-              "2xl:text-[2.4875rem] text-[2.4875rem] font-semibold text-[#0B090A] not-italic leading-[2.9375rem]"
+              "font-semibold text-xl md:text-3xl text-[#0B090A] not-italic"
             }
           >
-            Assisting individuals in <br /> locating the appropriate <br /> real
-            estate.
+            Assisting individuals in locating the appropriate real estate.
           </h1>
-          <p
-            className={
-              "mt-[2.5rem] text-[#808080] font-normal text-[1rem] leading-[1.625rem]"
-            }
-          >
-            Unlock the door to your dream home! Discover elegance, comfort, and{" "}
-            <br />
-            endless possibilities in our curated selection of exquisite estates.{" "}
-            <br />
-            Your sanctuary awaits – find the perfect space to create lasting
-            memories.
-          </p>
+          <div className={" text-[#808080] font-normal space-y-4"}>
+            <p>
+              {" "}
+              Unlock the door to your dream home! Discover elegance, comfort,
+              and{" "}
+            </p>
+            <p>
+              endless possibilities in our curated selection of exquisite
+              estates.{" "}
+            </p>
+            <p>
+              Your sanctuary awaits – find the perfect space to create lasting
+              memories.
+            </p>
+          </div>
           <div
             className={
-              "px-[1.94rem] py-[1.87rem]  mt-[2.5rem]  rounded-[1.875rem] gap-[1rem] flex items-center "
+              "px-4 py-4  mt-2  rounded-xl gap-4 flex items-center "
             }
             style={{ boxShadow: "4px 10px 30px 0px rgba(0, 0, 0, 0.06)" }}
           >
@@ -47,6 +51,7 @@ const WhoWeAre = () => {
               className={"w-[2.5rem] h-[2.48013rem]"}
             >
               <path
+
                 d="M30.531 38.8827H19.1277C18.3736 38.8827 17.7483 38.2573 17.7483 37.5032C17.7483 36.7491 18.3736 36.1238 19.1277 36.1238H30.531C32.499 36.1238 34.4301 34.4867 34.7612 32.5371L37.2074 17.897C37.4281 16.5727 36.6926 14.6781 35.6626 13.8505L22.9165 3.66125C21.4451 2.48414 18.999 2.48412 17.546 3.64284L4.8001 13.8505C3.75174 14.6965 3.03444 16.5727 3.25514 17.897L3.77013 21.0051C3.89888 21.7592 3.38391 22.4765 2.62982 22.5869C1.87574 22.734 1.17685 22.2006 1.0481 21.4465L0.533113 18.3568C0.146873 16.0761 1.25043 13.1517 3.07128 11.6987L15.8172 1.49086C18.2817 -0.495513 22.1624 -0.477102 24.6454 1.50927L37.3913 11.6987C39.1938 13.1517 40.2973 16.0761 39.9295 18.3568L37.4833 32.9969C36.9315 36.2524 33.8232 38.8827 30.531 38.8827Z"
                 fill="#4361EE"
               />
@@ -79,7 +84,7 @@ const WhoWeAre = () => {
           </div>
           <div
             className={
-              "px-[1.94rem] py-[1.87rem]  mt-[2.5rem]  rounded-[1.875rem] gap-[1rem] flex items-center "
+              "px-4 py-4  mt-2  rounded-xl gap-4 flex items-center"
             }
             style={{ boxShadow: "4px 10px 30px 0px rgba(0, 0, 0, 0.06)" }}
           >
@@ -129,7 +134,7 @@ const WhoWeAre = () => {
           </div>
         </div>
         <div className={"flex"}>
-          <div className={"relative"}>
+          <div className={"relative animate-bounce-slow"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="61"
@@ -168,7 +173,7 @@ const WhoWeAre = () => {
               className={"mt-[2.95rem]"}
             />
           </div>
-          <div className={"-mt-[3rem]"}>
+          <div className={"flex flex-col gap-4 animate-bounce-very-slow"}>
             <Image
               src={"/WhoWeAre/second-sec.png"}
               alt={"image"}
