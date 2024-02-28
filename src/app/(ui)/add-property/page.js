@@ -104,7 +104,7 @@ const Page = () => {
       title: "Property Title",
       content: (
         <>
-          <div>
+          <div className="">
             <div className="pb-2 pt-4">
               <h4
                 className={
@@ -118,7 +118,7 @@ const Page = () => {
                 name="title"
                 id="title"
                 value={title}
-                className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full outline-none p-4 text-lg rounded-[0.125rem]"
+                className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full  outline-none p-4 text-lg rounded-[0.125rem]"
                 required
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -132,17 +132,19 @@ const Page = () => {
                 Description
               </h4>
 
+              <div className="w-full">
               <TextArea
                 name="description"
                 rows={6}
                 id="description"
-                className="text-xl block focus:shadow-md transition border border-[#CACACA]   w-full outline-none p-4 rounded-[0.125rem]"
+                className="text-xl block focus:shadow-md transition border border-[#CACACA]  outline-none p-4 rounded-[0.125rem]"
                 style={{fontSize: '1.25rem'}}
                 required
                 defaultValue={description}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
+              </div>
             </div>
             <div className="pb-2 pt-4 flex items-center justify-between">
               <Checkbox
@@ -196,8 +198,8 @@ const Page = () => {
                 onChange={(e) => setStreet(e.target.value)}
               />
             </div>
-            <div className="pb-2 pt-4 flex items-center justify-between">
-              <div>
+            <div className="pb-2 pt-4 flex md:flex-row flex-col items-center justify-between gap-4">
+              <div className="w-full">
                 <h4
                   className={
                     "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
@@ -208,8 +210,8 @@ const Page = () => {
 
                 <Select
                   defaultValue={division}
-                  style={{ width: 120 }}
                   options={divisions}
+                className="w-full py-8 "
                   onChange={(value) => {
                     setDistrict("");
                     setArea("");
@@ -217,7 +219,7 @@ const Page = () => {
                   }}
                 />
               </div>
-              <div>
+              <div className="w-full">
                 <h4
                   className={
                     "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
@@ -227,7 +229,7 @@ const Page = () => {
                 </h4>
 
                 <Select
-                  style={{ width: 120 }}
+                className="w-full py-8"
                   options={districtsData[division]}
                   value={district}
                   onChange={async (value) => {
@@ -271,7 +273,7 @@ const Page = () => {
                   }}
                 />
               </div>
-              <div>
+              <div className="w-full ">
                 <h4
                   className={
                     "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
@@ -282,7 +284,7 @@ const Page = () => {
 
                 <div>
                   <Select
-                    style={{ width: 120 }}
+                  className="w-full py-8"
                     loading={loading}
                     options={place}
                     value={area}
@@ -406,10 +408,11 @@ const Page = () => {
         items={items}
         style={{ marginTop: "5rem" }}
       />
-      <div className={"py-[10rem]"}>
-        <div className={"p-[2rem] border w-[37rem] mx-auto"}>
+      <div className={"py-4 md:py-10"}>
+        <div className={"p-[2rem]  border yoyo mx-auto"}>
           {steps[current].content}{" "}
-          {current > 0 && (
+         <div className="flex justify-center">
+         {current > 0 && (
             <button
               className={
                 "px-6 py-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
@@ -441,6 +444,7 @@ const Page = () => {
               Publish
             </button>
           )}{" "}
+         </div>
         </div>
       </div>
       <div
