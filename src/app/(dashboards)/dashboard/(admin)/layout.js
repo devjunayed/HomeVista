@@ -20,11 +20,11 @@ export default function AdminLayout({ children }) {
           <AntdRegistry>
             <AdminTopNavBar />
             <div className="overflow-hidden flex gap-4">
-              <div className="w-3/12 hidden md:flex min-h-[89vh]  justify-start   bg-gray-200">
+              <div className="md:w-3/12 hidden md:flex min-h-[89vh]  justify-start   bg-gray-200">
                 <AdminNavBar />
               </div>
               <ProtectAdmin>
-                <div className="w-9/12">{children}</div>
+                <div className="w-full md:w-9/12">{children}</div>
               </ProtectAdmin>
             </div>
           </AntdRegistry>
