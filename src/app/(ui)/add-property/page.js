@@ -409,7 +409,7 @@ const Page = () => {
         style={{ marginTop: "5rem" }}
       />
       <div className={"py-4 md:py-10"}>
-        <div className={"p-[2rem]  border yoyo mx-auto"}>
+        <div className={"p-[2rem] lg:w-1/2  border yoyo mx-auto"}>
           {steps[current].content}{" "}
          <div className="flex justify-center">
          {current > 0 && (
