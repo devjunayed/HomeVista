@@ -37,7 +37,7 @@ const ListPropertyAdmin = ({ data, refetch }) => {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="w-1/2">
         {propertyData !== undefined && (
           <EditPropertyModal
@@ -48,7 +48,7 @@ const ListPropertyAdmin = ({ data, refetch }) => {
           />
         )}
       </div>
-      <div className="mx-4 md:mx-10 gap-6 grid grid-cols-1 md:grid-cols-3 ">
+      <div className="mx-4 md:mx-10 gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
         {data.map((property) => (
           <div
             key={property._id}

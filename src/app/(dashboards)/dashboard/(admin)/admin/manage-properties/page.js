@@ -6,7 +6,7 @@ import useSWR from "swr";
 
 const Page = ({ searchParams }) => {
   const url = `/api/properties?title=${searchParams.title}`;
-  const { data, error, mutate } = useSWR(url, GetProperty);
+  const { data, error, mutate } = useSWR(url, GetProperty); 
   
   if (data) {
     return (
