@@ -1,9 +1,8 @@
 import React from 'react';
 import useSWR from 'swr';
 
-const Comments = ({ propertyId }) => {
-    const url = '/api/comments';
-    const { data, error, mutate } = useSWR(url, GetComments);
+const Comments = ({ propertyId, data }) => {
+    
 
     // Filter comments based on propertyId
     const filteredComments = data ? data.filter(comment => comment.propertyId === propertyId) : [];
@@ -25,13 +24,3 @@ const Comments = ({ propertyId }) => {
 
 export default Comments;
 
-const GetComments = async (url) => {
-    try {
-        const res = await fetch(url, { cache: "no-cache" });
-        const data = await res.json();
-        return data.data;
-    } catch (error) {
-        console.error('Error fetching comments', error);
-        throw error; // Propagate the error
-    }
-};
