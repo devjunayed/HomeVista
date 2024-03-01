@@ -69,6 +69,8 @@ const Page = () => {
 
 export default Page;
 
+
+
 const getAllReport = async (reportUrl) => {
   const res = await fetch(reportUrl, {"cache": "no-cache"});
   const data = res.json();
