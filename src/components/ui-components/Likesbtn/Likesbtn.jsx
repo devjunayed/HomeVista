@@ -23,11 +23,11 @@ const Likesbtn = ({ handleLike, likeData, isLoading, isValidating }) => {
                     <>
                         {likeData && likeData.isFound ? (
                             <>
-                                <AiFillLike size={36} />
+                                <AiFillLike size={24} />
                             </>
                         ) : (
                             <>
-                                <AiOutlineLike size={36} />
+                                <AiOutlineLike size={24} />
                             </>
                         )}
                     </>

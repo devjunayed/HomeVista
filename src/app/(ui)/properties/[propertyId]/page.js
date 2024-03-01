@@ -1,9 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { message } from "antd";
-import { AiFillLike, AiOutlineLike } from "react-icons/ai";
-import { LiaComments } from "react-icons/lia";
-
 import { TbCurrencyTaka } from "react-icons/tb";
 import "./propertyStyle.css";
 import Review from "@/components/ui-components/Review/Review";
@@ -17,6 +14,7 @@ import AddToFav from "@/components/ui-components/AddToFav/AddToFav";
 import HandleAddToCart from "@/components/ui-components/HandleAddToCart/HandleAddToCart";
 import Likesbtn from "@/components/ui-components/Likesbtn/Likesbtn";
 import Comments from "@/components/ui-components/Comments/Comments";
+import {  FaComments,  FaRegComments } from "react-icons/fa";
 
 const Page = ({ params }) => {
   const propertyId = params.propertyId;
@@ -31,14 +29,27 @@ const Page = ({ params }) => {
   const [loading, setSubmitLoading] = useState(false);
   const [comment, setComment] = useState();
   const { currentUser } = useContext(authContext);
+  const [isCommentsHidden, setIsCommentsHidden] = useState(true);
+
+
+  const url = "/api/comments";
+  const { data, mutate } = useSWR(url, GetComments);
+
+const handleShowComment = () => {
+
+  setIsCommentsHidden((currValue)=>{
+    return !currValue;
+  })
+}
 
   const handleComments = async (e) => {
     e.preventDefault();
 
-
     setSubmitLoading(true);
     const date = new Date();
-    const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    const currentDate = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
 
     const data = {
       comment,
@@ -60,9 +71,9 @@ const Page = ({ params }) => {
         .then((res) => console.log(res))
         .then(() => {
           setSubmitLoading(false);
+          mutate();
           message.success("Successfully submitted");
           setComment(" ");
-
         });
     }
   };
@@ -143,7 +154,7 @@ const Page = ({ params }) => {
     } else {
       setLike(false);
     }
-  }
+  };
 
   return (
     <div>
@@ -218,7 +229,8 @@ const Page = ({ params }) => {
           <p className="-mb-2 text-gray-400">
             {!islikeDataLoading && !islikeDataValidating && likeData
               ? likeData?.likeCount
-              : "0"}{" "} likes, 0 comments and{" "}
+              : "0"}{" "}
+            likes, 0 comments and{" "}
             {!isFavDataLoading && !isFavDataValidating && favData
               ? favData?.favCount
               : "0"}{" "}
@@ -231,7 +243,17 @@ const Page = ({ params }) => {
               likeData={likeData}
               handleLike={handleLike}
               isLoading={islikeDataLoading}
-              isValidating={islikeDataValidating} />
+              isValidating={islikeDataValidating}
+            />
+
+            {/* Comments button */}
+            <button
+              onClick={handleShowComment}
+              className="btn disabled:text-white disabled:bg-secondary bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2"
+            >
+             {/* {isCommentsHidden ? <FaRegComments/> : <FaComments />}  Comments */}
+              <FaComments />  Comments
+            </button>
 
             {/* Add to Favourite */}
             <AddToFav
@@ -245,6 +267,32 @@ const Page = ({ params }) => {
             <HandleAddToCart propertyData={SinglePropertyData} userId={uid} />
           </div>
 
+          {/* comments section */}
+          {!isCommentsHidden && (
+            <>
+              <from className="w-full mx-auto flex justify-center gap-4">
+                <input
+                  type="text"
+                  name="comment"
+                  id="comment"
+                  value={comment}
+                  className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full  outline-none p-4 text-lg rounded-[0.125rem]"
+                  required
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <button
+                  onClick={handleComments}
+                  className="btn btn-outline btn-primary"
+                >
+                  Comment
+                </button>
+              </from>
+              <div>
+                <Comments data={data} propertyId={propertyId} />
+              </div>
+            </>
+          )}
+
           <div className="my-12">
             <Review
               propertyId={propertyId}
@@ -253,23 +301,6 @@ const Page = ({ params }) => {
               refetch={refetchRating}
             />
           </div>
-          <from className="w-full mx-auto flex justify-center gap-4">
-            <input
-              type="text"
-              name="comment"
-              id="comment"
-              value={comment}
-              className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full  outline-none p-4 text-lg rounded-[0.125rem]"
-              required
-              onChange={(e) => setComment(e.target.value)}
-            />
-            <button  onClick={handleComments} className="btn btn-outline btn-primary">Comment</button>
-
-          </from>
-          <div>
-            <Comments propertyId={propertyId}/>
-          </div>
-
         </div>
       ) : (
         <div className="flex w-full min-h-screen items-center justify-center">
@@ -302,4 +333,15 @@ const getSingleProperty = async (SingleUrl) => {
   const res = await fetch(SingleUrl, { cache: "no-cache" });
   const result = await res.json();
   return result.Properties;
+};
+
+const GetComments = async (url) => {
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching comments", error);
+    throw error; // Propagate the error
+  }
 };
