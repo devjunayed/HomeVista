@@ -21,16 +21,7 @@ const UserNavBer = () => {
             icon: <LuTableProperties />,
             linkText: "My Properties"
         },
-        {
-            link: "/dashboard/user/users-reports",
-            icon: <MdReport />,
-            linkText: "Users Report"
-        },
-        {
-            link: "/dashboard/user/messages",
-            icon: <LuMessageSquare />,
-            linkText: "Messages"
-        }
+        
     ]
 
     return (

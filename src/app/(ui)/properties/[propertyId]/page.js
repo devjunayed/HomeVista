@@ -16,6 +16,7 @@ import { authContext } from "@/context/authContext/AuthProvider";
 import AddToFav from "@/components/ui-components/AddToFav/AddToFav";
 import HandleAddToCart from "@/components/ui-components/HandleAddToCart/HandleAddToCart";
 import Likesbtn from "@/components/ui-components/Likesbtn/Likesbtn";
+import Comments from "@/components/ui-components/Comments/Comments";
 
 const Page = ({ params }) => {
   const propertyId = params.propertyId;
@@ -26,7 +27,45 @@ const Page = ({ params }) => {
   const ratingUrl = `/api/property-rating/${propertyId}`;
   const favUrl = `/api/favourite?userId=${uid}&propertyId=${propertyId}`;
   const likeUrl = `/api/like?userId=${uid}&propertyId=${propertyId}`;
+  /* comments  */
+  const [loading, setSubmitLoading] = useState(false);
+  const [comment, setComment] = useState();
+  const { currentUser } = useContext(authContext);
 
+  const handleComments = async (e) => {
+    e.preventDefault();
+
+
+    setSubmitLoading(true);
+    const date = new Date();
+    const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
+    const data = {
+      comment,
+      propertyId,
+      image: currentUser.photoURL,
+      date: currentDate,
+      email: currentUser.email,
+      author: currentUser.displayName,
+      userId: currentUser.uid,
+    };
+    if (comment == " ") {
+      message.error("commet can not be empty");
+      return;
+    } else {
+      await fetch("/api/comments", {
+        method: "POST",
+        body: JSON.stringify(data),
+      })
+        .then((res) => console.log(res))
+        .then(() => {
+          setSubmitLoading(false);
+          message.success("Successfully submitted");
+          setComment(" ");
+
+        });
+    }
+  };
   const {
     data: getRatingData,
     error,
@@ -193,10 +232,6 @@ const Page = ({ params }) => {
               handleLike={handleLike}
               isLoading={islikeDataLoading}
               isValidating={islikeDataValidating} />
-            <button className=" btn bg-secondary hover:bg-blue-800 text-white text-xl flex items-center justify-center gap-2 py-2">
-              <LiaComments />
-              Comments
-            </button>
 
             {/* Add to Favourite */}
             <AddToFav
@@ -218,6 +253,23 @@ const Page = ({ params }) => {
               refetch={refetchRating}
             />
           </div>
+          <from className="w-full mx-auto flex justify-center gap-4">
+            <input
+              type="text"
+              name="comment"
+              id="comment"
+              value={comment}
+              className="block focus:shadow-md transition border border-[#CACACA]  h-[3rem] w-full  outline-none p-4 text-lg rounded-[0.125rem]"
+              required
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button  onClick={handleComments} className="btn btn-outline btn-primary">Comment</button>
+
+          </from>
+          <div>
+            <Comments propertyId={propertyId}/>
+          </div>
+
         </div>
       ) : (
         <div className="flex w-full min-h-screen items-center justify-center">

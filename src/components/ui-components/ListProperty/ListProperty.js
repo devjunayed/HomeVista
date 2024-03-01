@@ -44,7 +44,7 @@ const ListProperty = ({ data }) => {
                     <p className="badge badge-sm bg-secondary border-none text-white p-4">
                       <TbCurrencyTaka />
                       {property.rentCheckbox ? `${property?.price}/day` : property?.price}
-                     
+
                     </p>
                   </div>
                 </div>

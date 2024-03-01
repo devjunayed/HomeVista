@@ -21,9 +21,8 @@ const Page = ({ searchParams }) => {
       <>
         <SearchForm />
         <div className="flex">
-          <div className="w-2/12">filter</div>
           <div className="w-10/12">
-            <ListProperty data={userData} />;
+            <ListProperty data={userData} />
           </div>
         </div>
       </>

@@ -60,16 +60,16 @@ const Page = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();  
+    e.preventDefault();
 
-    if(!size || !price || image.length === 0){
+    if (!size || !price || image.length === 0) {
       message.error("Please fill out all required fields.");
       return;
     }
 
     setSubmitLoading(true);
     const date = new Date();
-    const currentDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+    const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
     const data = {
       rentCheckbox,
@@ -133,17 +133,17 @@ const Page = () => {
               </h4>
 
               <div className="w-full">
-              <TextArea
-                name="description"
-                rows={6}
-                id="description"
-                className="text-xl block focus:shadow-md transition border border-[#CACACA]  outline-none p-4 rounded-[0.125rem]"
-                style={{fontSize: '1.25rem'}}
-                required
-                defaultValue={description}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
+                <TextArea
+                  name="description"
+                  rows={6}
+                  id="description"
+                  className="text-xl block focus:shadow-md transition border border-[#CACACA]  outline-none p-4 rounded-[0.125rem]"
+                  style={{ fontSize: '1.25rem' }}
+                  required
+                  defaultValue={description}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
               </div>
             </div>
             <div className="pb-2 pt-4 flex items-center justify-between">
@@ -159,7 +159,7 @@ const Page = () => {
                 </span>
               </Checkbox>
               <Checkbox
-              className="checked:text-red-600 checked:bg-black"
+                className="checked:text-red-600 checked:bg-black"
                 checked={saleCheckbox}
                 onChange={(e) => {
                   setrentCheckbox(false);
@@ -211,7 +211,7 @@ const Page = () => {
                 <Select
                   defaultValue={division}
                   options={divisions}
-                className="w-full py-8 "
+                  className="w-full py-8 "
                   onChange={(value) => {
                     setDistrict("");
                     setArea("");
@@ -229,7 +229,7 @@ const Page = () => {
                 </h4>
 
                 <Select
-                className="w-full py-8"
+                  className="w-full py-8"
                   options={districtsData[division]}
                   value={district}
                   onChange={async (value) => {
@@ -284,7 +284,7 @@ const Page = () => {
 
                 <div>
                   <Select
-                  className="w-full py-8"
+                    className="w-full py-8"
                     loading={loading}
                     options={place}
                     value={area}
@@ -376,14 +376,14 @@ const Page = () => {
     },
   ];
   const next = () => {
-    if(current == 0){
+    if (current == 0) {
       console.log(current);
-      if(!title || !description){
+      if (!title || !description) {
         message.error("Please fill out all required fields.");
         return;
       }
-    }else if(current == 1){
-      if(!street || !division || !district || !area ){
+    } else if (current == 1) {
+      if (!street || !division || !district || !area) {
         message.error("Please fill out all required fields.");
         return;
       }
@@ -411,40 +411,40 @@ const Page = () => {
       <div className={"py-4 md:py-10"}>
         <div className={"p-[2rem] lg:w-1/2  border yoyo mx-auto"}>
           {steps[current].content}{" "}
-         <div className="flex justify-center">
-         {current > 0 && (
-            <button
-              className={
-                "px-6 py-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
-              }
-              onClick={() => prev()}
-            >
-              Previous
-            </button>
-          )}
-          {current < steps.length - 1 && (
-            <button
-              className={
-                "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
-              }
-              onClick={() => {
-                next();
-              }}
-            >
-              Next
-            </button>
-          )}{" "}
-          {current === steps.length - 1 && (
-            <button
-              className={
-                "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
-              }
-              onClick={handleSubmit}
-            >
-              Publish
-            </button>
-          )}{" "}
-         </div>
+          <div className="flex justify-center">
+            {current > 0 && (
+              <button
+                className={
+                  "px-6 py-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
+                }
+                onClick={() => prev()}
+              >
+                Previous
+              </button>
+            )}
+            {current < steps.length - 1 && (
+              <button
+                className={
+                  "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
+                }
+                onClick={() => {
+                  next();
+                }}
+              >
+                Next
+              </button>
+            )}{" "}
+            {current === steps.length - 1 && (
+              <button
+                className={
+                  "px-6 py-2 ml-2 rounded mt-4  bg-[#3A0CA3] text-white text-[0.875rem] font-normal  "
+                }
+                onClick={handleSubmit}
+              >
+                Publish
+              </button>
+            )}{" "}
+          </div>
         </div>
       </div>
       <div
