@@ -89,12 +89,17 @@ const handleShowComment = () => {
     isValidating: isFavDataValidating,
     mutate: refetchFav,
   } = useSWR(favUrl, getFav);
+
+  
   const {
     data: likeData,
     isLoading: islikeDataLoading,
     isValidating: islikeDataValidating,
     mutate: refetchLike,
   } = useSWR(likeUrl, getLike);
+
+
+
   const handleLike = () => {
     if (likeData && likeData.isFound !== undefined) {
       fetch(likeUrl, {

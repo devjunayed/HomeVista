@@ -36,6 +36,8 @@ const Page = () => {
                       role: "user",
                       userId: res.user.uid
                     })
+                  }).then(()=>{
+                    router.push("/");
                   })
             }
         })

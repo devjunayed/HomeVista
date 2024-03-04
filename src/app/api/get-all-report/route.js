@@ -27,7 +27,7 @@ export async function GET(req) {
       },
     ]);
 
- 
+    console.log(data);
 
     return NextResponse.json({ status: "ok", data });
   } catch (err) {

@@ -8,47 +8,49 @@ import React, { useState } from "react";
 import useSWR from "swr";
 
 const Page = ({ searchParams }) => {
-  /*   const [division, setDivision] = useState("Dhaka");
-    const [district, setDistrict] = useState();
-    const [type, setType] = useState(); */
+  const [division, setDivision] = useState("Dhaka");
+  const [district, setDistrict] = useState();
+  const [type, setType] = useState();
   const url = `/api/properties?title=${searchParams.title}`;
   const { data, error, mutate } = useSWR(url, GetProperty);
   if (data) {
     return (
       <>
-      <div className="flex mx-6 justify-center">
-      <SearchForm />
-      </div>
-        <div className="flex">
-          {/*  <div className="w-2/12 flex flex-col px-5 gap-3">
+        <div className="flex mx-6 justify-center">
+          <SearchForm />
+        </div>
+        <div className="flex justify-center md:flex-row flex-col">
+          <div className="w-2/12 md:flex flex-col px-5 gap-3">
             <div>
-              <h1>Type</h1>
-              <label htmlFor="option1">
-                <input
-                  type="radio"
-                  id="option1"
-                  name="radioGroup"
-                  value="Rent"
-                  onChange={() => setType("Rent")} // Update type state
-                />
-                Rent
-              </label>
-              <br />
-              <label htmlFor="option2">
-                <input
-                  type="radio"
-                  id="option2"
-                  name="radioGroup"
-                  value="Sell"
-                  onChange={() => setType("Sell")} // Update type state
-                />
-                Sell
-              </label>
+              <h1 className="border-b-2 pb-1">Type</h1>
+              <div className="ml-4 mt-1">
+                <label htmlFor="option1">
+                  <input
+                    type="radio"
+                    id="option1"
+                    name="radioGroup"
+                    value="Rent"
+                    onChange={() => setType("Rent")} // Update type state
+                  />{" "}
+                  Rent
+                </label>
+                <br />
+                <label htmlFor="option2">
+                  <input
+                    type="radio"
+                    id="option2"
+                    name="radioGroup"
+                    value="Sell"
+                    onChange={() => setType("Sell")} // Update type state
+                  />{" "}
+                  Sell
+                </label>
+              </div>
             </div>
             <div>
               <h4
                 className={
-                  "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
+                  "border-b-2 pb-1 mb-2 text-left text-[0.875rem] font-normal text-[#4F4F4F]"
                 }
               >
                 Division
@@ -68,7 +70,7 @@ const Page = ({ searchParams }) => {
             <div>
               <h4
                 className={
-                  "text-left text-[0.875rem] font-normal text-[#4F4F4F]"
+                  " border-b-2 pb-1 mb-2 text-left text-[0.875rem] font-normal text-[#4F4F4F]"
                 }
               >
                 District
@@ -119,7 +121,7 @@ const Page = ({ searchParams }) => {
                 }}
               />
             </div>
-          </div> */}
+          </div>
           <div className=" mb-4 w-full md:w-10/12">
             <ListProperty data={data} />
           </div>
