@@ -1,12 +1,21 @@
+"use client";
+
 import Image from "next/image";
-import BannerSelectionForm from "@/components/ui-components/Home/Banner/BannerSelectionForm";
+import CountUp from "react-countup";
+import useSWR from "swr";
 
 const Banners = () => {
+  const url = "/api/count-user-property-reports";
+  const {data, isLoading} = useSWR(url, GetDataCount);
+  
   return (
     <div className={" "}>
-
       <div className="w-full pt-11  md:pb-40 md:rounded-b-[28rem] bg-gradient-to-b from-[#4cc9f000] to-[#4361ee4d] z-0">
-        <div className={"flex md:mx-20 mx-6  md:flex-row flex-col justify-center items-center"}>
+        <div
+          className={
+            "flex md:mx-20 mx-6  md:flex-row flex-col justify-center items-center"
+          }
+        >
           <div className="space-y-4 ">
             <h1 className="md:text-xl  font-medium leading-normal text-[#4361EE]">
               REAL ESTATE
@@ -15,7 +24,8 @@ const Banners = () => {
               Find a perfect <br /> home you love..!
             </h1>
             <p className={"text-[#808080] font-normal"}>
-            "Discover your dream home or sell your property hassle-free with HomeVista's trusted platform today!"
+              "Discover your dream home or sell your property hassle-free with
+              HomeVista's trusted platform today!"
             </p>
           </div>
           <div className={""}>
@@ -95,8 +105,22 @@ const Banners = () => {
                 </div>
               </div>
             </div>
-            <h1 className={"font-medium md:text-xl text-md"}>
-              72k+ Happy Customers
+            <h1 className={"font-medium flex md:text-xl text-md"}>
+              <CountUp
+                start={0}
+                end={data?.usersCount}
+                duration={2.75}
+                separator=","
+                onEnd={() => console.log("Ended! 👏")}
+                onStart={() => console.log("Started! 💨")}
+              >
+                {({ countUpRef, start }) => (
+                  <div>
+                    <span ref={countUpRef} />
+                  </div>
+                )}
+              </CountUp>
+              + Happy Customers
             </h1>
           </div>
         </div>
@@ -106,3 +130,10 @@ const Banners = () => {
 };
 
 export default Banners;
+
+
+const GetDataCount = async (url) => {
+  const res = await fetch(url);
+  const count = await res.json();
+  return count;
+}
