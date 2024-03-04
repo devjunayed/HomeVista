@@ -73,7 +73,7 @@ const Navbar = () => {
               !menuItem.hide && (
                 <li
                   key={index}
-                  className={`${menuItem.link === pathName
+                  className={`mx-1 ${menuItem.link === pathName
                     ? " bg-secondary text-white"
                     : ""
                     } hover:bg-secondary rounded hover:text-white`}
