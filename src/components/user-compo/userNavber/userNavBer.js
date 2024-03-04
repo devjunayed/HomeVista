@@ -17,7 +17,7 @@ const UserNavBer = () => {
         },
 
         {
-            link: "/dashboard/user/My-properties",
+            link: "/dashboard/user/my-properties",
             icon: <LuTableProperties />,
             linkText: "My Properties"
         },
