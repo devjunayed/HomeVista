@@ -12,7 +12,7 @@ const AboutUs = () => {
         <div className="hero-overlay bg-opacity-80"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
-            <h1 className="mb-5 text-2xl lg:text-5xl font-bold text-white">About Us</h1>
+            <h1 className="mb-5 text-xl md:text-2xl font-bold text-white">About Us</h1>
             <p className="mb-5 text-white">
               Welcome to Home Vista – Your Gateway to Seamless Property
               Transactions!
@@ -22,7 +22,7 @@ const AboutUs = () => {
       </div>
 
       <div className="mt-6 mx-6 md:mt-20 md:mx-20 pb-20 space-y-4">
-        <h2 className="text-2xl lg:text-5xl font-bold">Introduction</h2>
+        <h2 className="text-xl md:text-2xl font-bold">Introduction</h2>
         <p>
           At Home Vista, we understand that buying or selling a property is more
           than just a transaction; it&sbquo;s a significant milestone in your
@@ -31,7 +31,7 @@ const AboutUs = () => {
           user.
         </p>
 
-        <h2 className="text-2xl lg:text-5xl  font-bold">Our Vision</h2>
+        <h2 className="text-xl md:text-2xl  font-bold">Our Vision</h2>
         <p>
           Our vision is to revolutionize the way people buy and sell properties,
           making the process transparent, efficient, and rewarding. We aspire to
@@ -39,7 +39,7 @@ const AboutUs = () => {
           agents, creating a vibrant community driven by trust and innovation.
         </p>
 
-        <h2 className="text-2xl lg:text-5xl font-bold">What Sets Us Apart</h2>
+        <h2 className="text-xl md:text-2xl font-bold">What Sets Us Apart</h2>
         <h4 className="text-xl font-semibold">Commitment to Excellence</h4>
 
         <p>
@@ -65,7 +65,7 @@ const AboutUs = () => {
           environment.
         </p>
 
-        <h2 className="text-2xl lg:text-5xl font-bold">Meet the Team</h2>
+        <h2 className="text-xl md:text-2xl font-bold">Meet the Team</h2>
         <p>
           Behind Home Vista is a passionate team of professionals dedicated to
           making your property journey exceptional. From experienced developers
@@ -73,7 +73,7 @@ const AboutUs = () => {
           to bring you a platform that exceeds expectations.
         </p>
 
-        <h2 className="text-2xl lg:text-5xl font-bold">Join the Home Vista Community</h2>
+        <h2 className="text-xl md:text-2xl font-bold">Join the Home Vista Community</h2>
         <p>
           We invite you to join the Home Vista community and experience the
           future of property transactions. Whether you&rsquo;re searching for
