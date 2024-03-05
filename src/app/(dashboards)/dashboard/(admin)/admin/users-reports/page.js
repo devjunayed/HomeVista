@@ -12,7 +12,7 @@ const Page = () => {
     data: allReportData,
     isLoading,
     mutate,
-  } = useSWR(reportUrl, getAllReport);
+  } = useSWR(reportUrl, GetAllReport);
 
   console.log(allReportData?.data);
 
@@ -71,8 +71,13 @@ export default Page;
 
 
 
-const getAllReport = async (reportUrl) => {
-  const res = await fetch(reportUrl, {"cache": "no-cache"});
-  const data = res.json();
-  return data;
+const GetAllReport = async (reportUrl) => {
+  try{
+    const res = await fetch(reportUrl, {"cache": "no-cache"});
+    const data = res.json();
+    return data;
+  }catch(err){
+    console.log(err);
+    return err;
+  }
 };
