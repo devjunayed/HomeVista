@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { useContext } from "react";
 
 
+export const dynamic = 'force-dynamic';
 export async function GET(req) {
     try {
         const { currentUser } = useContext(authContext);

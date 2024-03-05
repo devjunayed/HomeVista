@@ -4,6 +4,7 @@ import propertyModel from "@/model/storeProperty";
 import User from "@/model/user";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     MongodbConnect();

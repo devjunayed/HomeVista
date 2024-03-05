@@ -35,6 +35,13 @@ const Page = () => {
 
   return (
     <div className="min-h-[70vh] overflow-y-scroll">
+
+    {!isLoading && allReportData?.data.length === 0 && <div className="min-h-[80vh] flex justify-center items-center w-full">
+
+      <h2 className="text-2xl text-red-400">No user report found!</h2>
+
+    </div> }
+
       <div className="grid  md:grid-cols-2 grid-cols-1 gap-2 m-4">
         {!isLoading &&
           allReportData.data.map((data) => (
