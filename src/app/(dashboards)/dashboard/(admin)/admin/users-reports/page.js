@@ -28,8 +28,8 @@ const Page = () => {
         console.log(result);
         if (result.deletedCount === 1) {
           message.success("Report is resovled");
-          mutate();
         }
+        mutate();
       });
   };
 
