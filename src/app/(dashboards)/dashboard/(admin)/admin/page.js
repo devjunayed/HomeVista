@@ -31,7 +31,13 @@ const Page = () => {
 export default Page;
 
 const GetDataCount = async (url) => {
-  const res = await fetch(url);
-  const count = await res.json();
-  return count;
+  try{
+    const res = await fetch(url);
+    const count = await res.json();
+    return count;
+  }catch(err){
+    console.log(err);
+    return err;
+  }
+  
 }
