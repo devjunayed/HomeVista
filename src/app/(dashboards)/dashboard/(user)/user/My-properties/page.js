@@ -1,5 +1,5 @@
 "use client";
-import ListProperty from "@/components/ui-components/ListProperty/ListProperty";
+import ListPropertyUser from "@/components/user-compo/ListPropertyUser/ListPropertyUser";
 import SearchForm from "@/components/ui-components/SearchForm/SearchForm";
 import { authContext } from "@/context/authContext/AuthProvider";
 import React, { useContext } from "react";
@@ -14,7 +14,7 @@ const Page = ({ searchParams }) => {
 
   if (data) {
     // Filter data based on currentUser email
-    userData = data.filter(property => property.email === currentUser.email);
+    userData = data.filter(property => property?.email === currentUser?.email);
   }
   if (userData) {
     return (
@@ -22,7 +22,7 @@ const Page = ({ searchParams }) => {
         <SearchForm />
         <div className="flex">
           <div className="w-10/12">
-            <ListProperty data={userData} />
+            <ListPropertyUser data={userData} refetch={mutate} />
           </div>
         </div>
       </>

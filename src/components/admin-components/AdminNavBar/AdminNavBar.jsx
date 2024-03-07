@@ -16,11 +16,6 @@ const AdminNavBar = () => {
       linkText: "Dashboard"
     },
     {
-      link: "/dashboard/admin/manage-users",
-      icon: <FaUsers />,
-      linkText: "Manage User"
-    },
-    {
       link: "/dashboard/admin/manage-properties",
       icon: <LuTableProperties />,
       linkText: "Manage Properties"
@@ -30,11 +25,7 @@ const AdminNavBar = () => {
       icon: <MdReport />,
       linkText: "Users Report"
     },
-    {
-      link: "/dashboard/admin/messages",
-      icon: <LuMessageSquare />,
-      linkText: "Messages"
-    }
+
   ]
 
   return (
