@@ -20,7 +20,7 @@ const Page = ({ searchParams }) => {
           <SearchForm />
         </div>
         <div className="flex justify-center md:flex-row flex-col">
-          <div className="w-2/12 md:flex flex-col px-5 gap-3">
+          {/* <div className="w-2/12 md:flex flex-col px-5 gap-3">
             <div>
               <h1 className="border-b-2 pb-1">Type</h1>
               <div className="ml-4 mt-1">
@@ -121,8 +121,8 @@ const Page = ({ searchParams }) => {
                 }}
               />
             </div>
-          </div>
-          <div className=" mb-4 w-full md:w-10/12">
+          </div> */}
+          <div className=" mb-4 w-full">
             <ListProperty data={data} />
           </div>
         </div>
